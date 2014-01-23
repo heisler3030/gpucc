@@ -1,0 +1,5 @@
+<h1>Edit Workout</h1>
+
+<%= form_for @workout, url: workout_path, :html => {:class => 'form-horizontal', :role => 'form'} do |f| %>
+  <%= render "workoutform", :f => f %>
+<% end %>

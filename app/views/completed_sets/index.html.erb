@@ -1,0 +1,20 @@
+<h1>All Completed Sets</h1>
+
+<table>
+<tr>
+	<th>User</th>
+	<th>Timestamp</th>
+	<th>Exercise</th>
+	<th>Reps</th>
+</tr>
+
+<% @completedsets.each do |completedset| %>
+  <tr>
+  	<td>user</td>
+  	<td><%= completedset.completetime %></td>
+  	<td><%= completedset.exercise.name %></td>
+  	<td><%= completedset.reps %></td>
+  </tr>
+<% end %>
+</table>
+

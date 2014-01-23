@@ -1,0 +1,52 @@
+<h1>All Challenge Assignments</h1>
+
+<h3>Add New</h3>
+<%= form_for @assignment, :html => {:class => 'form-inline', :role => 'form'} do |f| %>
+
+  <%= f.error_messages %>
+
+  <div class="form-group">
+    <%= f.label :user_id %>
+    <%= f.collection_select :user_id, User.all, :id, :name %>
+  </div>
+ 
+  <div class="form-group">
+    <%= f.label :challenge_id %>
+    <%= f.collection_select :challenge_id, Challenge.all, :id, :title %>
+  </div>
+
+  </div>
+  <div class="form-group">
+    <%= f.submit %>
+  </div>
+
+<% end %>
+
+<h3>Existing</h3>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+    	<th>User</th>
+    	<th>Challenge</th>
+    	<th>Join Date</th>
+    	<th>Completed Date</th>
+      <th>Disqualify Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @assignments.each do |ca| %>
+      <tr>
+      	<td><%= ca.user.name %></td>
+      	<td><%= link_to ca.challenge.title, challenge_path(ca.challenge_id) %></td>
+      	<td><%= ca.join_date %></td>
+      	<td><%= ca.completed_date %></td>
+        <td><%= ca.disqualify_date %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+

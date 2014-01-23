@@ -1,0 +1,77 @@
+<h1>Today's Workouts</h1>
+
+<%#
+
+For each workout, show exercises assigned
+then show a form for each exercise, which submits a completedset
+
+Unpack the controller package and
+	- Create a section for each workout
+		- Show the workout_exercises and progress for each
+		- Create a user form with pre-wired completed_sets for each workout_exercise <=== how do I do this???
+		- Show the past completed_sets
+
+%>
+
+<% @workout_activities.each do |wa| %>
+
+	<h3><%= wa.workout.start_date %></h3>
+
+	
+	<%#----- Assignment Section --------%>
+	<h4>Assignment</h4>
+	<table class="table">
+		<% wa.workout_exercises.each do |we| %>
+			<tr>
+				<td><%= we.exercise.name %></td>
+				<td><%= we.goal %></td>
+				<td><%= we.comments %></td>
+			</tr>
+		<% end %>
+	</table>
+
+	<%#----- Input Section --------%>
+	<%= form_for current_user, url: user_completed_set_path, :html => {:class => 'form', :role => 'form'} do |f| %>
+		
+		<%= f.fields_for :completed_sets, wa.new_sets do |ns| %>
+			<div class="form-group">
+			  <%= ns.hidden_field :exercise_id %>			  
+			</div>	
+			<div class="form-group">
+			  <%= ns.label :reps, ns.object.exercise.name %>
+			  <%= ns.text_field :reps %>			  
+			</div>	
+		<% end %>
+
+		<div class="form-group">
+			<%= f.submit "Record Set" %>
+		</div>
+
+	<% end %>	
+
+	<%#----- Previous Sets Section --------%>
+	<h4>Previous Sets</h4>
+	<table class="table">
+		<% wa.completed_sets.each do |cs| %>
+			<tr>
+				<td><%= cs.exercise.name %></td>
+				<td><%= cs.reps %></td>
+				<td><%= cs.complete_time %></td>
+			</tr>
+		<% end %>
+	</table>
+
+<hr/>		
+<% end %>
+
+<% if false %>
+
+
+
+
+
+
+<% end %>
+
+
+

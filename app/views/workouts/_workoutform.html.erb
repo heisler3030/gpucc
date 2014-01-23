@@ -1,0 +1,37 @@
+
+
+  <%= f.error_messages %>  
+  <% if false %>
+    <%= f.hidden_field :challenge_id, :value => params[:challenge_id] %>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>          
+
+  <div class="form-group">
+    <%= f.label :comments %>
+    <%= f.text_field :comments %>
+  </div>  
+
+  <div class="input-daterange">
+    <%= f.label :start_date, "Effective Dates" %>
+      <%= f.text_field :start_date, :class => "input-small" %>
+      <span class="add-on">to</span>
+      <%= f.text_field :end_date, :class => "input-small" %>
+  </div>
+
+  <h2>Assigned Exercises</h2>
+  <div id="workout_exercises">
+    <%= f.fields_for :workout_exercises do |we| %>
+      <%= render "workout_exercise_fields", :f => we %>
+    <% end %>
+
+    <p><%= link_to_add_fields "Add Exercise", f, :workout_exercises %></p>    
+    
+  </div>
+
+  <div class="form-group">
+    <%= f.submit %>
+  </div>
