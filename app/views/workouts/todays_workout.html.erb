@@ -31,23 +31,28 @@ Unpack the controller package and
 	</table>
 
 	<%#----- Input Section --------%>
-	<%= form_for current_user, url: user_completed_set_path, :html => {:class => 'form', :role => 'form'} do |f| %>
-		
-		<%= f.fields_for :completed_sets, wa.new_sets do |ns| %>
-			<div class="form-group">
-			  <%= ns.hidden_field :exercise_id %>			  
-			</div>	
-			<div class="form-group">
-			  <%= ns.label :reps, ns.object.exercise.name %>
-			  <%= ns.text_field :reps %>			  
-			</div>	
+
+	<%= form_tag completed_sets_path, :html => {:class => 'form', :role => 'form'} do %>
+		<% wa.new_sets.each_with_index do |completed_set,i| %>
+			<%= fields_for "completed_sets[#{i}]", completed_set do |ns| %>
+				<div class="form-group">
+				  <%= ns.hidden_field :exercise_id %>			  
+				</div>
+				<div class="form-group">
+				  <%= ns.hidden_field :workout_id %>			  
+				</div>		
+				<div class="form-group">
+				  <%= ns.label :reps, ns.object.exercise.name %>
+				  <%= ns.text_field :reps %>			  
+				</div>	
+			<% end %>
 		<% end %>
 
 		<div class="form-group">
-			<%= f.submit "Record Set" %>
+			<%= submit_tag "Record Set" %>
 		</div>
 
-	<% end %>	
+	<% end %>
 
 	<%#----- Previous Sets Section --------%>
 	<h4>Previous Sets</h4>
@@ -63,15 +68,5 @@ Unpack the controller package and
 
 <hr/>		
 <% end %>
-
-<% if false %>
-
-
-
-
-
-
-<% end %>
-
 
 

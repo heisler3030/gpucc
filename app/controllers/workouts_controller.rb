@@ -24,7 +24,7 @@ class WorkoutsController < ApplicationController
       flash[:notice] = "Successfully created workout."
       redirect_to(challenge_path(@challenge, :anchor => "workouts"))
     else
-      render :action => 'new'
+      render :new
     end
      
   end

@@ -5,9 +5,7 @@ Gpucc::Application.routes.draw do
   
   root :to => "splash#index"
   devise_for :users
-  resources :users do
-    resources :completed_sets
-  end
+  resources :users
   
   resources :challenges do
     resources :workouts, shallow: true do
@@ -15,7 +13,7 @@ Gpucc::Application.routes.draw do
     end
   end
 
-  resources :exercises, :challenge_assignments
+  resources :exercises, :challenge_assignments, :completed_sets
 
   match '/today' => 'todays_workout#index'
 
