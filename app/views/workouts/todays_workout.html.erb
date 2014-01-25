@@ -8,7 +8,7 @@ then show a form for each exercise, which submits a completedset
 Unpack the controller package and
 	- Create a section for each workout
 		- Show the workout_exercises and progress for each
-		- Create a user form with pre-wired completed_sets for each workout_exercise <=== how do I do this???
+		- Create a user form with pre-wired completed_sets for each workout_exercise 
 		- Show the past completed_sets
 
 %>
@@ -18,7 +18,7 @@ Unpack the controller package and
 	<h3><%= wa.workout.start_date %></h3>
 
 	
-	<%#----- Assignment Section --------%>
+	<%#----- Assignment Section --------%>	
 	<h4>Assignment</h4>
 	<table class="table">
 		<% wa.workout_exercises.each do |we| %>
@@ -31,8 +31,9 @@ Unpack the controller package and
 	</table>
 
 	<%#----- Input Section --------%>
+	<%# http://stackoverflow.com/questions/972857/multiple-objects-in-a-rails-form %>
 
-	<%= form_tag completed_sets_path, :html => {:class => 'form', :role => 'form'} do %>
+	<%= form_tag completed_sets_path, :class => 'form', :role => 'form' do %>
 		<% wa.new_sets.each_with_index do |completed_set,i| %>
 			<%= fields_for "completed_sets[#{i}]", completed_set do |ns| %>
 				<div class="form-group">
@@ -43,7 +44,7 @@ Unpack the controller package and
 				</div>		
 				<div class="form-group">
 				  <%= ns.label :reps, ns.object.exercise.name %>
-				  <%= ns.text_field :reps %>			  
+				  <%= ns.text_field :reps, {:class => "form-control", :style => "width:60px", :maxlength => "4"} %>			  
 				</div>	
 			<% end %>
 		<% end %>
@@ -55,13 +56,26 @@ Unpack the controller package and
 	<% end %>
 
 	<%#----- Previous Sets Section --------%>
+
 	<h4>Previous Sets</h4>
 	<table class="table">
 		<% wa.completed_sets.each do |cs| %>
-			<tr>
+			<tr class="completed_set">
 				<td><%= cs.exercise.name %></td>
 				<td><%= cs.reps %></td>
 				<td><%= cs.complete_time %></td>
+				<td><%= link_to "Edit", nil, :onClick => "editCompletedSet(#{cs.id}); return false;" %></td>
+
+				<%# How it works
+					- JS onclick calls function in gpucc.js
+					- jquery call submits ajax to completed_sets#edit, triggering controller event
+					- controller event sees AJAX request, fetches cs and loads to @completedsetform and triggers JS response (generated from erb template)
+					- JS response replaces modal content and toggles modal 
+
+					- submit of modal form triggers completed_sets#update action
+					- on successful save, flash success notice and render page again <=== what is the page here, how do I go "back to where I came from" 
+					- on unsuccessful save, return to page with modal still enabled					
+				%>
 			</tr>
 		<% end %>
 	</table>
@@ -69,4 +83,11 @@ Unpack the controller package and
 <hr/>		
 <% end %>
 
-
+<%#- Modal Edit window - populated by AJAX %>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+  	<div class="modal-content">
+  		...
+  	</div>
+  </div>
+</div>

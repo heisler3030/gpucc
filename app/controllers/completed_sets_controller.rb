@@ -14,6 +14,12 @@ class CompletedSetsController < ApplicationController
     redirect_to "/today"
 
   end
+
+  def edit
+    @completed_set = CompletedSet.find(params[:id])
+    logger.debug "Got Here's my completed_set"
+    logger.debug @completed_set.inspect
+  end
   
   def update
   end

@@ -1,3 +1,4 @@
+// Nested Forms Utilities
 function remove_fields(link) {
   $(link).prev("input[type=hidden]").val("1");
   $(link).closest(".fields").hide();
@@ -10,6 +11,7 @@ function add_fields(link, association, content) {
   $('.input-daterange').datepicker({format: 'yyyy-mm-dd',todayBtn: true});
 }
 
+// Date Picker Initialization
 $(function() {
 	$('.input-daterange') //.onfocus({
 		.datepicker({
@@ -19,8 +21,7 @@ $(function() {
 //	});
 });
 
-
-// Javascript to enable link to tab
+// Javascript to enable href to specific tab
 $(document).ready(function(event) {
     $('ul.nav.nav-tabs a:first').tab('show'); // Select first tab
     $('ul.nav.nav-tabs a[href="'+ window.location.hash+ '"]').tab('show'); // Select tab by name if provided in location hash
@@ -28,3 +29,12 @@ $(document).ready(function(event) {
         window.location.hash= event.target.hash;
     })
 });
+
+
+
+function editCompletedSet(cs_id) {
+  // Fetch JS to populate modal
+  var completedSetJS = "/completed_sets/" + cs_id + "/edit";
+  $.get(completedSetJS, null, null, "script");
+
+};
