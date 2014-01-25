@@ -21,7 +21,7 @@ class WorkoutsBundle
       end
 
       # Put everything into the WorkoutActivity package
-      wa.completed_sets = w.completed_sets
+      wa.completed_sets = w.completed_sets.order('complete_time DESC')
       wa.workout_exercises = w.workout_exercises
       wa.new_sets = new_sets	
 
@@ -49,10 +49,12 @@ class WorkoutActivity
   	# Counts the total reps performed for a specific exercise within this WorkoutActivity
   	# Used for computing completion status
 
-  	exercise_sets = @completed_sets.where(:exercise => exercise)
+  	exercise_sets = @completed_sets.where(:exercise_id => exercise.id)
+    Rails.logger.debug "exercise_sets.inspect"
+    Rails.logger.debug "ex inspect " + exercise_sets.inspect
   	reps = 0
-  	completed_sets.each do |cs|
-  		reps += cs.reps
+  	exercise_sets.each do |es|
+  		reps += es.reps ? es.reps : nil
   	end
 
   	reps

@@ -25,17 +25,5 @@ module ApplicationHelper
     link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")")
   end
 
-  # For today's workouts editing
-
-   # def replace_set_with_form(name, cs)
-   #   link_to_function(name, "replace_set_with_form(this,  ))
-
-   #   # Should Generate this 
-
-   #   #<%= link_to "Edit", nil, :onClick => "editCompletedSet(#{cs.id},#{cs.exercise.id},#{cs.reps}); return false;" %> 
-
-   # end
-
-
 
 end
