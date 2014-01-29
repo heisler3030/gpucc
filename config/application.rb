@@ -15,6 +15,7 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+
 module Gpucc
   class Application < Rails::Application
 
@@ -79,6 +80,12 @@ module Gpucc
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
+# HAMISH ADDS
+
+    # As requested by Heroku
+    config.assets.initialize_on_precompile = false
+
+    # For logging
     config.logger = Logger.new(STDOUT)
 
   end
