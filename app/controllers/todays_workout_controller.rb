@@ -13,7 +13,9 @@ class TodaysWorkoutController < ApplicationController
     #
     # Pass that package to the view
 
-    @workout_activities = WorkoutsBundle.new(current_user, Date.current).workout_activities
+
+
+    @workout_activities = WorkoutsBundle.new(current_user, Time.now.in_time_zone(current_user.time_zone)).workout_activities
 
     respond_to do |format|
       format.html {render "/workouts/todays_workout"}

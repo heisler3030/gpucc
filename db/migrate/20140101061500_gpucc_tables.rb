@@ -4,8 +4,8 @@ class GpuccTables < ActiveRecord::Migration
     create_table :challenges do |t|
       t.string :title
       t.string :description
-      t.datetime :start_date
-      t.datetime :end_date
+      t.date :start_date
+      t.date :end_date
       t.belongs_to :created_by
       t.timestamps
     end
@@ -14,20 +14,22 @@ class GpuccTables < ActiveRecord::Migration
       t.belongs_to :challenge
       t.string :title
       t.string :comments
-      t.datetime :start_date
-      t.datetime :end_date
-      t.belongs_to :exercise
+      t.date :start_date
+      t.date :end_date
       t.timestamps
     end
+    add_index(:workouts, :challenge_id) 
 
     create_table :challenge_assignments do |t|
       t.belongs_to :user
       t.belongs_to :challenge
-      t.timestamp :join_date
-      t.timestamp :completed_date
-      t.timestamp :disqualify_date
+      t.date :join_date
+      t.date :completed_date
+      t.date :disqualify_date
       t.timestamps
     end
+    add_index(:challenge_assignments, :user_id)
+    add_index(:challenge_assignments, :challenge_id)
 
     create_table :workout_exercises do |t|
       t.belongs_to :workout
@@ -37,6 +39,7 @@ class GpuccTables < ActiveRecord::Migration
       t.string :comments
       t.timestamps
     end
+    add_index(:workout_exercises, :workout_id)
 
     create_table :exercises do |t|
       t.string :name
@@ -57,6 +60,7 @@ class GpuccTables < ActiveRecord::Migration
       t.integer :reps
       t.timestamps
     end
+    add_index(:completed_sets, [:user_id, :workout_id])
 
     create_table :completed_workouts do |t|
       t.belongs_to :user
@@ -64,5 +68,7 @@ class GpuccTables < ActiveRecord::Migration
       t.belongs_to :workout
       t.timestamps
     end
+    add_index(:completed_workouts, :user_id)
+    add_index(:completed_workouts, :workout_id)
   end
 end

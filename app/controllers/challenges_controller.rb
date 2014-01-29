@@ -8,7 +8,7 @@ class ChallengesController < ApplicationController
   def show
   	@challenge = Challenge.find(params[:id])
     #@workouts = @challenge.workouts.order('start_date DESC')
-    @upcoming_workouts = @challenge.workouts.where(["? <= start_date", DateTime.now]).order('start_date DESC')
+    @upcoming_workouts = @challenge.workouts.where(["? <= start_date", DateTime.now]).order('start_date ASC')
     @past_workouts = @challenge.workouts.where(["? > start_date", DateTime.now]).order('start_date DESC')
 
     @workoutsMatrix = Hash.new

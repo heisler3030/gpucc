@@ -4,8 +4,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : "GPUCC" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "GPUCC" %>">
+
     <%= stylesheet_link_tag "application", media: "all" %>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+
     <%= javascript_include_tag "application" %>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
    <%= csrf_meta_tags %>
   </head>
   <body>

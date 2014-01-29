@@ -3,11 +3,27 @@ class WorkoutsBundle
 
   attr_reader :workout_activities
 
-  def initialize(user, fordate)
-    Rails.logger.debug "initializing WorkoutsBundle"
+  def initialize(user, for_datetime)
+    Rails.logger.debug "initializing WorkoutsBundle for user: " + user.name + ", on " + for_datetime.to_s
 
   	@workout_activities = []
-  	workouts = user.workouts  # TODO: need to time restrict this to specified date!
+
+    # Date filter for workouts - two possibilities: 
+    #    - null end date and current time is between start_date and start_date + 1
+    # OR
+    #    - current time is between start_date and end_date + 1
+
+    date_filter_sql_sqllite = "
+      (workouts.end_date is null AND ? between workouts.start_date and datetime(workouts.start_date,'+1 days')) OR
+      (? between workouts.start_date and datetime(workouts.end_date,'+1 days'))"
+
+    date_filter_sql_postgres = "
+      (workouts.end_date is null AND ? between workouts.start_date and (workouts.start_date + integer '1')) OR
+      (? between workouts.start_date and (workouts.end_date + integer '1'))"
+
+    date_filter_sql = date_filter_sql_postgres
+
+    workouts = user.workouts.where(date_filter_sql, for_datetime, for_datetime)
 
   	workouts.each do |w|
       wa = WorkoutActivity.new(w)  # Info container for each workout and associated sets
@@ -38,7 +54,6 @@ class WorkoutActivity
 	attr_reader :workout
 
 	def initialize(workout)
-    Rails.logger.debug "initializing WorkoutActivity"
 		@workout = workout
 		@completed_sets = []
 		@workout_exercises = []
@@ -50,8 +65,8 @@ class WorkoutActivity
   	# Used for computing completion status
 
   	exercise_sets = @completed_sets.where(:exercise_id => exercise.id)
-    Rails.logger.debug "exercise_sets.inspect"
-    Rails.logger.debug "ex inspect " + exercise_sets.inspect
+#    Rails.logger.debug "exercise_sets.inspect"
+#    Rails.logger.debug "ex inspect " + exercise_sets.inspect
   	reps = 0
   	exercise_sets.each do |es|
   		reps += es.reps ? es.reps : nil

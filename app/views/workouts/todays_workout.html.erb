@@ -1,4 +1,4 @@
-<h1>Today's Workouts</h1>
+<h1>Today's Workout</h1>
 
 <%#
 
@@ -17,7 +17,7 @@ Unpack the controller package and
 
 	<div class="workoutactivity panel panel-default">
 		<div class="panel-body">
-			<h3><%= wa.workout.start_date %></h3>
+			<h3><%= wa.workout.end_date ? wa.workout.start_date.strftime("%A, %B %e, %Y") + " to " + wa.workout.end_date.strftime("%A, %B %e, %Y") : wa.workout.start_date.strftime("%A, %B %e, %Y") %></h3>
 
 			
 			<%#----- Assignment Section --------%>	
@@ -29,9 +29,21 @@ Unpack the controller package and
 						<td><%= we.goal %></td>
 						<td><%= we.comments %></td>
 						<td><%= wa.count_reps(we.exercise) %></td>
+						<td>
+
+
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+    <span class="bar">60% Complete</span>
+  </div>
+</div>
+
+						</td>
 					</tr>
 				<% end %>
 			</table>
+
+
 
 			<%#----- Input Section --------%>
 			<%# http://stackoverflow.com/questions/972857/multiple-objects-in-a-rails-form %>
@@ -66,7 +78,7 @@ Unpack the controller package and
 					<tr class="completed_set">
 						<td><%= cs.exercise.name %></td>
 						<td><%= cs.reps %></td>
-						<td><%= cs.complete_time %></td>
+						<td><%= cs.complete_time.in_time_zone(current_user.time_zone).strftime("%l:%M %p %Z") %></td>
 						<td><%= link_to "Edit", nil, :onClick => "editCompletedSet(#{cs.id}); return false;" %></td>
 
 						<%# How it works

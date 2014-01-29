@@ -15,6 +15,7 @@ gem 'figaro'
 gem 'rolify'
 gem 'simple_form'
 gem 'validates_timeliness', '~> 3.0'
+gem 'pg'
 gem 'log4r'
 
 group :development do
