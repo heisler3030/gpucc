@@ -14,8 +14,12 @@ class TodaysWorkoutController < ApplicationController
     # Pass that package to the view
 
 
+    # Get the WorkoutsBundle for current user based on the current time in their timezone
+    current_user_time = Time.now.in_time_zone(current_user.time_zone)
+    current_user_date = Time.now.in_time_zone(current_user.time_zone).to_date
+    logger.debug("Current time in user timezone is " + current_user_time.to_s + " and date is " + current_user_date.to_s)
 
-    @workout_activities = WorkoutsBundle.new(current_user, Time.now.in_time_zone(current_user.time_zone)).workout_activities
+    @workout_activities = WorkoutsBundle.new(current_user, current_user_time).workout_activities
 
     respond_to do |format|
       format.html {render "/workouts/todays_workout"}

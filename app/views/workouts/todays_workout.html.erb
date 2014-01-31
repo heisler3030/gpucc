@@ -62,7 +62,7 @@ Unpack the controller package and
 
 			<%#----- Input Section --------%>
 			<%# http://stackoverflow.com/questions/972857/multiple-objects-in-a-rails-form %>
-			<%= form_tag completed_sets_path, :class => 'form-horizontal', :role => 'form' do %>
+			<%= form_tag completed_sets_path, :class => 'form-horizontal form-newset', :role => 'form' do %>
 				<% wa.new_sets.each_with_index do |completed_set,i| %>
 					<%= fields_for "completed_sets[#{i}]", completed_set do |ns| %>
 						<div>

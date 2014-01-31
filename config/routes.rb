@@ -3,10 +3,16 @@ Gpucc::Application.routes.draw do
     root :to => 'todays_workout#index'
   end
   
-  root :to => "splash#index"
   devise_for :users
   resources :users
   
+  devise_scope :user do
+    get "/", :to => "devise/sessions#new"
+  end
+
+  root :to => "devise/sessions#new"
+ 
+
   resources :challenges do
     resources :workouts, shallow: true do
       resources :workout_exercises, shallow: true 

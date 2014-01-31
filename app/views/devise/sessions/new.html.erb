@@ -2,7 +2,7 @@
   <h1>GPUCC</h1>
   <p>The daily workout challenge that will change your life.</p>
 
-				<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical' }) do |f| %>
+				<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical form-signin' }) do |f| %>
 				        <h2 class="form-signin-heading">Please sign in</h2>
 				        <%= f.email_field :email, {:class => "form-control", :placeholder => "Email address", :type => "email", :required => "true", :autofocus => "true"} %>
 				        <%= f.password_field :password, {:class => "form-control", :placeholder => "Password", :type => "password", :required => "true"} %>
