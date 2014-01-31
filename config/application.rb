@@ -85,6 +85,10 @@ module Gpucc
     # As requested by Heroku
     config.assets.initialize_on_precompile = false
 
+    # Enable GZip
+    #config.middleware.use Rack::Deflater  # Dynamic Content
+    #config.middleware.insert_before ActionDispatch::Static, Rack::Deflater # Static Content
+
     # For logging
     config.logger = Logger.new(STDOUT)
 

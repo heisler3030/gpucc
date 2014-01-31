@@ -15,12 +15,6 @@ class ChallengeAssignmentsController < ApplicationController
   end
   
   def create
-    #render text: params[:workout].inspect
-
-    # respond_to do |format|
-    #   format.html {render :json => params}
-    # end
-    
 
     @assignment = ChallengeAssignment.new(params[:challenge_assignment])
     @assignment.join_date = Date.current()
@@ -29,8 +23,9 @@ class ChallengeAssignmentsController < ApplicationController
       flash[:notice] = "Successfully created assignment."
     end
 
+    # Re-render Assignments
     @assignments = ChallengeAssignment.all
-    render "/workouts/todays_workout"
+    render :index
 
   end
   
