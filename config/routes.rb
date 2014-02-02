@@ -2,13 +2,18 @@ Gpucc::Application.routes.draw do
   authenticated :user do
     root :to => 'todays_workout#index'
   end
+
+ # devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}
   
   devise_for :users
-  resources :users
   
   devise_scope :user do
-    get "/", :to => "devise/sessions#new"
+    get "/"                   => "devise/sessions#new"
+  #  delete "users/sign_out"   => "devise/sessions#destroy"
   end
+
+
+  #resources :users
 
   root :to => "devise/sessions#new"
  
@@ -19,7 +24,7 @@ Gpucc::Application.routes.draw do
     end
   end
 
-  resources :exercises, :challenge_assignments, :completed_sets
+  resources :exercises, :challenge_assignments, :completed_sets, :users
 
   match '/today' => 'todays_workout#index'
 
