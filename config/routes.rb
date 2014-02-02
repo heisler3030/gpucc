@@ -9,7 +9,7 @@ Gpucc::Application.routes.draw do
   
   devise_scope :user do
     get "/"                   => "devise/sessions#new"
-  #  delete "users/sign_out"   => "devise/sessions#destroy"
+    delete "users/sign_out"   => "devise/sessions#destroy"
   end
 
 
