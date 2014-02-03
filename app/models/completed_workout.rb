@@ -1,10 +1,11 @@
 class CompletedWorkout < ActiveRecord::Base
-  attr_accessible :completetime
+  attr_accessible :complete_time, :user, :workout
 
   belongs_to :user
-  has_one :workout
+  belongs_to :workout
 
-  validates :completetime, :presence => true
-  validates :exercise, :presence => true
+  validates :complete_time, :presence => true
+  validates :user, :presence => true
+  validates :workout, :presence => true
 
 end

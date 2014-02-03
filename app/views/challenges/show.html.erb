@@ -5,7 +5,7 @@
     <li class="active"><a href="#description" data-toggle="tab">Description</a></li>
     <li class=""><a href="#upcoming-workouts" data-toggle="tab">Upcoming Workouts</a></li>
     <li class=""><a href="#past-workouts" data-toggle="tab">Past Workouts</a></li>
-    <li class=""><a href="#participants" data-toggle="tab">Participants</a></li>
+    <li class=""><a href="#participants" data-toggle="tab">Participants (<%= @participant_count.to_s %>)</a></li>
   </ul>
 
 
@@ -17,7 +17,7 @@
   <%# ---------------  Description Section -------------------------  %>
 
     <div class="tab-pane fade active in" id="description">
-      <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+      <%= render "challenge_description", :challenge => @challenge %>
     </div>
 
   <%# ---------------  Upcoming Workouts Section -------------------------%>
@@ -38,7 +38,7 @@
   <%# ---------------  Participants Section -------------------------%>
 
     <div class="tab-pane fade" id="participants">
-      <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+      <%= render "challenge_participants", :challenge => @challenge %>
     </div>        
   </div>
 

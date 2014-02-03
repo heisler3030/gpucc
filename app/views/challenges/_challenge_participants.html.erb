@@ -1,0 +1,10 @@
+
+<table class="table">
+  <tbody>
+    <% challenge.challenge_assignments.each do |ca| %>
+      <tr>
+        <td><%= ca.user.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

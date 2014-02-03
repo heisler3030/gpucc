@@ -22,7 +22,8 @@ Unpack the controller package and
 
 			
 			<%#----- Assignment Section --------%>	
-
+			<div class="row">
+				<div class="col-sm-6">
 			<table class="table table-condensed">
 				<!--thead>
 					<tr>
@@ -40,6 +41,7 @@ Unpack the controller package and
 					<% reps_goal = we.goal %>
 					<% pct_complete = ((reps_done.to_f/reps_goal) * 100).to_i %>
 					<% progress_status = pct_complete >= 100 ? "progress-bar progress-bar-success" : "progress-bar" %>
+					<% progress_width = pct_complete >= 100 ? 100 : pct_complete %>
 					<%# Should probably turn all this into an ExerciseHelper to start to include things like time remaining for progress bar color %>
 
 					<tr>
@@ -47,7 +49,7 @@ Unpack the controller package and
 						<td><%= reps_done %> <b>/</b> <%= reps_goal %></td>
 						<td width="40%">
 							<div class="progress">
-								<%= content_tag :div, {class: "#{progress_status}", role: "progressbar",  aria: {valuenow: "#{pct_complete}", valuemin: "0", valuemax: "100"}, style: "width: #{pct_complete}%;"} do %>
+								<%= content_tag :div, {class: "#{progress_status}", role: "progressbar",  aria: {valuenow: "#{pct_complete}", valuemin: "0", valuemax: "100"}, style: "width: #{progress_width}%;"} do %>
 									<span class="bar"><%= pct_complete %>%</span>
 								<% end %>
 							</div>
@@ -57,8 +59,8 @@ Unpack the controller package and
 				<% end %>
 				</tbody>
 			</table>
-
-
+</div>
+<div class="col-sm-6">
 
 			<%#----- Input Section --------%>
 			<%# http://stackoverflow.com/questions/972857/multiple-objects-in-a-rails-form %>
@@ -68,6 +70,7 @@ Unpack the controller package and
 						<div>
 						  <%= ns.hidden_field :exercise_id %>			  
 						  <%= ns.hidden_field :workout_id %>			  
+						  <%= ns.hidden_field :user_id %>
 						</div>
 						<div class="row">
 						  <div class="col-xs-4 "><%= ns.label :reps, ns.object.exercise.name, {:class => 'control-label pull-right'} %></div>
@@ -82,6 +85,8 @@ Unpack the controller package and
 
 			<% end %>
 			<%#----- Previous Sets Section --------%>
+</div>
+			</div>
 
 			<h4>Previous Sets</h4>
 			<table class="table">

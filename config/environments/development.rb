@@ -41,6 +41,9 @@ Gpucc::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  # Avoid finding precompiled assets
+  config.assets.prefix = "/assets_dev"
+
   config.action_mailer.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,

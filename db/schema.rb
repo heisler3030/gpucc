@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20140101061500) do
 
   create_table "challenges", :force => true do |t|
     t.string   "title"
-    t.string   "description"
+    t.text     "description"
     t.date     "start_date"
     t.date     "end_date"
     t.integer  "created_by_id"
@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(:version => 20140101061500) do
   create_table "workouts", :force => true do |t|
     t.integer  "challenge_id"
     t.string   "title"
-    t.string   "comments"
+    t.text     "comments"
     t.date     "start_date"
     t.date     "end_date"
     t.datetime "created_at",   :null => false

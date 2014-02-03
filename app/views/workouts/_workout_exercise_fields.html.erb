@@ -1,19 +1,24 @@
-<div class="workout_exercise fields">
 
-	<div class="form-group">
+
+	
+<tr class="workout_exercise fields">
+	<td>
     	<%= f.label :exercise_id %>
-    	<%= f.collection_select :exercise_id, Exercise.all, :id, :name, :class => "form-control" %>
-	</div>					
+    	<%= f.collection_select :exercise_id, Exercise.all, :id, :name, :class => "formd-control" %>
+	</td>				
 
-	<div class="form-group">
+	<td>
 	  <%= f.label :goal %>
-	  <%= f.text_field :goal, :class => "form-control" %>
-	</div>	
+	  <%= f.text_field :goal, :class => "fodrm-control" %>
+	</td>	
 
-	<div class="form-group">
+	<td>
     	<%= f.label :goal_type_id %>
-    	<%= f.collection_select :goal_type_id, GoalType.all, :id, :title, :class => "form-control" %>
-	</div>	
+    	<%= f.collection_select :goal_type_id, GoalType.all, :id, :title, :class => "form-codntrol" %>
+	</td>
+	<td>
+		<%= link_to_remove_fields "remove", f %>
+	</td>
+</tr>
 
-	<%= link_to_remove_fields "remove", f %>	
-</div>
+			

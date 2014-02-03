@@ -1,5 +1,5 @@
 <h1>Create a Workout</h1>
 
-<%= form_for @workout, url: challenge_workouts_path, :html => {:class => 'form-inline', :role => 'form'} do |f| %>
+<%= form_for @workout, url: challenge_workouts_path, :html => {:class => 'form-horizontal', :role => 'form'} do |f| %>
 	<%= render "workoutform", :f => f %>
 <% end %>

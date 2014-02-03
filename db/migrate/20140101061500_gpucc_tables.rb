@@ -3,7 +3,7 @@ class GpuccTables < ActiveRecord::Migration
 
     create_table :challenges do |t|
       t.string :title
-      t.string :description
+      t.text :description, :limit => nil
       t.date :start_date
       t.date :end_date
       t.belongs_to :created_by
@@ -13,7 +13,7 @@ class GpuccTables < ActiveRecord::Migration
     create_table :workouts do |t|
       t.belongs_to :challenge
       t.string :title
-      t.string :comments
+      t.text :comments, :limit => nil
       t.date :start_date
       t.date :end_date
       t.timestamps

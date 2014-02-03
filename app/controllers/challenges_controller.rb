@@ -7,6 +7,7 @@ class ChallengesController < ApplicationController
   
   def show
   	@challenge = Challenge.find(params[:id])
+    @participant_count = @challenge.challenge_assignments.count
     #@workouts = @challenge.workouts.order('start_date DESC')
     @upcoming_workouts = @challenge.workouts.where(["? <= start_date", DateTime.now]).order('start_date ASC')
     @past_workouts = @challenge.workouts.where(["? > start_date", DateTime.now]).order('start_date DESC')
