@@ -9,8 +9,8 @@ class ChallengesController < ApplicationController
   	@challenge = Challenge.find(params[:id])
     @participant_count = @challenge.challenge_assignments.count
     #@workouts = @challenge.workouts.order('start_date DESC')
-    @upcoming_workouts = @challenge.workouts.where(["? <= start_date", DateTime.now]).order('start_date ASC')
-    @past_workouts = @challenge.workouts.where(["? > start_date", DateTime.now]).order('start_date DESC')
+    @upcoming_workouts = @challenge.workouts.where(["? <= start_date", Time.now.in_time_zone(current_user.time_zone).to_date]).order('start_date ASC')
+    @past_workouts = @challenge.workouts.where(["? > start_date", Time.now.in_time_zone(current_user.time_zone).to_date]).order('start_date DESC')
 
     @workoutsMatrix = Hash.new
     @challenge.workouts.each do |w|

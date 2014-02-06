@@ -36,5 +36,12 @@ function editCompletedSet(cs_id) {
   // Fetch JS to populate modal
   var completedSetJS = "/completed_sets/" + cs_id + "/edit";
   $.get(completedSetJS, null, null, "script");
-
 };
+
+
+$(function() {
+  // Create a countdown timer till midnight for DIV with id #countdown
+  var currentDate = new Date();
+  var tomorrow = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1)
+  $('#countdown').countdown({until: tomorrow});
+});

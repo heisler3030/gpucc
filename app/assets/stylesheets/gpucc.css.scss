@@ -8,18 +8,53 @@
 
 body {
 	background-color: #FFDB4D;
+	font-size:16px;
 }
 
+// Signin form styling
 .form-signin {
   max-width: 330px;
   padding: 15px;
 }
 
+// Form for users to record sets as part of workout
 .form-newset {
   max-width: 330px;
-  padding: 15px;
+  margin: auto;
 }
 
 .workout_exercise {
 	padding:30px;
+}
+
+// Fix the background of the rich textarea
+.note-editable {
+	background-color: #fff
+}
+
+.align-middle {
+	vertical-align: middle !important;
+}
+
+
+
+/////////////////////////// ///// Vendor Overrides ///// ///////////////////////////
+
+
+// Resize Bootstrap Progress bars
+.progress {
+	height: 40px;
+	margin-bottom: 10px;
+}
+
+.bar {
+	margin: 10px;
+	font-size: 15px;
+}
+
+
+
+// Countdown timer formatting
+.is-countdown {
+	height: 60px;
 }

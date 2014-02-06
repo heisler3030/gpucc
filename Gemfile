@@ -16,6 +16,8 @@ gem 'simple_form'
 gem 'validates_timeliness', '~> 3.0'
 gem 'pg'
 gem 'log4r'
+gem 'font-awesome-rails'
+gem 'summernote-rails'
 
 group :development do
   gem 'better_errors'

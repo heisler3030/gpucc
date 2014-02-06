@@ -3,7 +3,7 @@
 <div class="modal-content">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		<h4 class="modal-title" id="myModalLabel">Revise Set for <%= completedsetform.complete_time %></h4>
+		<h4 class="modal-title" id="myModalLabel">Revise Set for <%= completedsetform.complete_time.in_time_zone(current_user.time_zone).strftime("%l:%M %p %Z") %></h4>
 	</div>
 	<div class="modal-body">
 	      

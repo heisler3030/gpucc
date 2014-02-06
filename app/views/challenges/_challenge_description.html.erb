@@ -1,1 +1,6 @@
-<%= @challenge.description %>
+<%# 
+TODO: Shouldn't really be using RAW here, investigate SANITIZE
+http://www.sitepoint.com/techniques-to-secure-your-website-with-ruby-on-rails-part-3/
+%>
+
+<%=raw @challenge.description %>

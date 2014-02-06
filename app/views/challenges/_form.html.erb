@@ -7,7 +7,7 @@
  
   <div class="form-group">
     <%= f.label :description %>
-    <%= f.text_area :description, :class => "form-control" %>
+    <%= f.text_area :description, :class => "summernote" %>
   </div>
 
   <div class="input-daterange">
@@ -17,16 +17,6 @@
     <%= f.text_field :end_date, :class => "input-small" %>
   </div>
 
-  <h2>Workouts</h2>
-  <div id="workouts">
-
-	<%= f.fields_for :workouts do |wf| %>
-	  <%= render "workout_fields", :f => wf %>
-  <% end %>
-
-  <p><%= link_to_add_fields "Add Workout", f, :workouts %></p>
-
-  </div>
   <div class="form-group">
   	<%= f.submit %>
   </div>
