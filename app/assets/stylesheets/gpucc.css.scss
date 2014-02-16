@@ -32,11 +32,32 @@ body {
 	background-color: #fff
 }
 
+// Set the challenge description background-color
+#description {
+	background-color: #fff
+}
+
 .align-middle {
 	vertical-align: middle !important;
 }
 
+.nodisplay {
+	display: none;
+}
 
+.date_input {
+	max-width: 110px;
+}
+
+.input-daterange {
+	max-width: 300px;
+}
+
+.reps {
+	width:60px;
+	padding: 6px 12px;
+
+}
 
 /////////////////////////// ///// Vendor Overrides ///// ///////////////////////////
 
@@ -52,9 +73,12 @@ body {
 	font-size: 15px;
 }
 
-
-
 // Countdown timer formatting
 .is-countdown {
 	height: 60px;
 }
+
+// Fix bootstrap date spacer formatting
+/*.input-daterange .add-on {
+	height:auto;
+}*/

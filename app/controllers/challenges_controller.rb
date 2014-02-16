@@ -2,13 +2,18 @@ class ChallengesController < ApplicationController
   before_filter :authenticate_user!
   
   def index
-  	@challenges = Challenge.all
+
+    challenge_assignment_list = current_user.challenge_assignments.map(&:challenge_id).push(-1)
+
+    # Have to throw an extra fake element in the array in case there are no challenge assignments for this user
+    @my_challenges = Challenge.find(:all, :conditions => {:id => (challenge_assignment_list)})
+    @available_challenges = Challenge.find(:all, :conditions => ['id not in (?)', (challenge_assignment_list)])
+
   end
   
   def show
   	@challenge = Challenge.find(params[:id])
     @participant_count = @challenge.challenge_assignments.count
-    #@workouts = @challenge.workouts.order('start_date DESC')
     @upcoming_workouts = @challenge.workouts.where(["? <= start_date", Time.now.in_time_zone(current_user.time_zone).to_date]).order('start_date ASC')
     @past_workouts = @challenge.workouts.where(["? > start_date", Time.now.in_time_zone(current_user.time_zone).to_date]).order('start_date DESC')
 

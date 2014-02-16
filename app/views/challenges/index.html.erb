@@ -1,30 +1,65 @@
-<h1>All Challenges</h1>
+<div class="jumbotron">
+	<h1>Challenges</h1>
+	<p>Challenges are the core of GPUCC - each day  blah blah blah</p>
+</div>
 
-<div class="row text-right"><div class="col-md-12"><%= link_to "+ New Challenge", new_challenge_path, :class => "btn btn-primary active", :role=>"button" %></div></div>
+<div class="panel panel-primary">
+	<div class="panel-heading">My Challenges</div>
+	<div class="panel-body">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Duration</th>
+					<th>Title</th>
+					<th>Status</th>
+					<th>Workouts Completed</th>
+					<th>Active Participants</th>
+					<th>Owner</th>
+				</tr>
+			</thead>
+			<tbody>
+			<% @my_challenges.each do |c| %>
+			  <tr>
+			  	<td><%= c.start_date ? c.start_date.strftime("%b %e, %Y") : nil %> to <%= c.end_date ? c.end_date.strftime("%b %e, %Y") : nil %></td>	  	
+			  	<td><a href="<%= url_for(c) %>"><%= c.title %></a></td>
+			  	<td><%= "Active" %></td> <%#-- TODO: Need to add logic for Disqualify / Completed %>
+			  	<td class="text-center"><%# current_user.completed_workouts.where('challenge_id = ?', c.id).count %> TODO / <%= c.workouts.count %></td>
+			  	<td class="text-center"><%= c.challenge_assignments.where('completed_date is null and disqualify_date is null').count %></td>
+			  	<td><%= User.find(c.created_by_id).name %></td>
+			  </tr>	  
+			<% end %>
+			</tbody>
+		</table>
+	</div>
+</div>
 
-<table class="table table-hover">
-	<thead>
-		<tr>
-			<th>Start Date</th>
-			<th>Title</th>
-			<th>Description</th>
-			<th>Creator</th>
-			<th>End Date</th>
-			<th>Workouts</th>
-		</tr>
-	</thead>
-	<tbody>
-	<% @challenges.each do |c| %>
-	  <tr>
-	  	<td><%= c.start_date ? c.start_date.strftime("%B %e, %Y") : nil %></td>	  	
-	  	<td><a href="<%= url_for(c) %>"><%= c.title %></a></td>
-	  	<td><%= c.description %></td>
-	  	<td><%= User.find(c.created_by_id).name %></td>
-	  	<td><%= c.end_date ? c.end_date.strftime("%B %e, %Y") : nil %></td>
-	  	<td><%= c.workouts.count %></td>
-	  </tr>
-	  
-	<% end %>
-	</tbody>
-</table>
-
+<div class="panel panel-info">
+	<div class="panel-heading">Available Challenges</div>
+	<div class="panel-body">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Duration</th>
+					<th>Title</th>
+					<th>Workouts</th>
+					<th>Active Participants</th>
+					<th>Owner</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+			<% @available_challenges.each do |c| %>
+			  <tr>
+			  	<td><%= c.start_date ? c.start_date.strftime("%b %e, %Y") : nil %> to <%= c.end_date ? c.end_date.strftime("%b %e, %Y") : nil %></td>	  	
+			  	<td><a href="<%= url_for(c) %>"><%= c.title %></a></td>
+			  	<td class="text-center"><%= c.workouts.count %></td>
+			  	<td class="text-center"><%= c.challenge_assignments.where('completed_date is null and disqualify_date is null').count %></td>
+			  	<td><%= User.find(c.created_by_id).name %></td>
+			  	<td><%= link_to "Join", challenge_assignments_path(:params => {:challenge_assignment => {:user_id => current_user, :challenge_id => c}}), :method => :post, :class => 'btn btn-primary' %></td>
+			  </tr>
+			  
+			<% end %>
+			</tbody>
+		</table>
+	</div>
+</div>

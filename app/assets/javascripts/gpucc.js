@@ -16,7 +16,8 @@ $(function() {
 	$('.input-daterange') //.onfocus({
 		.datepicker({
     		format: 'yyyy-mm-dd',
-    		todayBtn: true
+    		todayHighlight: true,
+        todayBtn: "linked"
     	});
 //	});
 });

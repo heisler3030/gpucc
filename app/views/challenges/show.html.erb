@@ -3,8 +3,8 @@
 
   <ul id="myTab" class="nav nav-tabs">
     <li class="active"><a href="#description" data-toggle="tab">Description</a></li>
-    <li class=""><a href="#upcoming-workouts" data-toggle="tab">Upcoming Workouts</a></li>
-    <li class=""><a href="#past-workouts" data-toggle="tab">Past Workouts</a></li>
+    <li class=""><a href="#upcoming-workouts" data-toggle="tab">Upcoming Workouts (<%= @upcoming_workouts.size %>)</a></li>
+    <li class=""><a href="#past-workouts" data-toggle="tab">Past Workouts (<%= @past_workouts.size %>)</a></li>
     <li class=""><a href="#participants" data-toggle="tab">Participants (<%= @participant_count.to_s %>)</a></li>
   </ul>
 

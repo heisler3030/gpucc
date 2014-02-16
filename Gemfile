@@ -20,6 +20,7 @@ gem 'font-awesome-rails'
 gem 'summernote-rails'
 
 group :development do
+  gem 'webrick', '~> 1.3.1'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'quiet_assets'

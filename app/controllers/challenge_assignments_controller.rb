@@ -20,12 +20,14 @@ class ChallengeAssignmentsController < ApplicationController
     @assignment.join_date = Date.current()
 
     if @assignment.save
-      flash[:notice] = "Successfully created assignment."
+      flash[:notice] = @assignment.user.name + " has successfully joined " + @assignment.challenge.title + "."
     end
 
     # Re-render Assignments
-    @assignments = ChallengeAssignment.all
-    render :index
+    #@assignments = ChallengeAssignment.all
+    #render :index
+
+    redirect_to request.referer
 
   end
   
@@ -33,6 +35,13 @@ class ChallengeAssignmentsController < ApplicationController
   end
 
   def destroy
+    @assignment = ChallengeAssignment.find(params[:id])
+    user = @assignment.user.name
+    challenge = @assignment.challenge.title
+    if @assignment.destroy
+      flash[:notice] = "Successfully removed " + user + " from " + challenge + "."
+      redirect_to request.referer
+    end
   end
 
 end
