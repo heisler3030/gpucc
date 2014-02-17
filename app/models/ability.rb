@@ -1,11 +1,6 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
-    user ||= User.new # guest user (not logged in)
-    if user.has_role? :admin
-      can :manage, :all
-    end
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
@@ -28,5 +23,26 @@ class Ability
     #   can :update, Article, :published => true
     #
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
+
+
+  def initialize(user)
+    user ||= User.new # guest user (not logged in)
+
+     # Guest users should have no privileges
+     # Admin should be able to manage everything, including users
+     # Trainers should be able to create challenges and manage their own challenges and sub-elements
+     #     Eg. workouts, challenge assignments, completedworkouts where they are marked as owner
+     # Users should be able to create/edit/destroy completedsets and edit users provided they are self
+
+    if user.has_role? :admin
+      can :manage, :all
+    elsif user.has_role? :trainer
+      can :manage, :all
+    else
+
+    end
+
+
+
   end
 end

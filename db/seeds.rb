@@ -25,8 +25,10 @@ user.add_role :admin
 	{name: 'Valentino Rossi', email: 'rossi@gpucc.com', password: 'changeme', password_confirmation: 'changeme'},
 	{name: 'Dani Pedrosa', email: 'pedrosa@gpucc.com', password: 'changeme', password_confirmation: 'changeme'},
 	{name: 'Casey Stoner', email: 'stoner@gpucc.com', password: 'changeme', password_confirmation: 'changeme'},
+	{name: 'Lee Atkins', email: 'lee@gpucc.com', password: 'changeme', password_confirmation: 'changeme'},
 ].each do |u|
-	User.find_or_create_by_email(u)
+	user = User.find_or_create_by_email(u)
+	user.add_role :user
 end
 
 

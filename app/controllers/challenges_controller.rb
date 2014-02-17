@@ -13,9 +13,11 @@ class ChallengesController < ApplicationController
   
   def show
   	@challenge = Challenge.find(params[:id])
-    @participant_count = @challenge.challenge_assignments.count
-    @upcoming_workouts = @challenge.workouts.where(["? <= start_date", Time.now.in_time_zone(current_user.time_zone).to_date]).order('start_date ASC')
-    @past_workouts = @challenge.workouts.where(["? > start_date", Time.now.in_time_zone(current_user.time_zone).to_date]).order('start_date DESC')
+    @upcoming_workouts = @challenge.upcoming_workouts(current_user)
+    @past_workouts = @challenge.past_workouts(current_user)
+
+    # @upcoming_workouts = @challenge.workouts.where(["? <= start_date", Time.now.in_time_zone(current_user.time_zone).to_date]).order('start_date ASC')
+    # @past_workouts = @challenge.workouts.where(["? > start_date", Time.now.in_time_zone(current_user.time_zone).to_date]).order('start_date DESC')
 
     @workoutsMatrix = Hash.new
     @challenge.workouts.each do |w|

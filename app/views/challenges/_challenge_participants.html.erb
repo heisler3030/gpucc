@@ -1,6 +1,6 @@
 
 <div class="panel panel-primary">
-	<div class="panel-heading">Active Participants</div>
+	<div class="panel-heading">Active Participants (<%= @challenge.active_participants.count %>)</div>
 	<div class="panel-body">
 
 		<table class="table">
@@ -27,7 +27,7 @@
 </div>
 
 <div class="panel panel-danger">
-	<div class="panel-heading">Disqualified Participants (TODO) </div>
+	<div class="panel-heading">Disqualified Participants (<%= @challenge.disqualified_participants.count %>) </div>
 	<div class="panel-body">
 
 		<table class="table">
@@ -56,7 +56,7 @@
 </div>
 
 <div class="panel panel-success">
-	<div class="panel-heading">Completed Participants (TODO)</div>
+	<div class="panel-heading">Completed Participants (<%= @challenge.completed_participants.count %>)</div>
 	<div class="panel-body">
 
 		<table class="table">

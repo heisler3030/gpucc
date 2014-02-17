@@ -26,7 +26,7 @@ class Workout < ActiveRecord::Base
   		logger.debug("Completed!  Creating new CompletedWorkout")
   		CompletedWorkout.create!(:user => for_user, :workout => self, :complete_time => Time.now)
   		return true
-	else
+    else
 	  	logger.debug("Not yet completed")
 	  	return false
   	end

@@ -26,15 +26,11 @@ class ChallengeAssignment < ActiveRecord::Base
   end
 
   def missed_workouts
-  	#TODO: Only past workouts
-  	challenge.workouts.where('id not in (select workout_id from completed_workouts where user_id = ?)', user_id) 
+  	challenge.past_workouts(user).where('id not in (select workout_id from completed_workouts where user_id = ?)', user_id) 
   end
 
   def missed_workouts_count
-  	#TODO: Make this only count past workouts
-  	#challenge.workouts.count - completed_workouts_count
   	missed_workouts.count
-  	
   end
 
 end

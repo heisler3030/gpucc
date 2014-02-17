@@ -14,6 +14,15 @@ class Challenge < ActiveRecord::Base
 
   validates_presence_of :title, :created_by
 
+
+  def upcoming_workouts(user)
+    self.workouts.where(["? <= start_date", Time.now.in_time_zone(user.time_zone).to_date]).order('start_date ASC')
+  end
+  
+  def past_workouts(user)
+  	self.workouts.where(["? > start_date", Time.now.in_time_zone(user.time_zone).to_date]).order('start_date DESC')
+  end
+
   def active_participants
   	self.challenge_assignments.where('disqualify_date is null and completed_date is null')
   end
