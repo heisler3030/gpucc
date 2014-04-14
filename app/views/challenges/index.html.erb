@@ -19,11 +19,12 @@
 			</thead>
 			<tbody>
 			<% @my_challenges.each do |c| %>
+			  <% ca = c.get_challenge_assignment_for(current_user) %>
 			  <tr>
 			  	<td><%= c.start_date ? c.start_date.strftime("%b %e, %Y") : nil %> to <%= c.end_date ? c.end_date.strftime("%b %e, %Y") : nil %></td>	  	
 			  	<td><a href="<%= url_for(c) %>"><%= c.title %></a></td>
-			  	<td><%= "Active" %></td> <%#-- TODO: Need to add logic for Disqualify / Completed %>
-			  	<td class="text-center"><%# current_user.completed_workouts.where('challenge_id = ?', c.id).count %> TODO / <%= c.workouts.count %></td>
+			  	<td><%= ca.status %></td>
+			  	<td class="text-center"><%= ca.completed_workouts_count %> / <%= c.workouts.count %></td>
 			  	<td class="text-center"><%= c.challenge_assignments.where('completed_date is null and disqualify_date is null').count %></td>
 			  	<td><%= User.find(c.created_by_id).name %></td>
 			  </tr>	  

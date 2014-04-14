@@ -7,13 +7,13 @@ class ChallengeAssignment < ActiveRecord::Base
   validates_presence_of :user_id, :challenge_id
   validates_uniqueness_of :user_id, :scope => :challenge_id
 
-  def get_status
+  def status
   	if completed_date != nil
   		"Completed"
   	elsif disqualify_date != nil
   		"Disqualified"
   	else
-  		"Participating"
+  		"Active"
   	end	
   end
 

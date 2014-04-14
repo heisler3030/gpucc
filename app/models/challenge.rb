@@ -1,5 +1,5 @@
 class Challenge < ActiveRecord::Base
-  attr_accessible :title, :description, :start_date, :end_date, :workouts_attributes
+  attr_accessible :title, :description, :start_date, :end_date, :workouts_attributes, :max_misses
 
   has_many :workouts
   has_many :challenge_assignments
@@ -33,6 +33,10 @@ class Challenge < ActiveRecord::Base
 
   def completed_participants
   	self.challenge_assignments.where('completed_date is not null')
+  end
+
+  def get_challenge_assignment_for(user)
+    ChallengeAssignment.find_by_user_id_and_challenge_id(user, self)
   end
 
 end

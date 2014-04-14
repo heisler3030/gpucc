@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140101061500) do
+ActiveRecord::Schema.define(:version => 20140223013042) do
 
   create_table "challenge_assignments", :force => true do |t|
     t.integer  "user_id"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20140101061500) do
     t.integer  "created_by_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.integer  "max_misses"
   end
 
   create_table "completed_sets", :force => true do |t|

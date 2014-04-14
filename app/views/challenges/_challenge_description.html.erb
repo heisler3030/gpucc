@@ -1,6 +1,17 @@
-<%# 
-TODO: Shouldn't really be using RAW here, investigate SANITIZE
-http://www.sitepoint.com/techniques-to-secure-your-website-with-ruby-on-rails-part-3/
-%>
+<div class="panel panel-primary">
+	<div class="panel-heading">Description</div>
 
-<%=raw @challenge.description %>
+	<div class="panel-body">
+		<%# TODO: Shouldn't really be using RAW here, investigate SANITIZE
+		http://www.sitepoint.com/techniques-to-secure-your-website-with-ruby-on-rails-part-3/	%>
+		<%=raw @challenge.description %>
+	</div>
+</div>
+
+<div class="panel panel-primary">
+	<div class="panel-heading">Settings</div>
+
+	<div class="panel-body">
+		<p>Max Misses: <%= @challenge.max_misses %></p>
+	</div>
+</div>
