@@ -1,29 +1,60 @@
 
 
 desc "This task is called by the Heroku scheduler add-on"
+
 task :send_reminders => :environment do
   Rails.logger.debug("TASK: Sending Reminders")
-  
-  # For every challengeassignments without null completed_date or disqualify
-  # and where the user has opted to receive reminder emails
-  # See if there is an "open workout" - e.g. one which is active "today" (in their local timezone?)
-  # - meaning it has a start_date of today with null end date or has an end_date of today
-  # - and that it does NOT have a corresponding completedworkout
+
+  ###### Participant Workout Reminders ####################################################################
+  # 
+  # Notify participants with incomplete workouts inside reminder threshold
   #
-  # What you have now is all the challengeassignments requiring notification
- 
+  #########################################################################################################
+
+  ChallengeAssignment.active.each do |ac|
+
+    # Only send if user wants email reminders
+    if ac.user.email_reminders?
+
+      ac.open_workouts.each do |ow|
+
+        user = ac.user
+        time_remaining = ow.time_remaining(user)
+
+        Rails.logger.debug("\nUser: " + ac.user.name.to_s + " [" + ac.user.time_zone.to_s + "]")
+        Rails.logger.debug(
+          "Workout " + ow.id.to_s + 
+          " ends " + ow.ends_at(user).to_time.to_s + 
+          " (" + time_remaining.round(2).to_s + " hours remain)")
+
+        if time_remaining <= user.reminder_threshold
+
+          Rails.logger.debug("Sending Reminder")
 
 
-  reminders_needed = ChallengeAssignment.where("completed_date is null OR disqualify_date is null")
 
+          UserMailer.workout_reminder(user).deliver
 
+        else
+          Rails.logger.debug("Not within reminder threshold (" + user.reminder_threshold.to_s + " hours)")
+        end
 
-  Rails.logger.debug(reminders_needed.inspect)
-
-  reminders_needed.each do |r|
-
+      end
+    end
+    
   end
 
-  # For every challenge assignment where completed_date is null or disqualify_date is null
+  ###### Coach Workout Reminders ####################################################################
+  # 
+  # Notify coach when there is no workout scheduled for tomorrow
+  #
+  #########################################################################################################
+
+
+  ###### Coach At Risk Workout Reminders ####################################################################
+  # 
+  # Notify participants with incomplete workouts inside reminder threshold
+  #
+  #########################################################################################################
 
 end

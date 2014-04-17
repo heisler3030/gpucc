@@ -17,9 +17,26 @@ class User < ActiveRecord::Base
   has_many :challenges, :through => :challenge_assignments
   has_many :workouts, :through => :challenges
 
+  def current_time
+    Time.now.in_time_zone(time_zone)
+  end
+
+  def current_date
+    current_time.to_date
+  end
+
   # To allow for multiple sets to be created at once
 #  accepts_nested_attributes_for :completed_sets,
 #    :allow_destroy => true,
 #    :reject_if => proc { |a| a['reps'].blank? } 
   
+  # TODO: Make this configurable for users
+  def email_reminders?
+    true
+  end
+
+  def reminder_threshold
+    10
+  end
+
 end

@@ -13,18 +13,53 @@ class Workout < ActiveRecord::Base
   
   validates_presence_of :start_date
 
+  # Return active workouts for a specific user
+  # (Active for this date and not completed)
+  scope :active, (lambda { |user| 
+      active_sql = "? = workouts.start_date
+                     AND (workouts.end_date IS NULL OR ? <= workouts.end_date) AND
+                     workouts.id not in (select workout_id from completed_workouts where user_id = ?)"
+      where(active_sql, user.current_date, user.current_date, user)
+  } )
+
+  # Return completed workouts for a specific user
+  scope :completed, (lambda { |user|
+    where('workouts.id in (select workout_id from completed_workouts where user_id = ?)', user) 
+  })
+
+  # check if active for a certain user (based on timezone)
+  def active?(user)
+    user.current_date == start_date && (end_date.is_nil? || user.current_date <= end_date) && not(complete?)
+  end
+
+  def complete?(user)
+    not((CompletedWorkout.where("workout_id = ? AND user_id = ?", self, user)).empty?) 
+  end
+
+  # Return end time based on user timezone
+  def ends_at(user)
+    if end_date.nil?
+      start_date.to_time.in_time_zone(user.time_zone).end_of_day
+    else
+      end_date.to_time.in_time_zone(user.time_zone).end_of_day
+    end
+  end
+
+  def time_remaining(user)
+    (ends_at(user) - user.current_time) / 3600
+  end
 
   # Check completion status and create new CompletedSet if needed
-  def check_complete(for_user)
+  def check_if_completed(user)
   	# can I refactor the workouts_bundle somehow for this?
-  	logger.debug("Checking completion for workout " + id.to_s + " by user " + for_user.name.to_s)
+  	logger.debug("Checking completion for workout " + id.to_s + " by user " + user.name.to_s)
 
-  	if not((CompletedWorkout.where("workout_id = ? AND user_id = ?", self, for_user)).empty?)  # If a CompletedWorkout exists already, no further action
+  	if not((CompletedWorkout.where("workout_id = ? AND user_id = ?", self, user)).empty?)  # If a CompletedWorkout exists already, no further action
   		logger.debug("Already completed")
   		return false
-  	elsif WorkoutActivity.new(self, for_user).complete?  # Otherwise, check if it is complete, and build a CompletedWorkout
+  	elsif WorkoutActivity.new(self, user).complete?  # Otherwise, check if it is complete, and build a CompletedWorkout
   		logger.debug("Completed!  Creating new CompletedWorkout")
-  		CompletedWorkout.create!(:user => for_user, :workout => self, :complete_time => Time.now)
+  		CompletedWorkout.create!(:user => user, :workout => self, :complete_time => Time.now)
   		return true
     else
 	  	logger.debug("Not yet completed")

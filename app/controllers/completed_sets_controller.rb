@@ -22,7 +22,7 @@ class CompletedSetsController < ApplicationController
     end
 
     if not this_workout.nil?
-      if this_workout.check_complete(this_user) then flash[:notice] = "Congratulations, you have finished the workout!" end
+      if this_workout.check_if_completed(this_user) then flash[:notice] = "Congratulations, you have finished the workout!" end
     end
 
     redirect_to today_path
@@ -38,7 +38,7 @@ class CompletedSetsController < ApplicationController
     
     if @completed_set.update_attributes(params[:completed_set])
       flash[:notice] = "Successfully updated completed_set."
-      @completed_set.workout.check_complete(@completed_set.user)
+      @completed_set.workout.check_if_completed(@completed_set.user)
       redirect_to(today_path)
     else
       render :edit

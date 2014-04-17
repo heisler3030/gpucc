@@ -24,7 +24,7 @@
 			  	<td><%= c.start_date ? c.start_date.strftime("%b %e, %Y") : nil %> to <%= c.end_date ? c.end_date.strftime("%b %e, %Y") : nil %></td>	  	
 			  	<td><a href="<%= url_for(c) %>"><%= c.title %></a></td>
 			  	<td><%= ca.status %></td>
-			  	<td class="text-center"><%= ca.completed_workouts_count %> / <%= c.workouts.count %></td>
+			  	<td class="text-center"><%= ca.completed_workouts.count %> / <%= c.workouts.count %></td>
 			  	<td class="text-center"><%= c.challenge_assignments.where('completed_date is null and disqualify_date is null').count %></td>
 			  	<td><%= User.find(c.created_by_id).name %></td>
 			  </tr>	  

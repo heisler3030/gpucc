@@ -54,4 +54,10 @@ Gpucc::Application.configure do
     password: ENV["GMAIL_PASSWORD"]
   }
 
+  # Disable ActiveRecord SQL Logging to reduce clutter
+  config.after_initialize do
+    ActiveRecord::Base.logger = Rails.logger.clone
+    ActiveRecord::Base.logger.level = Logger::INFO
+  end
+
 end

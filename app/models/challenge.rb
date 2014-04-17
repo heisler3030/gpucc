@@ -14,13 +14,20 @@ class Challenge < ActiveRecord::Base
 
   validates_presence_of :title, :created_by
 
+  # Workouts that are ending on a specified date
+  def get_workouts_ending_for_day(date)
+        self.workouts.where(["(? = workouts.start_date AND workouts.end_date is null) OR (? = workouts.end_date)", date, date]).order('start_date ASC')
+  end
 
+  # Workouts that start today or later, in a specific user's timezone
   def upcoming_workouts(user)
-    self.workouts.where(["? <= start_date", Time.now.in_time_zone(user.time_zone).to_date]).order('start_date ASC')
+    self.workouts.where(["? <= workouts.start_date", user.current_date]).order('start_date ASC')
   end
   
+  # Workouts that start today or later, in a specific user's timezone
+  #TODO:  DOES NOT PROPERLY HANDLE MULTI-DAY
   def past_workouts(user)
-  	self.workouts.where(["? > start_date", Time.now.in_time_zone(user.time_zone).to_date]).order('start_date DESC')
+  	self.workouts.where(["? > workouts.start_date", user.current_date]).order('start_date DESC')
   end
 
   def active_participants

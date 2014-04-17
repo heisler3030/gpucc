@@ -3,9 +3,16 @@ class ChallengeAssignment < ActiveRecord::Base
 
   belongs_to :challenge
   belongs_to :user
+  has_many :workouts, :through => :challenge
+  has_many :completed_workouts, :through => :workouts
 
   validates_presence_of :user_id, :challenge_id
   validates_uniqueness_of :user_id, :scope => :challenge_id
+
+  scope :active, where("disqualify_date IS NULL AND completed_date IS NULL")
+  scope :completed, where("completed_date IS NOT NULL")
+  scope :disqualified, where("disqualify_date IS NOT NULL")
+  scope :inactive, where("disqualify_date IS NOT NULL OR completed_date IS NOT NULL")
 
   def status
   	if completed_date != nil
@@ -17,20 +24,20 @@ class ChallengeAssignment < ActiveRecord::Base
   	end	
   end
 
-  def completed_workouts
-  	challenge.completed_workouts.where(user_id: user)
-  end
-
-  def completed_workouts_count
-  	completed_workouts.count
-  end
-
   def missed_workouts
-  	challenge.past_workouts(user).where('id not in (select workout_id from completed_workouts where user_id = ?)', user_id) 
+  	challenge.past_workouts(user).where('workouts.id not in (select workout_id from completed_workouts where user_id = ?)', user_id) 
   end
 
-  def missed_workouts_count
-  	missed_workouts.count
+  # Workouts that are active and incomplete
+  def open_workouts
+    if status = "Active"
+      self.workouts.active(user)
+    end
+  end
+
+  # Workouts that are active and incomplete
+  def completed_workouts
+    self.workouts.completed(user)
   end
 
 end

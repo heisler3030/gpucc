@@ -16,9 +16,6 @@ class ChallengesController < ApplicationController
     @upcoming_workouts = @challenge.upcoming_workouts(current_user)
     @past_workouts = @challenge.past_workouts(current_user)
 
-    # @upcoming_workouts = @challenge.workouts.where(["? <= start_date", Time.now.in_time_zone(current_user.time_zone).to_date]).order('start_date ASC')
-    # @past_workouts = @challenge.workouts.where(["? > start_date", Time.now.in_time_zone(current_user.time_zone).to_date]).order('start_date DESC')
-
     @workoutsMatrix = Hash.new
     @challenge.workouts.each do |w|
       @workoutsMatrix[w] = w.workout_exercises
