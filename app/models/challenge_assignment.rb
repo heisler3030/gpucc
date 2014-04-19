@@ -30,7 +30,7 @@ class ChallengeAssignment < ActiveRecord::Base
 
   # Workouts that are active and incomplete
   def open_workouts
-    if status = "Active"
+    if status == "Active"
       self.workouts.active(user)
     end
   end

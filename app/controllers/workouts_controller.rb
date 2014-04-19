@@ -37,7 +37,8 @@ class WorkoutsController < ApplicationController
     @workout = Workout.find(params[:id])
     @challenge = Challenge.find(@workout.challenge)
 
-    is_rest_day?(params[:workout])
+    # Set / Unset the rest_day flag on the workout as appropriate
+    @workout.rest_day = is_rest_day?(params[:workout])    
 
     if @workout.update_attributes(params[:workout])
       flash[:notice] = "Successfully updated workout."
@@ -61,7 +62,20 @@ class WorkoutsController < ApplicationController
 #---------------- Helper Methods --------------------
 
   def is_rest_day?(workout)
-    puts workout
+
+    # See if there are any exercises that are not tagged for destroy
+    # Unless == 0 there is at least one
+
+    if workout[:workout_exercises_attributes] &&
+       workout[:workout_exercises_attributes].map {|k,v| v["_destroy"] == "false" ? 0 : 1}.min == 0
+    then
+      logger.debug("NOT A REST DAY")
+      false
+    else
+      logger.debug("IT'S A REST DAY!!!")
+      true
+    end
+    #workout[:workout_exercises_attributes].select { |k,v| v.select { |k2, v2| v2 == "37" } }.size
   end
 
 end

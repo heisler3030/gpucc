@@ -1,5 +1,5 @@
 class Workout < ActiveRecord::Base
-  attr_accessible :title, :motivation, :start_date, :end_date, :challenge_id, :rest_day #,:workout_exercises_attributes
+  attr_accessible :title, :motivation, :start_date, :end_date, :challenge_id, :rest_day,:workout_exercises_attributes
 
   belongs_to :challenge
   
@@ -47,10 +47,10 @@ class Workout < ActiveRecord::Base
     end
   end
 
-  # # Return true if there are no exercises assigned
-  # def rest_day?
-  #   self.workout_exercises.size == 0
-  # end
+  # Return true if there are no exercises assigned
+  def rest_day?
+    rest_day
+  end
 
   def time_remaining(user)
     (ends_at(user) - user.current_time) / 3600

@@ -45,8 +45,9 @@ class Challenge < ActiveRecord::Base
   end
 
    def rest_days
-     #TODO: THIS IS JUST HARDCODED GARBAGE RIGHT NOW
-     10 #self.workouts.where(workout_exercises.size = 0)
+     puts "rest_days"
+     puts self.workouts.where('rest_day is true')
+     self.workouts.where('rest_day is true')
    end
 
   def get_challenge_assignment_for(user)
