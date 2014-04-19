@@ -36,6 +36,9 @@ class WorkoutsController < ApplicationController
   def update
     @workout = Workout.find(params[:id])
     @challenge = Challenge.find(@workout.challenge)
+
+    is_rest_day?(params[:workout])
+
     if @workout.update_attributes(params[:workout])
       flash[:notice] = "Successfully updated workout."
       redirect_to(challenge_path(@challenge, :anchor => "workouts"))
@@ -53,6 +56,12 @@ class WorkoutsController < ApplicationController
       flash[:notice] = "Successfully deleted workout for " + workout_date
       redirect_to(challenge_path(@challenge, :anchor => "workouts")) 
     end
+  end
+
+#---------------- Helper Methods --------------------
+
+  def is_rest_day?(workout)
+    puts workout
   end
 
 end

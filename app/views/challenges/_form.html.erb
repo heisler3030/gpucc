@@ -1,4 +1,3 @@
-<%= form_for @challenge, :url =>challenges_path, :html => {:role => 'form'} do |f| %>
   <%= f.error_messages %>
   <div class="form-group">
     <%= f.label :title %>
@@ -20,7 +19,15 @@
   </div>
 
   <div class="form-group">
-  	<%= f.submit :class => 'btn btn-primary', :style => 'margin-top:10px' %>
+    <%= f.label :max_misses %>
+    <%= f.text_field :max_misses,:class => "input-sm form-control" %>
   </div>
 
-<% end %>
+  <div class="form-group join-by">
+    <%= f.label :join_by %>
+    <%= f.text_field :join_by,:class => "input-sm form-control", :data => {:provide => "datepicker", :'date-format' => "yyyy-mm-dd"} %>
+  </div>
+
+  <div class="form-group">
+  	<%= f.submit :class => 'btn btn-primary', :style => 'margin-top:10px' %>
+  </div>

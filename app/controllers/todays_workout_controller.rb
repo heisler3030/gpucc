@@ -5,7 +5,7 @@ class TodaysWorkoutController < ApplicationController
   def index
 
     # Build a package for the view which consists of:
-    #   All workouts that are current for the current user
+    #     All workouts that are current for the current user
     #     All completed_sets for each workout
     #     All the workout_exercises for each workout
     #     Pre-filled completed_sets for each workout_exercise
@@ -22,7 +22,7 @@ class TodaysWorkoutController < ApplicationController
     @workout_activities = WorkoutsBundle.new(current_user, current_user_time).workout_activities
 
     respond_to do |format|
-      format.html {render "/workouts/todays_workout"}
+      format.html #{render "/workouts/todays_workout"}
       format.json {render :json => @workout_activities}
     end
 

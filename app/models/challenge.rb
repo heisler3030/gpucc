@@ -1,10 +1,11 @@
 class Challenge < ActiveRecord::Base
-  attr_accessible :title, :description, :start_date, :end_date, :workouts_attributes, :max_misses
+  attr_accessible :title, :description, :start_date, :end_date, :workouts_attributes, :max_misses, :join_by
 
   has_many :workouts
   has_many :challenge_assignments
   has_many :users, :through => :challenge_assignments
   has_many :completed_workouts, :through => :workouts
+  has_many :workout_exercises, :through => :workouts
 
   accepts_nested_attributes_for :workouts,
     	:allow_destroy => true,
@@ -12,7 +13,8 @@ class Challenge < ActiveRecord::Base
 
   belongs_to :created_by, :class_name => "User"
 
-  validates_presence_of :title, :created_by
+  validates_presence_of :title, :created_by, :max_misses
+  validates_numericality_of :max_misses
 
   # Workouts that are ending on a specified date
   def get_workouts_ending_for_day(date)
@@ -41,6 +43,11 @@ class Challenge < ActiveRecord::Base
   def completed_participants
   	self.challenge_assignments.where('completed_date is not null')
   end
+
+   def rest_days
+     #TODO: THIS IS JUST HARDCODED GARBAGE RIGHT NOW
+     10 #self.workouts.where(workout_exercises.size = 0)
+   end
 
   def get_challenge_assignment_for(user)
     ChallengeAssignment.find_by_user_id_and_challenge_id(user, self)

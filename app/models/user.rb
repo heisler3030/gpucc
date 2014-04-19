@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_many :challenge_assignments
   has_many :challenges, :through => :challenge_assignments
   has_many :workouts, :through => :challenges
+  has_many :comments
 
   def current_time
     Time.now.in_time_zone(time_zone)
@@ -37,6 +38,17 @@ class User < ActiveRecord::Base
 
   def reminder_threshold
     10
+  end
+
+  # Get total reps for a certain exercise, for a certain date range
+  def total(exercise, fromdate=nil, todate=nil)
+
+    if fromdate == nil && todate == nil
+      self.completed_sets.where("exercise_id = ?", exercise).sum(:reps)
+    else
+      puts "NOT YET SUPPORTED"
+    end
+      
   end
 
 end

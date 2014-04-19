@@ -1,3 +1,5 @@
+# A WorkoutActivity represents the activity for a specific user on a specific assigned workout
+
 class WorkoutActivity
 	attr_accessor :completed_sets, :workout_exercises, :new_sets
 	attr_reader :workout
@@ -15,6 +17,10 @@ class WorkoutActivity
     end
 
 	end
+
+  def date_string
+    @workout.end_date ? @workout.start_date.strftime("%A, %B %e, %Y") + " to " + @workout.end_date.strftime("%A, %B %e, %Y") : @workout.start_date.strftime("%A, %B %e, %Y")
+  end
 
   def count_reps(exercise)
   	# Counts the total reps performed for a specific exercise within this WorkoutActivity
@@ -40,6 +46,10 @@ class WorkoutActivity
 
     return complete_flag
 
+  end
+
+  def challenge
+    @workout.challenge
   end
 
 end

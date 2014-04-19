@@ -17,12 +17,13 @@
   </div>          
 
   <div class="form-group">
-    <%= f.label :comments %>
-    <%= f.text_area :comments, :class => "summernote" %>
+    <%= f.label :motivation %>
+    <%= f.text_area :motivation, :class => "summernote" %>
   </div>  
 
   <h2>Assigned Exercises</h2> 
   <small><%= link_to_add_fields "Add Exercise", f, :workout_exercises, "workout_exercises" %></small>
+
 
   <div>
     <table id="workout_exercises" class="table">

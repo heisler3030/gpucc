@@ -1,17 +1,19 @@
 class Workout < ActiveRecord::Base
-  attr_accessible :title, :comments, :start_date, :end_date, :workout_exercises_attributes, :challenge_id
+  attr_accessible :title, :motivation, :start_date, :end_date, :challenge_id, :rest_day #,:workout_exercises_attributes
 
   belongs_to :challenge
   
   has_many :workout_exercises, :dependent => :destroy
   has_many :completed_sets
   has_many :completed_workouts
+  has_many :comments
   
   accepts_nested_attributes_for :workout_exercises,
     	:allow_destroy => true,
     	:reject_if     => :all_blank
   
   validates_presence_of :start_date
+  #validates_with WorkoutValidator
 
   # Return active workouts for a specific user
   # (Active for this date and not completed)
@@ -45,6 +47,11 @@ class Workout < ActiveRecord::Base
     end
   end
 
+  # # Return true if there are no exercises assigned
+  # def rest_day?
+  #   self.workout_exercises.size == 0
+  # end
+
   def time_remaining(user)
     (ends_at(user) - user.current_time) / 3600
   end
@@ -67,7 +74,7 @@ class Workout < ActiveRecord::Base
   	end
   end
 
-
 end
+
 
 

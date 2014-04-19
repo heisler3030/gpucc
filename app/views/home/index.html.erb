@@ -1,4 +1,46 @@
-<h3>Home</h3>
-<% @users.each do |user| %>
-  <p>User: <%=link_to user.name, user %></p>
-<% end %>
+<div class="panel panel-primary">
+	<div class="panel-heading">My Challenges</div>
+	<div class="panel-body">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Remaining Misses</th>
+					<th>Workouts Completed</th>
+					<th>Active Participants</th>
+					<th>Rest Days</th>
+				</tr>
+			</thead>
+			<tbody>
+			<% @my_challenges.each do |c| %>
+			  <% ca = c.get_challenge_assignment_for(current_user) %>
+			  <tr>
+			  	<td><a href="<%= url_for(c) %>"><%= c.title %></a></td>
+			  	<td><%= ca.remaining_misses %></td>
+			  	<td class="text-center"><%= ca.completed_workouts.count %> / <%= c.workouts.count %></td>
+			  	<td class="text-center"><%= c.active_participants.count %></td>
+			  	<td class="text-center"><%# c.rest_days.count %></td> 
+			  </tr>	  
+			<% end %>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="panel panel-primary">
+	<div class="panel-heading">My Stats</div>
+	<div class="panel-body">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Exercise</th>
+					<th>This Week</th>
+					<th>This Month</th>
+					<th>All Time</th>
+				</tr>
+			</thead>
+			<tbody>
+					<%= current_user.total(1) %>
+			</tbody>
+		</table>
+	</div>
+</div>

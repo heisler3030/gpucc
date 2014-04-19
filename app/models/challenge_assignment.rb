@@ -40,4 +40,8 @@ class ChallengeAssignment < ActiveRecord::Base
     self.workouts.completed(user)
   end
 
+  def remaining_misses
+    self.challenge.max_misses - self.missed_workouts.count
+  end
+
 end

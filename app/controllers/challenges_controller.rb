@@ -27,6 +27,17 @@ class ChallengesController < ApplicationController
     end
   end
 
+
+  def edit
+    @challenge = Challenge.find(params[:id])
+    @upcoming_workouts = @challenge.upcoming_workouts(current_user)
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
+
   def new
     @challenge = Challenge.new
   end
@@ -52,6 +63,14 @@ class ChallengesController < ApplicationController
   end
   
   def update
+    @challenge = Challenge.find(params[:id])
+    if @challenge.update_attributes(params[:challenge])
+      flash[:notice] = "Successfully updated challenge."
+      redirect_to(@challenge)
+    else
+      render :edit
+    end
+
   end
 
   def destroy

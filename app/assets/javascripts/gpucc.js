@@ -13,14 +13,14 @@ function add_fields(id, association, content) {
 
 // Date Picker Initialization
 $(function() {
-	$('.input-daterange') //.onfocus({
+	$('.input-daterange')
 		.datepicker({
     		format: 'yyyy-mm-dd',
     		todayHighlight: true,
         todayBtn: "linked"
     	});
-//	});
 });
+
 
 // Javascript to enable href to specific tab
 $(document).ready(function(event) {

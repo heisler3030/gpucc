@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140223013042) do
+ActiveRecord::Schema.define(:version => 20140418220900) do
 
   create_table "challenge_assignments", :force => true do |t|
     t.integer  "user_id"
@@ -35,6 +35,14 @@ ActiveRecord::Schema.define(:version => 20140223013042) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.integer  "max_misses"
+    t.date     "join_by"
+  end
+
+  create_table "comments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "workout_id"
+    t.string   "value"
+    t.datetime "timestamp"
   end
 
   create_table "completed_sets", :force => true do |t|
@@ -126,11 +134,12 @@ ActiveRecord::Schema.define(:version => 20140223013042) do
   create_table "workouts", :force => true do |t|
     t.integer  "challenge_id"
     t.string   "title"
-    t.text     "comments"
+    t.text     "motivation"
     t.date     "start_date"
     t.date     "end_date"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.boolean  "rest_day"
   end
 
   add_index "workouts", ["challenge_id"], :name => "index_workouts_on_challenge_id"
