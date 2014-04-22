@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140418220900) do
+ActiveRecord::Schema.define(:version => 20140422043943) do
 
   create_table "challenge_assignments", :force => true do |t|
     t.integer  "user_id"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20140418220900) do
     t.date     "disqualify_date"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.date     "last_notified"
   end
 
   add_index "challenge_assignments", ["challenge_id"], :name => "index_challenge_assignments_on_challenge_id"
@@ -31,9 +32,9 @@ ActiveRecord::Schema.define(:version => 20140418220900) do
     t.text     "description"
     t.date     "start_date"
     t.date     "end_date"
-    t.integer  "created_by_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.integer  "owner_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "max_misses"
     t.date     "join_by"
   end
@@ -61,8 +62,10 @@ ActiveRecord::Schema.define(:version => 20140418220900) do
     t.integer  "user_id"
     t.datetime "complete_time"
     t.integer  "workout_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.boolean  "mgr_override"
+    t.string   "override_comment"
   end
 
   add_index "completed_workouts", ["user_id"], :name => "index_completed_workouts_on_user_id"

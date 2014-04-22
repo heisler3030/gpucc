@@ -26,7 +26,7 @@
 			  	<td><%= ca.status %></td>
 			  	<td class="text-center"><%= ca.completed_workouts.count %> / <%= c.workouts.count %></td>
 			  	<td class="text-center"><%= c.challenge_assignments.where('completed_date is null and disqualify_date is null').count %></td>
-			  	<td><%= User.find(c.created_by_id).name %></td>
+			  	<td><%= User.find(c.owner_id).name %></td>
 			  </tr>	  
 			<% end %>
 			</tbody>
@@ -55,7 +55,7 @@
 			  	<td><a href="<%= url_for(c) %>"><%= c.title %></a></td>
 			  	<td class="text-center"><%= c.workouts.count %></td>
 			  	<td class="text-center"><%= c.challenge_assignments.where('completed_date is null and disqualify_date is null').count %></td>
-			  	<td><%= User.find(c.created_by_id).name %></td>
+			  	<td><%= User.find(c.owner_id).name %></td>
 			  	<td><%= link_to "Join", challenge_assignments_path(:params => {:challenge_assignment => {:user_id => current_user, :challenge_id => c}}), :method => :post, :class => 'btn btn-primary' %></td>
 			  </tr>
 			  

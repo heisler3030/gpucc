@@ -1,5 +1,6 @@
 class ChallengeAssignmentsController < ApplicationController
-  before_filter :authenticate_user!
+  #before_filter :authenticate_user!
+  load_and_authorize_resource
   
   def index
   	@assignments = ChallengeAssignment.all
@@ -7,7 +8,6 @@ class ChallengeAssignmentsController < ApplicationController
   end
   
   def show
-
   end
 
   def new

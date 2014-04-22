@@ -34,15 +34,27 @@ class Ability
      #     Eg. workouts, challenge assignments, completedworkouts where they are marked as owner
      # Users should be able to create/edit/destroy completedsets and edit users provided they are self
 
+# ------------ Admin Privileges ------------------------------------------------
+
     if user.has_role? :admin
       can :manage, :all
+    
+# ------------ Trainer Privileges ----------------------------------------------
+
     elsif user.has_role? :trainer
-      can :manage, :all
-    else
+      can :read, :all
+      can :manage, Challenge, :owner_id => user.id
+      can :manage, ChallengeAssignment, :challenge => {:owner_id => user.id }  
+      can :manage, Workout, :challenge => {:owner_id => user.id }
 
+# ------------ User Privileges -------------------------------------------------
+
+    elsif user.has_role? :user
+      can :read, Challenge
+      can [:read, :create], ChallengeAssignment, :user_id => user.id
+      can [:manage], CompletedSet, :user_id => user.id  # TODO: Prevent edits after due date
+      can [:manage], Comment, :user_id => user.id  # TODO: Probably want to restrict destroy?
     end
-
-
 
   end
 end

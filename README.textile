@@ -2,10 +2,12 @@ h1. GPUCC
 
 By Hamish Eisler
 
-
 - Rails 3.2.13
 - Ruby 1.9.3
 - Bootstrap 3.x
 - Bootstrap Datepicker v.X
 - jQuery countdown v.X
 - PostGreSQL v.X
+- Devise for Authentication http://railscasts.com/episodes/209-introducing-devise
+- CanCan for authorization http://railscasts.com/episodes/192-authorization-with-cancan
+- Rolify for Roles https://github.com/EppO/rolify

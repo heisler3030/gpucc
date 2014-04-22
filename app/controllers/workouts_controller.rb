@@ -1,7 +1,7 @@
 class WorkoutsController < ApplicationController
+  #before_filter :authenticate_user!
+  load_and_authorize_resource
 
-  before_filter :authenticate_user!
-  
   def index
   	@workouts = Workout.all
   end
@@ -38,7 +38,7 @@ class WorkoutsController < ApplicationController
     @challenge = Challenge.find(@workout.challenge)
 
     # Set / Unset the rest_day flag on the workout as appropriate
-    @workout.rest_day = is_rest_day?(params[:workout])    
+    @workout.rest_day = self.rest_day?(params[:workout])    
 
     if @workout.update_attributes(params[:workout])
       flash[:notice] = "Successfully updated workout."
@@ -61,7 +61,7 @@ class WorkoutsController < ApplicationController
 
 #---------------- Helper Methods --------------------
 
-  def is_rest_day?(workout)
+  def rest_day?(workout)
 
     # See if there are any exercises that are not tagged for destroy
     # Unless == 0 there is at least one

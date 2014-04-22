@@ -1,4 +1,7 @@
 class HomeController < ApplicationController
+  before_filter :authenticate_user!
+  skip_authorization_check
+
   def index
 
     challenge_assignment_list = current_user.challenge_assignments.map(&:challenge_id).push(-1)

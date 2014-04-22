@@ -1,4 +1,5 @@
 class ExercisesController < ApplicationController
+  load_and_authorize_resource
   
   def index
     @exercises = Exercise.all
@@ -15,7 +16,7 @@ class ExercisesController < ApplicationController
     #render text: params[:exercise].inspect
     @exercise = Exercise.new(params[:exercise])
     @exercise.save
-    redirect_to @exercise
+    redirect_to @admin::exercise
   end
   
 end

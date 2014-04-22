@@ -4,8 +4,6 @@ Gpucc::Application.routes.draw do
   authenticated :user do
     root :to => 'todays_workout#index'
   end
-
- # devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}
   
   devise_for :users
   
@@ -28,5 +26,6 @@ Gpucc::Application.routes.draw do
 
   match '/today' => 'todays_workout#index'
   match '/home' => 'home#index'
+  #match '/missedworkouts' => 'missedworkouts'
 
 end

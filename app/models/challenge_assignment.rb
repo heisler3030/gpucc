@@ -1,5 +1,5 @@
 class ChallengeAssignment < ActiveRecord::Base
-  attr_accessible :join_date, :completed_date, :disqualify_date, :challenge_id, :user_id, :challenge
+  attr_accessible :join_date, :completed_date, :disqualify_date, :last_notified, :challenge_id, :user_id  #, :challenge_id, :user_id
 
   belongs_to :challenge
   belongs_to :user
@@ -14,13 +14,14 @@ class ChallengeAssignment < ActiveRecord::Base
   scope :disqualified, where("disqualify_date IS NOT NULL")
   scope :inactive, where("disqualify_date IS NOT NULL OR completed_date IS NOT NULL")
 
+  # Return current status
   def status
   	if completed_date != nil
-  		"Completed"
+  		:Completed
   	elsif disqualify_date != nil
-  		"Disqualified"
+  		:Disqualified
   	else
-  		"Active"
+  		:Active
   	end	
   end
 
@@ -44,4 +45,40 @@ class ChallengeAssignment < ActiveRecord::Base
     self.challenge.max_misses - self.missed_workouts.count
   end
 
+  # Evaluate status and reset as required
+  # TODO: Needs logic for handling completed challenges
+  def check_status
+    #puts ("Checking Status for " + self.user.name + " on " + self.challenge.title)
+    #logger.debug("Checking Status for " + self.user.name + " on " + self.challenge.title)
+    remaining_misses <= 0 ? set_status(:Disqualified) : set_status(:Active)
+  end
+
+  # Set status, only saving when it is a state change
+  def set_status(status_string)
+    case status_string
+      when :Completed # Set completed_date to today
+        unless status == :Completed
+          puts ("Changing Status for " + self.user.name + " on " + self.challenge.title + " to Completed")
+          self.completed_date = DateTime.now.to_date
+          self.disqualify_date = nil
+          self.save!
+        end
+      when :Disqualified # Set disqualify_date to today
+        unless status == :Disqualified
+          puts ("Changing Status for " + self.user.name + " on " + self.challenge.title + " to Disqualified")
+          self.completed_date = nil
+          self.disqualify_date = DateTime.now.to_date
+          self.save!
+        end
+      when :Active # Clear completed / disqualify dates
+        unless status == :Active
+          puts ("Changing Status for " + self.user.name + " on " + self.challenge.title + " to Active")
+          self.completed_date = nil
+          self.disqualify_date = nil
+          self.save!
+        end
+      else
+        raise Exception("Bad Status")
+    end
+  end
 end

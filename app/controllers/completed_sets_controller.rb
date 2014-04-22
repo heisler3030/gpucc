@@ -1,5 +1,6 @@
 class CompletedSetsController < ApplicationController
-  
+  load_and_authorize_resource
+
   def create
     logger.debug("CompletedSetsController#create")
     completed_sets = params[:completed_sets]

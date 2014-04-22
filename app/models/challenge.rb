@@ -11,7 +11,7 @@ class Challenge < ActiveRecord::Base
     	:allow_destroy => true,
     	:reject_if     => :all_blank
 
-  belongs_to :created_by, :class_name => "User"
+  belongs_to :owner, :class_name => "User"
 
   validates_presence_of :title, :created_by, :max_misses
   validates_numericality_of :max_misses
@@ -32,21 +32,19 @@ class Challenge < ActiveRecord::Base
   	self.workouts.where(["? > workouts.start_date", user.current_date]).order('start_date DESC')
   end
 
-  def active_participants
+  def active_assignments
   	self.challenge_assignments.where('disqualify_date is null and completed_date is null')
   end
 
-  def disqualified_participants
+  def disqualified_assignments
   	self.challenge_assignments.where('disqualify_date is not null and completed_date is null')
   end
 
-  def completed_participants
+  def completed_assignments
   	self.challenge_assignments.where('completed_date is not null')
   end
 
    def rest_days
-     puts "rest_days"
-     puts self.workouts.where('rest_day is true')
      self.workouts.where('rest_day is true')
    end
 

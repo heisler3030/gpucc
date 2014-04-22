@@ -18,7 +18,7 @@
 			  	<td><a href="<%= url_for(c) %>"><%= c.title %></a></td>
 			  	<td><%= ca.remaining_misses %></td>
 			  	<td class="text-center"><%= ca.completed_workouts.count %> / <%= c.workouts.count %></td>
-			  	<td class="text-center"><%= c.active_participants.count %></td>
+			  	<td class="text-center"><%= c.active_assignments.count %></td>
 			  	<td class="text-center"><%= c.rest_days.count %></td> 
 			  </tr>	  
 			<% end %>
@@ -39,7 +39,15 @@
 				</tr>
 			</thead>
 			<tbody>
-					<%= current_user.total(1) %>
+			  <tr>
+			  	<td>Pushups</td>
+			  	<td><%= current_user.total(Exercise.find_by_name("Pushups")) %></td>
+			  	<td><%= current_user.total(Exercise.find_by_name("Burpees")) %></td>
+			  	<td></td>
+			  	<td></td>
+			  	<td></td>
+			  </tr>	  				
+					
 			</tbody>
 		</table>
 	</div>

@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+
   rolify
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -10,18 +11,28 @@ class User < ActiveRecord::Base
   attr_accessible :role_ids, :as => :admin
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :time_zone #, :completed_sets_attributes
 
-  has_many :completed_workouts, :dependent => :destroy
-  has_many :completed_sets, :dependent => :destroy
-  
-  has_many :challenge_assignments
   has_many :challenges, :through => :challenge_assignments
   has_many :workouts, :through => :challenges
   has_many :comments
 
+  # Delete all these if the user is deleted
+  has_many :completed_workouts, :dependent => :delete_all #:destroy
+  has_many :completed_sets, :dependent => :delete_all #:destroy
+  has_many :challenge_assignments, :dependent => :delete_all #:destroy
+  has_many :comments, :dependent => :delete_all #:destroy
+
+  # Put all users in "User" role by default
+  after_create :assign_default_role
+  def assign_default_role
+    add_role(:user)
+  end
+
+  # Return current_time for this user
   def current_time
     Time.now.in_time_zone(time_zone)
   end
 
+  # Return current_date for this user
   def current_date
     current_time.to_date
   end

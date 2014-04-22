@@ -1,6 +1,6 @@
 
 <div class="panel panel-primary">
-	<div class="panel-heading">Active Participants (<%= @challenge.active_participants.count %>)</div>
+	<div class="panel-heading">Active Participants (<%= @challenge.active_assignments.count %>)</div>
 	<div class="panel-body">
 
 		<table class="table">
@@ -12,7 +12,7 @@
 		  	<th>Action</th>
 		  </thead>
 		  <tbody>
-		    <% challenge.active_participants.each do |ca| %>
+		    <% challenge.active_assignments.each do |ca| %>
 		      <tr>
 		        <td><%= ca.user.name %></td>
 		        <td><%= ca.join_date %></td>
@@ -27,7 +27,7 @@
 </div>
 
 <div class="panel panel-danger">
-	<div class="panel-heading">Disqualified Participants (<%= @challenge.disqualified_participants.count %>) </div>
+	<div class="panel-heading">Disqualified Participants (<%= @challenge.disqualified_assignments.count %>) </div>
 	<div class="panel-body">
 
 		<table class="table">
@@ -40,7 +40,7 @@
 		  	<th>Action</th>
 		  </thead>
 		  <tbody>
-		    <% challenge.disqualified_participants.each do |ca| %>
+		    <% challenge.disqualified_assignments.each do |ca| %>
 		      <tr>
 		        <td><%= ca.user.name %></td>
 		        <td><%= ca.join_date %></td>
@@ -56,7 +56,7 @@
 </div>
 
 <div class="panel panel-success">
-	<div class="panel-heading">Completed Participants (<%= @challenge.completed_participants.count %>)</div>
+	<div class="panel-heading">Completed Participants (<%= @challenge.completed_assignments.count %>)</div>
 	<div class="panel-body">
 
 		<table class="table">
@@ -68,7 +68,7 @@
 		  	<th>Completed Date</th>
 		  </thead>
 		  <tbody>
-		    <% challenge.completed_participants.each do |ca| %>
+		    <% challenge.completed_assignments.each do |ca| %>
 		      <tr>
 		        <td><%= ca.user.name %></td>
 		        <td><%= ca.join_date %></td>
