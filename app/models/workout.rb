@@ -26,7 +26,7 @@ class Workout < ActiveRecord::Base
 
   # Return completed workouts for a specific user
   scope :completed, (lambda { |user|
-    where('workouts.id in (select workout_id from completed_workouts where user_id = ?)', user) 
+    where('workouts.id in (select workout_id from completed_workouts where user_id = ? AND MGR_OVERRIDE IS NOT TRUE)', user) 
   })
 
   # check if active for a certain user (based on timezone)
@@ -45,6 +45,10 @@ class Workout < ActiveRecord::Base
     else
       end_date.to_time.in_time_zone(user.time_zone).end_of_day
     end
+  end
+
+  def effective_date
+    end_date ? start_date.strftime("%B %e, %Y") + " to " + end_date.strftime("%B %e, %Y") : start_date.strftime("%B %e, %Y")
   end
 
   # Return true if there are no exercises assigned

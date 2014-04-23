@@ -39,6 +39,12 @@ function editCompletedSet(cs_id) {
   $.get(completedSetJS, null, null, "script");
 };
 
+function createExclusion(user, workout) {
+  // Fetch JS to populate modal
+  var completedSetJS = "/completed_workouts/new";
+  $.get(completedSetJS, {user: user, workout: workout}, null, "script");
+};
+
 
 $(function() {
   // Create a countdown timer till midnight for DIV with id #countdown

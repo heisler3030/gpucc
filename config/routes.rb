@@ -22,10 +22,11 @@ Gpucc::Application.routes.draw do
     end
   end
 
-  resources :exercises, :challenge_assignments, :completed_sets, :users
+  resources :exercises, :challenge_assignments, :completed_sets, :users, :completed_workouts
+
 
   match '/today' => 'todays_workout#index'
   match '/home' => 'home#index'
-  #match '/missedworkouts' => 'missedworkouts'
+  match '/missedworkouts/:id' => 'missed_workouts#show', :as => "missedworkouts"
 
 end

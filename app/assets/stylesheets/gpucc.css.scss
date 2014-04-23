@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .modal, .modal.fade.in {
-    top: 50%; /* was 10% */
+//     top: 50%; 
 }
 
 body {
@@ -57,6 +57,10 @@ body {
 	width:60px;
 	padding: 6px 12px;
 
+}
+
+iframe {
+	border:0;
 }
 
 /////////////////////////// ///// Vendor Overrides ///// ///////////////////////////

@@ -14,6 +14,11 @@ class ChallengeAssignment < ActiveRecord::Base
   scope :disqualified, where("disqualify_date IS NOT NULL")
   scope :inactive, where("disqualify_date IS NOT NULL OR completed_date IS NOT NULL")
 
+  # Class method for retrieving Assignment
+  def self.get(user, challenge)
+    ChallengeAssignment.find_by_user_id_and_challenge_id(user, challenge)
+  end
+
   # Return current status
   def status
   	if completed_date != nil
@@ -26,7 +31,9 @@ class ChallengeAssignment < ActiveRecord::Base
   end
 
   def missed_workouts
-  	challenge.past_workouts(user).where('workouts.id not in (select workout_id from completed_workouts where user_id = ?)', user_id) 
+  	challenge.past_workouts(user).where(
+      'workouts.id not in (select workout_id from completed_workouts where user_id = ?) 
+       and workouts.rest_day is not true', user_id) 
   end
 
   # Workouts that are active and incomplete
@@ -34,11 +41,6 @@ class ChallengeAssignment < ActiveRecord::Base
     if status == "Active"
       self.workouts.active(user)
     end
-  end
-
-  # Workouts that are active and incomplete
-  def completed_workouts
-    self.workouts.completed(user)
   end
 
   def remaining_misses

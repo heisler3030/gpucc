@@ -1,4 +1,10 @@
 # A WorkoutActivity represents the activity for a specific user on a specific assigned workout
+#
+# It contains 
+#   - an array of already completed sets, 
+#   - an array of the assigned exercises, and 
+#   - a pre-seeded array for new sets, used by the today's workout form
+#
 
 class WorkoutActivity
 	attr_accessor :completed_sets, :workout_exercises, :new_sets
@@ -19,7 +25,7 @@ class WorkoutActivity
 	end
 
   def date_string
-    @workout.end_date ? @workout.start_date.strftime("%A, %B %e, %Y") + " to " + @workout.end_date.strftime("%A, %B %e, %Y") : @workout.start_date.strftime("%A, %B %e, %Y")
+    @workout.effective_date
   end
 
   def count_reps(exercise)
@@ -27,14 +33,20 @@ class WorkoutActivity
   	# Used for computing completion status
 
   	exercise_sets = @completed_sets.where(:exercise_id => exercise.id)
-  	reps = 0
-  	exercise_sets.each do |es|
-  		reps += es.reps ? es.reps : nil
-  	end
 
-  	reps
+
+    #reps = 0
+  	# exercise_sets.each do |es|
+  	# 	reps += es.reps ? es.reps : nil
+  	# end
+
+  	#reps
+
+    exercise_sets.map {|x| x.reps }.sum
+
   end
 
+  # Check if all the workout_exercises are at or above goal
   def complete?
     complete_flag = true
 
