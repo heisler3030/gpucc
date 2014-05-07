@@ -4,7 +4,7 @@ class ChallengeAssignment < ActiveRecord::Base
   belongs_to :challenge
   belongs_to :user
   has_many :workouts, :through => :challenge
-  has_many :completed_workouts, :through => :workouts
+  #has_many :completed_workouts, :through => :workouts
 
   validates_presence_of :user_id, :challenge_id
   validates_uniqueness_of :user_id, :scope => :challenge_id
@@ -43,6 +43,10 @@ class ChallengeAssignment < ActiveRecord::Base
     end
   end
 
+  def completed_workouts
+    CompletedWorkout.where(user_id: user_id, workout_id: challenge.workouts)
+  end
+
   def remaining_misses
     self.challenge.max_misses - self.missed_workouts.count
   end
@@ -60,21 +64,21 @@ class ChallengeAssignment < ActiveRecord::Base
     case status_string
       when :Completed # Set completed_date to today
         unless status == :Completed
-          puts ("Changing Status for " + self.user.name + " on " + self.challenge.title + " to Completed")
+          logger.debug ("Changing Status for " + self.user.name + " on " + self.challenge.title + " to Completed")
           self.completed_date = DateTime.now.to_date
           self.disqualify_date = nil
           self.save!
         end
       when :Disqualified # Set disqualify_date to today
         unless status == :Disqualified
-          puts ("Changing Status for " + self.user.name + " on " + self.challenge.title + " to Disqualified")
+          logger.debug ("Changing Status for " + self.user.name + " on " + self.challenge.title + " to Disqualified")
           self.completed_date = nil
           self.disqualify_date = DateTime.now.to_date
           self.save!
         end
       when :Active # Clear completed / disqualify dates
         unless status == :Active
-          puts ("Changing Status for " + self.user.name + " on " + self.challenge.title + " to Active")
+          logger.debug ("Changing Status for " + self.user.name + " on " + self.challenge.title + " to Active")
           self.completed_date = nil
           self.disqualify_date = nil
           self.save!

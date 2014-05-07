@@ -54,7 +54,7 @@ class ChallengesController < ApplicationController
     
 
     @challenge = Challenge.new(params[:challenge])
-    @challenge.created_by = current_user
+    @challenge.owner = current_user
 
     if @challenge.save
       flash[:notice] = "Successfully created challenge."

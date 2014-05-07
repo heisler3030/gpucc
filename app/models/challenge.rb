@@ -13,7 +13,7 @@ class Challenge < ActiveRecord::Base
 
   belongs_to :owner, :class_name => "User"
 
-  validates_presence_of :title, :created_by, :max_misses
+  validates_presence_of :title, :owner, :max_misses
   validates_numericality_of :max_misses
 
   # Workouts that are ending on a specified date
