@@ -19,11 +19,6 @@ class ChallengesController < ApplicationController
     @upcoming_workouts = @challenge.upcoming_workouts(current_user)
     @past_workouts = @challenge.past_workouts(current_user)
 
-    @workoutsMatrix = Hash.new
-    @challenge.workouts.each do |w|
-      @workoutsMatrix[w] = w.workout_exercises
-    end
-
     respond_to do |format|
       format.html
       format.json {render :json => @challenge}
@@ -45,13 +40,8 @@ class ChallengesController < ApplicationController
     @challenge = Challenge.new
   end
   
+  
   def create
-    #render text: params[:workout].inspect
-
-    # respond_to do |format|
-    #   format.html {render :json => params}
-    # end
-    
 
     @challenge = Challenge.new(params[:challenge])
     @challenge.owner = current_user
@@ -65,6 +55,7 @@ class ChallengesController < ApplicationController
 
   end
   
+  
   def update
     @challenge = Challenge.find(params[:id])
     if @challenge.update_attributes(params[:challenge])
@@ -76,6 +67,7 @@ class ChallengesController < ApplicationController
 
   end
 
+  
   def destroy
   end
 

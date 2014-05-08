@@ -16,16 +16,13 @@
         </div>
         <div class="col-md-5 ">
           <table class="table">
-                <% if @workoutsMatrix[w] %>
-                  <% @workoutsMatrix[w].each do |exercise| %>
-                    <tr>
-                      <td><%= exercise.exercise ? exercise.exercise.name : nil %></td>
-                      <td><%= exercise.goal %></td>
-                    </tr>
-                  <% end %>
-                <% end %>
+            <% w.workout_exercises.each do |we| %>
+              <tr>
+                <td><%= we.exercise ? we.exercise.name : nil %></td>
+                <td><%= we.goal %></td>
+              </tr>
+            <% end %>
           </table>
-          
         </div>
 
       </div>

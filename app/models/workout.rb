@@ -4,7 +4,7 @@ class Workout < ActiveRecord::Base
   belongs_to :challenge
   
   has_many :workout_exercises, :dependent => :destroy
-  has_many :completed_sets
+  #has_many :completed_sets
   has_many :completed_workouts
   has_many :comments
   
@@ -58,6 +58,10 @@ class Workout < ActiveRecord::Base
 
   def time_remaining(user)
     (ends_at(user) - user.current_time) / 3600
+  end
+
+  def completed_sets(user)
+    CompletedSet.where(workout_id: self, user_id: user).order('complete_time DESC')
   end
 
   # Check completion status and create new CompletedSet if needed
