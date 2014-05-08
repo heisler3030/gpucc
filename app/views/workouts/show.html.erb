@@ -1,5 +1,40 @@
-<% content_for :title, "Today's Workout" %>
-<h2>Today's Workout</h2>
+<% content_for :title, @workout.challenge.title + " - " + @workout.effective_date %>
+<h2><%= link_to @workout.challenge.title, @workout.challenge %> - <%= @workout.effective_date %> - <%= @workout.title %></h2>
+
+	<div class="workoutactivity panel panel-default">
+		<div class="panel-body">
+			<h3><%= @user.name %></h3>
+
+			<div class="row">
+				<div class="col-sm-6">
+					<table class="table table-condensed">
+						<tbody>
+						<% @workout.workout_exercises.each do |we| %>
+
+							<% progress_width = we.pct_complete(@user) >= 100 ? 100 : we.pct_complete(@user) %>
+							<% progress_status = we.pct_complete(@user) >= 100 ? "progress-bar progress-bar-success" : "progress-bar" %>
+							
+							<tr>
+								<td class="align-middle"><%= we.exercise.name %></td>
+								<td class="align-middle"><%= we.reps_completed(@user) %> <b>/</b> <%= we.goal %></td>
+								<td class="align-middle" width="40%">
+									<div class="progress" >
+										<%= content_tag :div, {class: "#{progress_status}", role: "progressbar",  aria: {valuenow: "#{we.pct_complete(@user)}", valuemin: "0", valuemax: "100"}, style: "width: #{progress_width}%;"} do %>
+											<p class="bar"><%= we.pct_complete(@user) %>%</p>
+										<% end %>
+									</div>
+								</td>
+							</tr>
+						<% end %>
+						</tbody>
+					</table>
+				</div>
+
+
+		</div>
+	</div>
+
+
 
 <%#
 
@@ -13,12 +48,15 @@ Unpack the controller package and
 		- Show the past completed_sets
 
 %>
+
+<% if nil %>
+
 <div>
 <% @workout_activities.each do |wa| %>
 
 	<div class="workoutactivity panel panel-default">
 		<div class="panel-body">
-			<h3><%= link_to wa.workout.challenge.title, wa.workout.challenge %> - <%= wa.date_string %></h3>
+			<h3><%= link_to wa.workout.challenge.title, wa.workout.challenge %> - <%= wa.date_string %> - <%= @user.name %></h3>
 
 			
 			<%#----- Assignment Section --------%>	
@@ -37,16 +75,19 @@ Unpack the controller package and
 						<% wa.workout_exercises.each do |we| %>
 
 							<%# Calculate Percent Complete (have to force floating point) %>
-							<% progress_status = we.pct_complete(@user) >= 100 ? "progress-bar progress-bar-success" : "progress-bar" %>
-							<% progress_width = we.pct_complete(@user) >= 100 ? 100 : we.pct_complete(@user) %>
+							<% pct_complete = ((wa.count_reps(we.exercise).to_f/we.goal) * 100).to_i %>
+							<% progress_status = pct_complete >= 100 ? "progress-bar progress-bar-success" : "progress-bar" %>
+							<% progress_width = pct_complete >= 100 ? 100 : pct_complete %>
 							
+							<%# Should probably turn all this into an ExerciseHelper to start to include things like time remaining for progress bar color %>
+
 							<tr>
 								<td class="align-middle"><%= we.exercise.name %></td>
-								<td class="align-middle"><%= we.reps_completed(@user) %> <b>/</b> <%= we.goal %></td>
+								<td class="align-middle"><%= wa.count_reps(we.exercise) %> <b>/</b> <%= we.goal %></td>
 								<td class="align-middle" width="40%">
 									<div class="progress" >
-										<%= content_tag :div, {class: "#{progress_status}", role: "progressbar",  aria: {valuenow: "#{we.pct_complete(@user)}", valuemin: "0", valuemax: "100"}, style: "width: #{progress_width}%;"} do %>
-											<p class="bar"><%= we.pct_complete(@user) %>%</p>
+										<%= content_tag :div, {class: "#{progress_status}", role: "progressbar",  aria: {valuenow: "#{pct_complete}", valuemin: "0", valuemax: "100"}, style: "width: #{progress_width}%;"} do %>
+											<p class="bar"><%= pct_complete %>%</p>
 										<% end %>
 									</div>
 								</td>
@@ -161,3 +202,5 @@ Unpack the controller package and
   	</div>
   </div>
 </div>
+
+<% end %>

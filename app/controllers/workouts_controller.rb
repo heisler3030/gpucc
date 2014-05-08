@@ -8,6 +8,9 @@ class WorkoutsController < ApplicationController
   
   def show
   	@workout = Workout.find(params[:id])
+
+    # If user not specified or not found, use current
+    @user = (params[:user] && (User.find_by_id(params[:user]) ) ? User.find(params[:user]) : current_user)
   end
 
   def new
