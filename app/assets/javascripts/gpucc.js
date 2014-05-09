@@ -21,6 +21,8 @@ $(function() {
     	});
 });
 
+// Enable Bootstrap Tabcollapse
+$('#myTab').tabCollapse();
 
 // Javascript to enable href to specific tab
 $(document).ready(function(event) {

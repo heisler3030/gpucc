@@ -15,5 +15,6 @@
 //= require jquery.plugin.min
 //= require jquery.countdown.min
 //= require bootstrap-datepicker
+//= require bootstrap-tabcollapse
 //= require summernote.min
 //= require_tree .
