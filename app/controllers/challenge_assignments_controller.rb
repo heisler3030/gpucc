@@ -8,6 +8,20 @@ class ChallengeAssignmentsController < ApplicationController
   end
   
   def show
+  
+    @challenge_assignment = ChallengeAssignment.find(params[:id])
+    @challenge = @challenge_assignment.challenge
+    @user = @challenge_assignment.user
+
+    # If user not specified or not found, use current
+    #@user = (params[:user] && (User.find_by_id(params[:user]) ) ? User.find(params[:user]) : current_user)
+
+    @past_workouts = @challenge.workouts.order('start_date DESC')
+
+    # respond_to do |format|
+    #   format.html
+    # end  
+
   end
 
   def new

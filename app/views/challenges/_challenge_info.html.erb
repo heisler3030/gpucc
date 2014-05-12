@@ -1,0 +1,15 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">Info</div>
+
+	<div class="panel-body">
+		<dl class="dl-horizontal">				
+			<dt>Status</dt><dd><%= @challenge.status %></dd> 
+			<dt>Join By</dt><dd><%= @challenge.join_by.strftime("%B %e, %Y") %></dd>
+			<dt>Starts</dt><dd><%= @challenge.start_date.strftime("%B %e, %Y") %></dd>
+			<dt>Ends</dt><dd><%= @challenge.end_date.strftime("%B %e, %Y") %></dd>
+			<dt>Days Remaining</dt><dd><%= @challenge.days_remaining %></dd>
+			<dt>Max Misses</dt><dd><%= @challenge.max_misses %></dd>
+			<dt>Participants</dt><dd><%= @challenge.challenge_assignments.count %></dd>
+		</dl>
+	</div>
+</div>

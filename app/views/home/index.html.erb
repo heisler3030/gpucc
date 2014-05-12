@@ -15,7 +15,7 @@
 			<% @my_challenges.each do |c| %>
 			  <% ca = c.get_challenge_assignment_for(current_user) %>
 			  <tr>
-			  	<td><a href="<%= url_for(c) %>"><%= c.title %></a></td>
+			  	<td><%= link_to ca.challenge.title, ca %></td>
 			  	<td><%= ca.remaining_misses %></td>
 			  	<td class="text-center"><%= ca.completed_workouts.count %> / <%= c.workouts.count %></td>
 			  	<td class="text-center"><%= c.active_assignments.count %></td>

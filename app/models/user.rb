@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
 
   # Return current_date for this user
   def current_date
-    current_time.to_date
+    self.current_time.to_date
   end
 
   # To allow for multiple sets to be created at once

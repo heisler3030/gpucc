@@ -2,6 +2,8 @@ class CompletedSetsController < ApplicationController
   load_and_authorize_resource
 
   def create
+    # Gets a hash of CompletedSets from the today's workout view
+    
     logger.debug("CompletedSetsController#create")
     completed_sets = params[:completed_sets]
 
@@ -36,9 +38,11 @@ class CompletedSetsController < ApplicationController
   
   def update
     @completed_set = CompletedSet.find(params[:id])
+
+    logger.debug("Updating CompletedSet")
     
     if @completed_set.update_attributes(params[:completed_set])
-      flash[:notice] = "Successfully updated completed_set."
+      flash[:notice] = "Successfully updated Completed Set."
       @completed_set.workout.check_if_completed(@completed_set.user)
       redirect_to(today_path)
     else

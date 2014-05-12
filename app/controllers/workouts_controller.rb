@@ -3,7 +3,7 @@ class WorkoutsController < ApplicationController
   load_and_authorize_resource
 
   def index
-  	@workouts = Workout.all
+  	@challenge = Challenge.find(params[:challenge_id])
   end
   
   def show

@@ -11,7 +11,7 @@ class CompletedWorkout < ActiveRecord::Base
 
   # Class method for retrieving CompletedWorkout
   def self.get(user, workout)
-    ChallengeAssignment.find_by_user_id_and_workout_id(user, workout)
+    CompletedWorkout.find_by_user_id_and_workout_id(user, workout)
   end
 
 end

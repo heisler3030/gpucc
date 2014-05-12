@@ -7,18 +7,12 @@
 		  <thead>
 		  	<th>User</th>
 		  	<th>Join Date</th>
-		  	<th>Workouts Completed</th>
-		  	<th>Missed Workouts</th>
-		  	<th>Action</th>
 		  </thead>
 		  <tbody>
 		    <% challenge.active_assignments.each do |ca| %>
 		      <tr>
-		        <td><%= ca.user.name %></td>
+		        <td><%= link_to ca.user.name, ca %></td>
 		        <td><%= ca.join_date %></td>
-		        <td><a href="link to completedworkouts"><span class="badge"><%= ca.completed_workouts.count %></span></a></td>
-		        <td><span class="badge"><%= link_to ca.missed_workouts.count, missedworkouts_path(ca.id) %></span></a></td>
-		        <td><%= link_to "Remove Assignment", challenge_assignment_path(ca.id), :method => :delete, data: { confirm: 'Are you certain you want to delete this?' }, :class => 'btn btn-primary' %></td>
 		      </tr>
 		    <% end %>
 		  </tbody>
@@ -33,21 +27,13 @@
 		<table class="table">
 		  <thead>
 		  	<th>User</th>
-		  	<th>Join Date</th>
-		  	<th>Workouts Completed</th>
-		  	<th>Missed Workouts</th>
 		  	<th>Disqualify Date</th>
-		  	<th>Action</th>
 		  </thead>
 		  <tbody>
 		    <% challenge.disqualified_assignments.each do |ca| %>
 		      <tr>
 		        <td><%= ca.user.name %></td>
-		        <td><%= ca.join_date %></td>
-		        <td><a href="link to completedworkouts"><span class="badge"><%= ca.completed_workouts.count %></span></a></td>
-		        <td><span class="badge"><%= link_to ca.missed_workouts.count, missedworkouts_path(ca.id) %></span></a></td>
 		        <td><%= ca.disqualify_date %></td>
-		        <td><%= link_to "Remove Assignment", challenge_assignment_path(ca.id), :method => :delete, data: { confirm: 'Are you certain you want to delete this?' }, :class => 'btn btn-primary' %></td>
 		      </tr>
 		    <% end %>
 		  </tbody>
@@ -62,18 +48,12 @@
 		<table class="table">
 		  <thead>
 		  	<th>User</th>
-		  	<th>Join Date</th>
-		  	<th>Workouts Completed</th>
-		  	<th>Missed Workouts</th>
 		  	<th>Completed Date</th>
 		  </thead>
 		  <tbody>
 		    <% challenge.completed_assignments.each do |ca| %>
 		      <tr>
 		        <td><%= ca.user.name %></td>
-		        <td><%= ca.join_date %></td>
-		        <td><a href="link to completedworkouts"><span class="badge"><%= ca.completed_workouts.count %></span></a></td>
-		        <td><a href="link to missedworkouts"><span class="badge"><%= ca.missed_workouts.count %></span></a></td>
 		        <td><%= ca.completed_date %></td>
 		      </tr>
 		    <% end %>

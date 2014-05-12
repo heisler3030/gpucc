@@ -18,7 +18,7 @@ Unpack the controller package and
 
 	<div class="workoutactivity panel panel-default">
 		<div class="panel-body">
-			<h3><%= link_to aw.challenge.title, aw.challenge %> - <%= aw.effective_date %></h3>
+			<h3><%= link_to aw.challenge.title, ChallengeAssignment.get(@user, aw.challenge) %> - <%= aw.effective_date %></h3>
 
 			
 			<%#----- Assignment Section --------%>	

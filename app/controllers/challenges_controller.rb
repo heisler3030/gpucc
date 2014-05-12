@@ -16,8 +16,12 @@ class ChallengesController < ApplicationController
   
   def show
   	@challenge = Challenge.find(params[:id])
-    @upcoming_workouts = @challenge.upcoming_workouts(current_user)
-    @past_workouts = @challenge.past_workouts(current_user)
+
+    # If user not specified or not found, use current
+    @user = (params[:user] && (User.find_by_id(params[:user]) ) ? User.find(params[:user]) : current_user)
+
+    @upcoming_workouts = @challenge.upcoming_workouts(@user)
+    @past_workouts = @challenge.past_workouts(@user)
 
     respond_to do |format|
       format.html

@@ -1,49 +1,60 @@
+<%# 
+   Challenge View
+   
+%>
+
+<% content_for :title, @challenge.title %>
+
 <div>
-  <h1><%= @challenge.title %></h1>
 
-  <ul id="myTab" class="nav nav-tabs">
-    <li class="active"><a href="#description" data-toggle="tab">Description</a></li>
-    <li class=""><a href="#upcoming-workouts" data-toggle="tab">Upcoming Workouts (<%= @upcoming_workouts.size %>)</a></li>
-    <li class=""><a href="#past-workouts" data-toggle="tab">Past Workouts (<%= @past_workouts.size %>)</a></li>
-    <li class=""><a href="#participants" data-toggle="tab">Participants</a></li>
-  </ul>
+<%# --------------- Header Section -------------- %>
+  
+  <div id="header" class="row">
+    <div class="col-xs-8"><h3><%= @challenge.title %></h3></div>
 
+    <%# ---- Admin ------ %>
+    <% if can? :manage, @challenge %> 
 
+      <div class="col-xs-4 ">
+        <div class="dropdown pull-right">
+          <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+            Manage
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+            <li role="presentation"><%= link_to "+ Add Workout", new_challenge_workout_path(@challenge.id) %></li>
+            <li role="presentation" class="divider"></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Upcoming Workouts</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Manage Participants</a></li>
+            <li role="presentation" class="divider"></li>
+            <li role="presentation"><%= link_to "Settings", edit_challenge_path(@challenge.id) %></li>
+          </ul>
+        </div>
+      </div>
 
+    <% end %>
 
-  <div id="myTabContent" class="tab-content">
-
-
-  <%# ---------------  Description Section -------------------------  %>
-
-    <div class="tab-pane fade active in" id="description">
-      <%= render "challenge_description", :challenge => @challenge %>
-    </div>
-
-  <%# ---------------  Upcoming Workouts Section -------------------------%>
-
-    <div class="tab-pane fade" id="upcoming-workouts">
-        <div class="row text-right"><div class="col-md-12"><%= link_to "+ Add Workout", new_challenge_workout_path(@challenge.id), :class => "btn btn-primary active", :role=>"button" %></div></div>
-        <%= render "/workouts/workout", :workouts => @upcoming_workouts %>
-
-    </div>
-
-  <%# ---------------  Past Workouts Section -------------------------%>
-
-    <div class="tab-pane fade" id="past-workouts">
-        <%= render "/workouts/workout", :workouts => @past_workouts %>
-
-    </div>
-
-  <%# ---------------  Participants Section -------------------------%>
-
-    <div class="tab-pane fade" id="participants">
-      <%= render "challenge_participants", :challenge => @challenge %>
-    </div>        
   </div>
 
 
+<%# ----------------- Main Body ---------------------------- %>
 
+  <div id="firstrow" class="row">
+    <div id="description" class="col-sm-8">
+      <%= render "challenge_description", :challenge => @challenge %>
+    </div>
+    <div id="info" class="col-sm-4">
+      <%= render "challenge_info", :challenge => @challenge %>
+    </div>
+  </div> <%# End firstrow %>
 
+  <div id="secondrow" class="row">
+    <div id="workouts" class="col-sm-8">
+      <%= render "/workouts/workout", :workouts => @past_workouts %>
+    </div>
+    <div id="participants" class="col-sm-4">
+      <%= render "challenge_participants", :challenge => @challenge %>
+    </div>
+  </div> <%# End secondrow %>
 
 </div>

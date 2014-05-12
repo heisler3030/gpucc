@@ -52,4 +52,14 @@ class Challenge < ActiveRecord::Base
     ChallengeAssignment.find_by_user_id_and_challenge_id(user, self)
   end
 
+  def status
+    #TODO:  Make this real
+    # In Progress, Completed, Registration
+    "In Progress"
+  end
+
+  def days_remaining
+    (end_date - Time.now.to_date).to_i >= 0 ? (end_date - Time.now.to_date).to_i : 0
+  end
+
 end

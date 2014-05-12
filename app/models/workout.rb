@@ -31,11 +31,35 @@ class Workout < ActiveRecord::Base
 
   # check if active for a certain user (based on timezone)
   def active?(user)
-    user.current_date == start_date && (end_date.is_nil? || user.current_date <= end_date) && not(complete?)
+    user.current_date == start_date && (end_date.nil? || user.current_date <= end_date) && not(complete?(user))
   end
 
   def complete?(user)
     not((CompletedWorkout.where("workout_id = ? AND user_id = ?", self, user)).empty?) 
+  end
+
+  # Check status for a specific user
+  # TODO:  eliminate methods above?
+  def status(user)
+    if rest_day   # Rest day if flag is set
+      :rest
+    else 
+      cw = CompletedWorkout.get(user, self)
+      if cw
+        if cw.mgr_override  # Excused if there is a manager override
+          :excused 
+        else
+          :completed  # Completed normally without mgr override
+        end
+      else
+        if active?(user)
+          :open
+        else
+          :expired
+        end
+      end
+    end
+      
   end
 
   # Return end time based on user timezone
@@ -64,25 +88,23 @@ class Workout < ActiveRecord::Base
     CompletedSet.where(workout_id: self, user_id: user).order('complete_time DESC')
   end
 
-  # Check completion status and create new CompletedSet if needed
+  # Check completion status and create new CompletedWorkout if needed
+  # TODO: Check if it should be "incompleted" in case set drops below goal?
   def check_if_completed(user)
-  	# can I refactor the workouts_bundle somehow for this?
-  	logger.debug("Checking completion for workout " + id.to_s + " by user " + user.name.to_s)
 
-  	if not((CompletedWorkout.where("workout_id = ? AND user_id = ?", self, user)).empty?)  # If a CompletedWorkout exists already, no further action
-  		logger.debug("Already completed")
+  	logger.info("Checking completion for workout " + id.to_s + " by user " + user.name.to_s)
+
+  	if complete?(user)  # If a CompletedWorkout exists already, no further action
+  		logger.info("Already completed")
   		return false
-  	elsif WorkoutActivity.new(self, user).complete?  # Otherwise, check if it is complete, and build a CompletedWorkout
-  		logger.debug("Completed!  Creating new CompletedWorkout")
+    elsif self.workout_exercises.map {|we| we.complete?(user)}.reduce {|x,y| x && y}  # Check if all exercises are complete (e.g. all return true)
+  		logger.info("Completed!  Creating new CompletedWorkout")
   		CompletedWorkout.create!(:user => user, :workout => self, :complete_time => Time.now)
   		return true
     else
-	  	logger.debug("Not yet completed")
+	  	logger.info("Not yet completed")
 	  	return false
   	end
   end
 
 end
-
-
-

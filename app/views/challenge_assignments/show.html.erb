@@ -1,0 +1,39 @@
+<%# 
+   Challenge Assignment View (User)
+   
+%>
+
+<% content_for :title, @challenge.title %>
+
+<div>
+
+  <div id="header" class="row">
+    <div class="col-xs-9"><h3><%= link_to @challenge.title, @challenge %> - <%= link_to @user.name, @user %></h3></div>
+  </div>
+
+  <div id="firstrow" class="row">
+
+    <div id="workouts" class="col-sm-7">
+      <div class="panel">
+        <table class="table">
+        <% @past_workouts.each do |pw| %>
+          <tr>
+            <td><%= content_tag :span, nil, {class: "#{WorkoutsHelper.get_glyph(pw.status(@user))}"} %></td>
+            <td><%= link_to pw.effective_date, userworkout_path(id: pw, user: @user) %></td>
+            <td><%= pw.title %></td>
+            <td><%= pw.comments.count %></td>
+          </tr>
+        <% end %>
+        </table>
+      </div>
+    </div>
+
+
+    <div id="stats" class="col-sm-5">
+      <%= render "challenge_assignment_stats", :ca => @challenge_assignment %>
+      <%= render "/challenges/challenge_participants", :challenge => @challenge %>
+    </div>
+
+  </div> <%# End firstrow %>
+
+</div>
