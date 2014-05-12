@@ -33,7 +33,7 @@ body {
 }
 
 // Set the challenge description background-color
-#description {
+#challenge-description {
 	background-color: #fff
 }
 
@@ -61,6 +61,16 @@ body {
 
 iframe {
 	border:0;
+}
+
+//// Glyph Colors
+
+.green {
+	color: green;
+}
+
+.red {
+	color: red;
 }
 
 /////////////////////////// ///// Vendor Overrides ///// ///////////////////////////
