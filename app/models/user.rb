@@ -27,6 +27,11 @@ class User < ActiveRecord::Base
     add_role(:user)
   end
 
+  # Return name and role
+  def name_with_role
+    name + " (" + "Role" + ")"
+  end
+
   # Return current_time for this user
   def current_time
     Time.now.in_time_zone(time_zone)

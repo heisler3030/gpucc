@@ -33,6 +33,8 @@ class ChallengesController < ApplicationController
   def edit
     @challenge = Challenge.find(params[:id])
     @upcoming_workouts = @challenge.upcoming_workouts(current_user)
+    @owner = @challenge.owner
+    @owners = User.with_role(:trainer).order(:name) + User.with_role(:admin).order(:name)
 
     respond_to do |format|
       format.html
@@ -42,14 +44,15 @@ class ChallengesController < ApplicationController
 
   def new
     @challenge = Challenge.new
+    @owner = current_user
+    @owners = User.with_role(:admin)
   end
   
   
   def create
 
     @challenge = Challenge.new(params[:challenge])
-    @challenge.owner = current_user
-
+    
     if @challenge.save
       flash[:notice] = "Successfully created challenge."
       redirect_to @challenge

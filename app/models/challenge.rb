@@ -1,5 +1,5 @@
 class Challenge < ActiveRecord::Base
-  attr_accessible :title, :description, :start_date, :end_date, :workouts_attributes, :max_misses, :join_by
+  attr_accessible :title, :description, :start_date, :end_date, :workouts_attributes, :max_misses, :join_by, :owner_id
 
   has_many :workouts
   has_many :challenge_assignments
