@@ -50,8 +50,9 @@ class Ability
 # ------------ User Privileges -------------------------------------------------
 
     elsif user.has_role? :user
-      can :read, Challenge
-      can [:read, :create], ChallengeAssignment, :user_id => user.id
+      can [:read], Challenge
+      can [:read], ChallengeAssignment
+      can [:create], ChallengeAssignment, :user_id => user.id
       can [:manage], CompletedSet, :user_id => user.id  # TODO: Prevent edits after due date
       can [:manage], Comment, :user_id => user.id  # TODO: Probably want to restrict destroy?
     end
