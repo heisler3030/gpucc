@@ -18,9 +18,11 @@ class Workout < ActiveRecord::Base
   # Return active workouts for a specific user
   # (Active for this date)
   scope :active, (lambda { |user| 
-      active_sql = "? = workouts.start_date
-                     AND (workouts.end_date IS NULL OR ? <= workouts.end_date)"
-      where(active_sql, user.current_date, user.current_date)
+      active_sql = "workouts.challenge_id IN (select challenge_id from challenge_assignments where user_id = ?)
+                    AND 
+                       (? = workouts.start_date AND workouts.end_date IS NULL)
+                       OR (? BETWEEN workouts.start_date AND workouts.end_date)"
+      where(active_sql, user.id, user.current_date, user.current_date)
   } )
 
   # Return completed workouts for a specific user
