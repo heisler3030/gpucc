@@ -59,6 +59,8 @@ body {
 
 }
 
+
+
 iframe {
 	border:0;
 }
@@ -91,6 +93,11 @@ iframe {
 // Countdown timer formatting
 .is-countdown {
 	height: 60px;
+}
+
+// Panel Overflow
+.panel {
+	overflow: auto;
 }
 
 // Fix bootstrap date spacer formatting
