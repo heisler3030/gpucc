@@ -21,7 +21,7 @@ class ChallengesController < ApplicationController
     @user = (params[:user] && (User.find_by_id(params[:user]) ) ? User.find(params[:user]) : current_user)
 
     @upcoming_workouts = @challenge.upcoming_workouts(@user)
-    @past_workouts = @challenge.past_workouts(@user)
+    @workouts = @challenge.current_and_past_workouts(@user)
 
     respond_to do |format|
       format.html
