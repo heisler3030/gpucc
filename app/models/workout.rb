@@ -16,12 +16,11 @@ class Workout < ActiveRecord::Base
   #validates_with WorkoutValidator
 
   # Return active workouts for a specific user
-  # (Active for this date and not completed)
+  # (Active for this date)
   scope :active, (lambda { |user| 
       active_sql = "? = workouts.start_date
-                     AND (workouts.end_date IS NULL OR ? <= workouts.end_date) AND
-                     workouts.id not in (select workout_id from completed_workouts where user_id = ?)"
-      where(active_sql, user.current_date, user.current_date, user)
+                     AND (workouts.end_date IS NULL OR ? <= workouts.end_date)"
+      where(active_sql, user.current_date, user.current_date)
   } )
 
   # Return completed workouts for a specific user
