@@ -10,6 +10,7 @@
 			<dt>Days Remaining</dt><dd><%= @challenge.days_remaining %></dd>
 			<dt>Max Misses</dt><dd><%= @challenge.max_misses %></dd>
 			<dt>Participants</dt><dd><%= @challenge.challenge_assignments.count %></dd>
+			<dt>Owner</dt><dd><%= link_to @challenge.owner.name, @challenge.owner %></dd>
 		</dl>
 	</div>
 </div>
