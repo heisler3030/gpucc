@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
 
   # Return name and role
   def name_with_role
-    name + " (" + "Role" + ")"
+    name + " (" + self.roles.first.name.titlecase + ")"
   end
 
   # Return current_time for this user
