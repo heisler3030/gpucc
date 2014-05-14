@@ -43,7 +43,7 @@ class Ability
 
     elsif user.has_role? :trainer
       can :read, :all
-      can :manage, Challenge, :owner_id => user.id
+      can [:manage,:manageparticipants], Challenge, :owner_id => user.id
       can :manage, ChallengeAssignment, :challenge => {:owner_id => user.id }  
       can :manage, Workout, :challenge => {:owner_id => user.id }
 
@@ -53,7 +53,10 @@ class Ability
       can [:read], Challenge
       can [:read], ChallengeAssignment
       can [:create], ChallengeAssignment, :user_id => user.id
-      can [:manage], CompletedSet, :user_id => user.id  # TODO: Prevent edits after due date
+      can [:create], CompletedSet, :user_id => user.id
+      can [:update, :delete], CompletedSet do |cs| 
+        cs.workout.active?(user) && user.id == cs.user_id  # Only edit current workouts for yourself
+      end
       can [:manage], Comment, :user_id => user.id  # TODO: Probably want to restrict destroy?
     end
 
