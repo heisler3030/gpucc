@@ -8,7 +8,13 @@
 <div>
 
   <div id="header" class="row">
-    <div class="col-xs-9"><h3><%= link_to @challenge.title, @challenge %> - <%= link_to @user.name, @user %></h3></div>
+    <div class="col-xs-12">
+      <ol class="breadcrumb col-xs-8">
+        <li><%= link_to "Challenges", challenges_path %></li>
+        <li><%= link_to @challenge.title, @challenge %></li>
+        <li class="active"><%= link_to @user.name, @user %></li>
+      </ol>
+    </div>
   </div>
 
   <div id="firstrow" class="row">

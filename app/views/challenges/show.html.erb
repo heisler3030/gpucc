@@ -10,7 +10,10 @@
 <%# --------------- Header Section -------------- %>
   
   <div id="header" class="row">
-    <div class="col-xs-8"><h3><%= @challenge.title %></h3></div>
+    <ol class="breadcrumb col-xs-8">
+      <li><%= link_to "Challenges", challenges_path %></li>
+      <li class="active"><%= @challenge.title %></li>
+    </ol>
 
     <%# ---- Admin ------ %>
     <% if can? :manage, @challenge %> 

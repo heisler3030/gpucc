@@ -1,5 +1,14 @@
 <% content_for :title, @workout.challenge.title + " - " + @workout.effective_date %>
-<h2><%= link_to @workout.challenge.title, @workout.challenge %> - <%= @workout.effective_date %> - <%= @workout.title %></h2>
+
+<div id="header" class="row">
+	<div class="col-xs-12">
+	  <ol class="breadcrumb col-xs-8">
+	    <li><%= link_to "Challenges", challenges_path %></li>
+	    <li><%= link_to @workout.challenge.title, @workout.challenge %></li>
+	    <li class="active"><%= @workout.effective_date %> - <%= @workout.title %></li>
+	  </ol>
+	</div>
+</div>
 
 <div class="panel-group" id="accordion">
 
