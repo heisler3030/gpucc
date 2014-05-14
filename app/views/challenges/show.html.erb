@@ -25,7 +25,7 @@
             <li role="presentation"><%= link_to "+ Add Workout", new_challenge_workout_path(@challenge.id) %></li>
             <li role="presentation" class="divider"></li>
             <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Upcoming Workouts</a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Manage Participants</a></li>
+            <li role="presentation"><%= link_to "Manage Participants", manageparticipants_path(@challenge.id) %></li>
             <li role="presentation" class="divider"></li>
             <li role="presentation"><%= link_to "Edit Challenge", edit_challenge_path(@challenge.id) %></li>
           </ul>

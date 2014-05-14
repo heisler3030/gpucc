@@ -1,8 +1,6 @@
 class ChallengesController < ApplicationController
   #before_filter :authenticate_user!
   load_and_authorize_resource
-
-
   
   def index
 
@@ -32,7 +30,6 @@ class ChallengesController < ApplicationController
 
   def edit
     @challenge = Challenge.find(params[:id])
-    @upcoming_workouts = @challenge.upcoming_workouts(current_user)
     @owner = @challenge.owner
     @owners = User.with_role(:trainer).order(:name) + User.with_role(:admin).order(:name)
 
@@ -41,6 +38,10 @@ class ChallengesController < ApplicationController
     end
   end
 
+
+  def manage_participants
+    @challenge = Challenge.find(params[:id])
+  end
 
   def new
     @challenge = Challenge.new
