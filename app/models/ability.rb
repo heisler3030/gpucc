@@ -58,6 +58,7 @@ class Ability
         cs.workout.active?(user) && user.id == cs.user_id  # Only edit current workouts for yourself
       end
       can [:manage], Comment, :user_id => user.id  # TODO: Probably want to restrict destroy?
+      can [:read], Workout
     end
 
   end
