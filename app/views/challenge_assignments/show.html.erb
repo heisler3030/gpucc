@@ -17,20 +17,36 @@
     </div>
   </div>
 
+  <div id="title" class="row"><h3>Challenge Status</h3></div>
+
   <div id="firstrow" class="row">
 
     <div id="workouts" class="col-sm-7">
-      <div class="panel">
-        <table class="table">
-        <% @past_workouts.each do |pw| %>
-          <tr>
-            <td><%= content_tag :span, nil, {class: "#{WorkoutsHelper.get_glyph(pw.status(@user))}"} %></td>
-            <td><%= link_to pw.effective_date, userworkout_path(id: pw, user: @user) %></td>
-            <td><%= pw.title %></td>
-            <td><%= pw.comments.count %></td>
-          </tr>
-        <% end %>
-        </table>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          Previous Workouts
+        </div>
+
+        <div class="panel-body">
+          <table class="table">
+            <thead>
+              <th>Status</th>
+              <th>Workout Date</th>
+              <th>Title</th>
+              <th>Comments</th>
+            </thead>
+            <tbody>
+              <% @past_workouts.each do |pw| %>
+                <tr>
+                  <td><%= content_tag :span, nil, {class: "#{WorkoutsHelper.get_glyph(pw.status(@user))}"} %></td>
+                  <td><%= link_to pw.effective_date, userworkout_path(id: pw, user: @user) %></td>
+                  <td><%= pw.title %></td>
+                  <td><%= pw.comments.count %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 

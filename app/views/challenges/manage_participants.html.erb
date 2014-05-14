@@ -1,3 +1,16 @@
+<div id="header" class="row">
+<div class="col-xs-12">
+  <ol class="breadcrumb col-xs-8">
+    <li><%= link_to "Challenges", challenges_path %></li>
+    <li><%= link_to @challenge.title, @challenge %></li>
+    <li class="active">Manage Participants</li>
+  </ol>
+</div>
+</div>
+
+<div id="title" class="row"><h3>Manage Participants</h3></div>
+
+
 <div class="panel panel-primary">
 	<div class="panel-heading">Active Participants (<%= @challenge.active_assignments.count %>)</div>
 	<div class="panel-body">

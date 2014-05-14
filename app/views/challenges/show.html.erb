@@ -5,55 +5,52 @@
 
 <% content_for :title, @challenge.title %>
 
-<div>
 
 <%# --------------- Header Section -------------- %>
   
-  <div id="header" class="row">
-    <ol class="breadcrumb col-xs-8">
-      <li><%= link_to "Challenges", challenges_path %></li>
-      <li class="active"><%= @challenge.title %></li>
-    </ol>
+<div id="header" class="row">
 
-    <%# ---- Admin ------ %>
-    <% if can? :manage, @challenge %> 
+  <ol class="breadcrumb col-xs-8">
+    <li><%= link_to "Challenges", challenges_path %></li>
+    <li class="active"><%= @challenge.title %></li>
+  </ol>
 
-      <div class="col-xs-4 ">
-        <div class="dropdown pull-right">
-          <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-            Manage
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-            <li role="presentation"><%= link_to "+ Add Workout", new_challenge_workout_path(@challenge.id) %></li>
-            <li role="presentation" class="divider"></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Upcoming Workouts</a></li>
-            <li role="presentation"><%= link_to "Manage Participants", manageparticipants_path(@challenge.id) %></li>
-            <li role="presentation" class="divider"></li>
-            <li role="presentation"><%= link_to "Edit Challenge", edit_challenge_path(@challenge.id) %></li>
-          </ul>
-        </div>
+  <%# ---- Admin ------ %>
+  <% if can? :manage, @challenge %> 
+    <div class="col-xs-4 ">
+      <div class="dropdown pull-right">
+        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+          Manage
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+          <li role="presentation"><%= link_to "+ Add Workout", new_challenge_workout_path(@challenge.id) %></li>
+          <li role="presentation" class="divider"></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Upcoming Workouts</a></li>
+          <li role="presentation"><%= link_to "Manage Participants", manageparticipants_path(@challenge.id) %></li>
+          <li role="presentation" class="divider"></li>
+          <li role="presentation"><%= link_to "Edit Challenge", edit_challenge_path(@challenge.id) %></li>
+        </ul>
       </div>
+    </div>
+  <% end %>
 
-    <% end %>
-
-  </div>
+</div>
+<div id="title" class="row"><h3><%= @challenge.title %></h3></div>
 
 
 <%# ----------------- Main Body ---------------------------- %>
 
-  <div id="description" class="col-sm-8">
-    <%= render "challenge_description", :challenge => @challenge %>
-  </div>
-  <div id="info" class="col-sm-4">
-    <%= render "challenge_info", :challenge => @challenge %>
-  </div>
+<div id="description" class="col-sm-8">
+  <%= render "challenge_description", :challenge => @challenge %>
+</div>
+<div id="info" class="col-sm-4">
+  <%= render "challenge_info", :challenge => @challenge %>
+</div>
 
-  <div id="workouts" class="col-sm-8">
-    <%= render "/workouts/workout", :workouts => @workouts %>
-  </div>
-  <div id="participants" class="col-sm-4">
-    <%= render "challenge_participants", :challenge => @challenge %>
-  </div>
-
+<div id="workouts" class="col-sm-8">
+  <%= render "/workouts/workout", :workouts => @workouts %>
+</div>
+<div id="participants" class="col-sm-4">
+  <%= render "challenge_participants", :challenge => @challenge %>
 </div>

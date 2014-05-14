@@ -8,7 +8,6 @@
 
 body {
 	background-color: #FFDB4D;
-	font-size:16px;
 }
 
 // Signin form styling
@@ -25,6 +24,12 @@ body {
 
 .workout_exercise {
 	padding:30px;
+}
+
+// Set table background to avoid overrun
+.workout-exercises {
+	background-color: white;
+	border-radius: 6px;
 }
 
 // Fix the background of the rich textarea
@@ -58,8 +63,6 @@ body {
 	padding: 6px 12px;
 
 }
-
-
 
 iframe {
 	border:0;
@@ -100,9 +103,16 @@ iframe {
 	overflow: auto;
 }
 
-// Transparent breadcrumbs
+// Breadcrumb adjustments
 .breadcrumb {
 	background-color: transparent;
+	margin:0;
+}
+
+// Header Margins
+h1, h2, h3 {
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 // Fix bootstrap date spacer formatting
