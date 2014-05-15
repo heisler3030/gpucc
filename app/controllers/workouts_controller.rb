@@ -24,6 +24,9 @@ class WorkoutsController < ApplicationController
     @challenge = Challenge.find(params[:challenge_id])
     @workout.challenge = @challenge
 
+    # Set / Unset the rest_day flag on the workout as appropriate
+    @workout.rest_day = self.rest_day?(params[:workout])    
+
     if @workout.save
       flash[:notice] = "Successfully created workout."
       redirect_to(challenge_path(@challenge, :anchor => "workouts"))
