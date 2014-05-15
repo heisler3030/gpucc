@@ -2,13 +2,23 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.modal, .modal.fade.in {
-//     top: 50%; 
+body {
+	//background: url('legopushups-right.jpg');
+	background-color: #132D4D;
 }
 
-body {
-	background-color: #FFDB4D;
+// Header Elements
+h1, h2, h3 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align: center;
+	color:#FFF;
 }
+
+// Splash page image
+/*#splashjumbo {
+	background: url('legopushups-right.jpg');
+}*/
 
 // Signin form styling
 .form-signin {
@@ -24,6 +34,10 @@ body {
 
 .workout_exercise {
 	padding:30px;
+}
+
+.record-exercises {
+	background-color: rgb(220, 229, 240);
 }
 
 // Set table background to avoid overrun
@@ -107,12 +121,6 @@ iframe {
 .breadcrumb {
 	background-color: transparent;
 	margin:0;
-}
-
-// Header Margins
-h1, h2, h3 {
-	margin-top: 10px;
-	margin-bottom: 10px;
 }
 
 // Fix bootstrap date spacer formatting

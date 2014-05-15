@@ -5,6 +5,7 @@
 	  <ol class="breadcrumb col-xs-8">
 	    <li><%= link_to "Challenges", challenges_path %></li>
 	    <li><%= link_to @workout.challenge.title, @workout.challenge %></li>
+	    <li><%= link_to @user.name, @challenge_assignment %></li>
 	    <li class="active"><%= @workout.effective_date %> - <%= @workout.title %></li>
 	  </ol>
 	</div>
@@ -63,19 +64,22 @@
 											<td><%= cs.reps %></td>
 											<td><%= cs.complete_time.in_time_zone(current_user.time_zone).strftime("%l:%M %p %Z") %></td>
 
+											<% if can? :update, cs %>
+												<td><%= link_to "Edit", nil, :onClick => "editCompletedSet(#{cs.id}); return false;" %></td>
 
-											<td><%= link_to "Edit", nil, :onClick => "editCompletedSet(#{cs.id}); return false;" %></td>
+												<%# How it works
+													- JS onclick calls function in gpucc.js
+													- jquery call submits ajax to completed_sets#edit, triggering controller event
+													- controller event sees AJAX request, fetches cs and loads to @completedsetform and triggers JS response (generated from erb template, views/completed_sets/edit.js.erb)
+													- JS response replaces modal content and toggles modal 
 
-											<%# How it works
-												- JS onclick calls function in gpucc.js
-												- jquery call submits ajax to completed_sets#edit, triggering controller event
-												- controller event sees AJAX request, fetches cs and loads to @completedsetform and triggers JS response (generated from erb template, views/completed_sets/edit.js.erb)
-												- JS response replaces modal content and toggles modal 
+													- submit of modal form triggers completed_sets#update action
+													- on successful save, flash success notice and render page again <=== what is the page here, how do I go "back to where I came from" 
+													- on unsuccessful save, return to page with modal still enabled					
+												%>
 
-												- submit of modal form triggers completed_sets#update action
-												- on successful save, flash success notice and render page again <=== what is the page here, how do I go "back to where I came from" 
-												- on unsuccessful save, return to page with modal still enabled					
-											%>
+											<% end %>
+
 										</tr>
 									<% end %>
 								</tbody>
