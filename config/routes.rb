@@ -14,7 +14,6 @@ Gpucc::Application.routes.draw do
 
 # Unauthenticated users to login page
   root :to => "devise/sessions#new"
- 
 
   resources :challenges do
     resources :workouts, shallow: true do
