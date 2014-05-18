@@ -27,7 +27,8 @@ Gpucc::Application.routes.draw do
 
   match '/today' => 'todays_workout#index'
   match '/home' => 'home#index'
-  match '/missedworkouts/:id' => 'missed_workouts#show', :as => "missedworkouts"
+  match '/about' => 'pages#about', as: "about"
+  match '/missedworkouts/:id' => 'missed_workouts#show', as: "missedworkouts"
   match '/workouts/:id/:user' => 'workouts#show', as: "userworkout"
   match '/challenges/:id/manageparticipants' => 'challenges#manage_participants', as: "manageparticipants"
   match '/challenges/:id(/:user)' => 'challenges#show'
