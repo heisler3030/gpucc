@@ -33,7 +33,7 @@ Gpucc::Application.routes.draw do
   match '/challenges/:id/manageparticipants' => 'challenges#manage_participants', as: "manageparticipants"
   match '/challenges/:id(/:user)' => 'challenges#show'
 
-  resources :verifications
+  resources :verifications, :questions
   
   #match '/verification/:user' => 'pages#verification', as: "verification"
 

@@ -16,6 +16,20 @@ That verification looks like this:
 	
 	<div class="well"><%= @verification %></div>
 
+	<div class="panel panel-primary">
+		<div class="panel-heading">Question Sets</div>
+		<div class="panel-body">
+			<table class="table">	
+				<% @verification["question_sets"].each do |id| %>
+				<tr>
+					<td><%= link_to id, question_path(id) %></td>
+				</tr>
+				<% end %>
+			</table>
+		</div>
+	</div>
+
+
 </div>
 
 
