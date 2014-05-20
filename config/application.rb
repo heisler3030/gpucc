@@ -92,5 +92,7 @@ module Gpucc
     # For logging
     config.logger = Logger.new(STDOUT)
 
+    config.app_name = "FitStalker"
+
   end
 end

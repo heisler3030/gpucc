@@ -1,0 +1,38 @@
+<% content_for :title, "Verifications" %>
+
+<div id="header" class="row">
+	<div class="col-xs-12">
+	  <ol class="breadcrumb col-xs-8">
+	    <li><%= link_to "Home", home_path %></li>
+	    <li class="active">Verifications</li>
+	  </ol>
+	</div>
+</div>
+
+<div class="row">
+	<table class="table">
+		<thead>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Status</th>
+			<th>Question Sets</th>
+			<th>Action</th>
+		</thead>
+		<tbody>
+			<% @verifications.each do |v| %>
+				<tr>
+					<td><%= content_tag :span, alt: v.inspect do %><%= v["id"] %><% end %></td>
+					<td><%= v["name"].values.join(" ") %></td>
+					<td><%= v["status"] %></td>
+					<td><%= v["question_sets"].size %></td>
+					<td><%= link_to "Get Verification", verification_path(v["id"]) %></td>
+
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+	
+
+</div>
+
+

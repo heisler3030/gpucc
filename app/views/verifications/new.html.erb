@@ -1,0 +1,61 @@
+<% content_for :title, "Verify Me" %>
+
+<div id="header" class="row">
+	<div class="col-xs-12">
+	  <ol class="breadcrumb col-xs-8">
+	    <li><%= link_to "Home", home_path %></li>
+	    <li><%= link_to @user.name, @user %></li>
+	    <li class="active">Verify</li>
+	  </ol>
+	</div>
+</div>
+
+<% if false %>
+	<%= form_tag(verifications_path) do %>
+
+	  <%= label_tag(:q, "Input stuff") %>
+	  <%= text_field_tag(:q) %>
+	  <%= submit_tag("Verify") %>
+	<% end %>
+
+<% end %>
+
+<%= form_tag(verifications_path) do %>
+
+	<div class="row">
+		<%= label_tag :first_name %>
+		<input name="verification[name][first]" type="text" value="Hamish" autofocus="true"/>
+		<%= label_tag :middle_name %>
+		<input name="verification[name][middle]" type="text"/>
+		<%= label_tag :last_name %>
+		<input name="verification[name][last]" type="text" value="Eisler" />
+	</div>
+
+	<div>
+		<%= label_tag :ssn %>
+		<input name="verification[identification][ssn]" type="text" value="0000" />
+	</div>
+
+  <div class="row">
+    <%= label_tag :date_of_birth %>
+    <input name="verification[date_of_birth]" type="text" class="input-sm" data-provide="datepicker" data-date-format="yyyy-mm-dd" />
+  </div>
+
+  <div class="row">
+  	<%= label_tag :street1 %>
+  	<input name = "verification[address][street1]" type="text" value="231 Rainier Ave">
+  	<%= label_tag :street2 %>
+  	<input name = "verification[address][street2]" type="text">
+  	<%= label_tag :city %>
+  	<input name = "verification[address][city]" type="text" value = "SSF">
+  	<%= label_tag :state %>
+  	<input name = "verification[address][state]" type="text" value = "CA">
+  	<%= label_tag :zip %>
+  	<input name = "verification[address][postal_code]" type="text" value = "94080">
+  	<input name = "verification[address][country]" type="hidden" value = "US">
+  </div>
+
+  <div class="form-submit">
+  	<input class="btn btn-primary pill-bug" name="commit" type="submit" value="Create verification ›">
+  </div>
+<% end %>

@@ -2,8 +2,8 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title><%= content_for?(:title) ? yield(:title) : "GPUCC" %></title>
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "GPUCC" %>">
+    <title><%= content_for?(:title) ? yield(:title) : ENV["APPNAME"] %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : ENV["APPNAME"] %>">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
@@ -26,6 +26,10 @@
             </div>
           </div>
           <footer>
+            <div style="width:100%; margin:auto">
+              Copyright 2014 - <%= ENV["APPNAME"] %>  |   <%= link_to "Privacy Policy", privacy_path %>
+              <div>
+            </div>
           </footer>
         </div>
       </div>

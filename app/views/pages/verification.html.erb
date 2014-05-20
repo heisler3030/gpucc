@@ -1,0 +1,28 @@
+<% content_for :title, "Verification" %>
+
+<div id="header" class="row">
+	<div class="col-xs-12">
+	  <ol class="breadcrumb col-xs-8">
+	    <li><%= link_to "Home", home_path %></li>
+	    <li><%= link_to @user.name, @user %></li>
+	    <li class="active">Verification</li>
+	  </ol>
+	</div>
+</div>
+
+<div class="row">
+	<table class="table">
+		<% @blockscore.get_verifications.each do |v| %>
+			<tr>
+				<td><%= v.inspect %></td>
+				<td>ID: <%= v["id"] %></td>
+				<% qs = @blockscore.create_question_set({verification_id: v["id"]}) %>
+				<td><%= qs.inspect %></td>
+			</tr>
+		<% end %>
+	</table>
+	
+
+</div>
+
+

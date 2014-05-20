@@ -1,6 +1,6 @@
 <div class="jumbotron" id="splashjumbo">
-  <h1>GPUCC</h1>
-  <p>The daily workout challenge that will change your life.</p>
+  <h1><%= ENV["APPNAME"] %></h1>
+  <p>Watching your every move.</p>
 
 				<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical form-signin' }) do |f| %>
 				        <h2 class="form-signin-heading">Please sign in</h2>

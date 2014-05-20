@@ -1,0 +1,20 @@
+<% content_for :title, "Verify Me" %>
+
+<div id="header" class="row">
+	<div class="col-xs-12">
+	  <ol class="breadcrumb col-xs-8">
+	    <li><%= link_to "Home", home_path %></li>
+	    <li><%= link_to @user.name, @user %></li>
+	    <li class="active">Verify</li>
+	  </ol>
+	</div>
+</div>
+
+Here's what came from the form:
+
+<div class="well"><%= @verification %></div>
+
+
+And Here's what came back from Blockscore:
+
+<div class="well"><%= @myverification %></div>
