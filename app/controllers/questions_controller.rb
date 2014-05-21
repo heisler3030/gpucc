@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   skip_authorization_check
 
-  before_filter {@blockscore = BlockScore::Client.new("ENV['BLOCKSCORE_KEY']"), version = 2)}
+  before_filter {@blockscore = BlockScore::Client.new(ENV['BLOCKSCORE_KEY'], version = 2)}
 
   def show
     @user = current_user

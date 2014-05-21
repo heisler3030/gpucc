@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   def verification
   	@user = User.find_by_id(params[:user])
 
-  	@blockscore = BlockScore::Client.new("ENV['BLOCKSCORE_KEY']", version = 2)
+  	@blockscore = BlockScore::Client.new(ENV['BLOCKSCORE_KEY'], version = 2)
 
 	@myverification = @blockscore.create_verification({
 	  type: "us_citizen",

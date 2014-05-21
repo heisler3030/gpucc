@@ -1,9 +1,12 @@
 class VerificationsController < ApplicationController
   skip_authorization_check
 
-  before_filter {@blockscore = BlockScore::Client.new("ENV['BLOCKSCORE_KEY']"), version = 2)}
-
+  before_filter {@blockscore = BlockScore::Client.new(ENV["BLOCKSCORE_KEY"], version = 2)}
+puts "helloBS"
+puts @blockscore.inspect
+puts "byebs"
   def index
+
   	@verifications = @blockscore.get_verifications
   end
   
