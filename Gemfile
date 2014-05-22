@@ -17,6 +17,7 @@ gem 'validates_timeliness', '~> 3.0'
 gem 'pg'
 gem 'font-awesome-rails'
 gem 'summernote-rails'
+gem 'bitpay-client', :require => 'bitpay'
 
 group :development do
   gem 'webrick', '~> 1.3.1'

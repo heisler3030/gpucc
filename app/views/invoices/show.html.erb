@@ -1,0 +1,20 @@
+<% content_for :title, "Invoice" %>
+
+<div id="header" class="row">
+	<div class="col-xs-12">
+	  <ol class="breadcrumb col-xs-8">
+	    <li><%= link_to "Home", home_path %></li>
+	    <li><%= link_to "Invoices", invoices_path %></li>
+	    <li class="active">Invoice #</li>
+	  </ol>
+	</div>
+</div>
+
+<div class="row">
+
+That invoice looks like this:
+	
+	<div class="well"><%= @invoice %></div>
+
+</div>
+

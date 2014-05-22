@@ -1,0 +1,31 @@
+<% content_for :title, "New Invoice" %>
+
+<div id="header" class="row">
+	<div class="col-xs-12">
+	  <ol class="breadcrumb col-xs-8">
+	    <li><%= link_to "Home", home_path %></li>
+	    <li><%= link_to "Invoices", invoices_path %></li>
+	    <li class="active">New Invoice</li>
+	  </ol>
+	</div>
+</div>
+
+<%= form_tag(invoices_path) do %>
+
+	<div class="row">
+		<%= label_tag :price %>
+		<input name="invoice[price]" type="text" value="10.00" autofocus="true"/>
+		<%= label_tag :currency %>
+		<select name="invoice[currency]">
+			<% @currencies.each do |c| %>
+				<%= content_tag :option, {value: c["code"]} do %>
+					<%= c["name"] %>
+				<% end %>
+			<% end %>
+		</select>
+	</div>
+
+	<div class="form-submit">
+		<input class="btn btn-primary pill-bug" name="commit" type="submit" value="Create Invoice">
+	</div>
+<% end %>
