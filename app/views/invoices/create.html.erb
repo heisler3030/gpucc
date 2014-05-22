@@ -1,0 +1,26 @@
+<% content_for :title, "Invoice" %>
+
+<div id="header" class="row">
+	<div class="col-xs-12">
+	  <ol class="breadcrumb col-xs-8">
+	    <li><%= link_to "Home", home_path %></li>
+	    <li><%= link_to "Invoices", invoices_path %></li>
+	    <li class="active">Invoice #</li>
+	  </ol>
+	</div>
+</div>
+
+<div class="row">
+
+The response looks like this:
+	
+	<div class="well"><%= @invoice %></div>
+
+</div>
+
+<% if @invoice["url"] %>
+
+	<div>And here's a link to the <%= link_to "INVOICE", @invoice["url"] %></div>
+
+<% end %>
+

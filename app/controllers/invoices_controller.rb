@@ -23,20 +23,8 @@ class InvoicesController < ApplicationController
   end
 
   def create
-  	puts "ABOUT TO POST INVOICE"
-  	puts params[:invoice]
   	# This isn't particularly secure but ok for POC
-  	#@invoice = @client.post 'invoice', params[:invoice]
-
-  	price = params[:invoice][:price]
-  	currency = params[:invoice][:currency]
-
-	#@invoice = @client.post 'invoice', {:price => price.to_f, :currency => currency}
-
-	@invoice = @client.post 'invoice', {:price => 10.00, :currency => 'USD'}
-
-  	puts "INVOICE RESPONSE:"
-  	puts @invoice.inspect
+  	@invoice = @client.post 'api/invoice', params[:invoice]
 
   end
 
