@@ -46,6 +46,7 @@ class Ability
       can [:manage,:manageparticipants], Challenge, :owner_id => user.id
       can :manage, ChallengeAssignment, :challenge => {:owner_id => user.id }  
       can :manage, Workout, :challenge => {:owner_id => user.id }
+      can :create, Invitation
 
 # ------------ User Privileges -------------------------------------------------
 

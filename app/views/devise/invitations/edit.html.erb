@@ -4,7 +4,9 @@
 
 <div><p>Welcome to <%= ENV["APPNAME"] %>!  Please complete the registration form below in order to create your account and get started!</p></div>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:role => 'form'}) do |f| %>
+<%= form_for(resource, :as => resource_name, :url => invitation_path(resource_name), :html => {:role => 'form'}) do |f| %>
+
+  <%= f.hidden_field :invitation_token %>
 
   <%= render "devise/shared/registration_fields", :f => f %>
 
