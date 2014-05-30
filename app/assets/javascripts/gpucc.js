@@ -33,8 +33,10 @@ $(document).ready(function(event) {
     })
 });
 
-
-
+// Show invite request form on login page
+function requestInvite() {
+  $('#myModal').modal('show');
+}
 function editCompletedSet(cs_id) {
   // Fetch JS to populate modal
   var completedSetJS = "/completed_sets/" + cs_id + "/edit";

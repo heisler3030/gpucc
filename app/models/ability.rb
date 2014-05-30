@@ -34,6 +34,10 @@ class Ability
      #     Eg. workouts, challenge assignments, completedworkouts where they are marked as owner
      # Users should be able to create/edit/destroy completedsets and edit users provided they are self
 
+#------------ Guest Privileges ------------------------------------------------
+
+#  can [:create], Interested
+
 # ------------ Admin Privileges ------------------------------------------------
 
     if user.has_role? :admin
@@ -51,6 +55,7 @@ class Ability
 # ------------ User Privileges -------------------------------------------------
 
     elsif user.has_role? :user
+      can [:read, :update], User, :id => user.id  # Can update their own profile
       can [:read], Challenge
       can [:read], ChallengeAssignment
       can [:create], ChallengeAssignment, :user_id => user.id

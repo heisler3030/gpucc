@@ -21,7 +21,8 @@ Gpucc::Application.routes.draw do
     end
   end
 
-  resources :exercises, :challenge_assignments, :completed_sets, :users, :completed_workouts
+  resources :exercises, :challenge_assignments, :completed_sets,
+     :users, :completed_workouts, :interesteds
 
 
   match '/today' => 'todays_workout#index'
