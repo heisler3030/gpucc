@@ -1,7 +1,9 @@
 class ApplicantsController < ApplicationController
-  skip_authorization_check
+  load_and_authorize_resource
 
   def index
+    @applicants = Applicant.all
+    @pending_invites = User.invited
   end
 
   def create

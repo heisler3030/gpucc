@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
 
   validates :name, uniqueness: true, presence: true
 
+  scope :invited, where('invitation_token IS NOT NULL')
+
   # Put all users in "User" role by default
   after_create :assign_default_role
   def assign_default_role

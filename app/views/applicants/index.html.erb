@@ -1,0 +1,56 @@
+  <div id="header" class="row">
+    <div class="col-xs-12">
+      <ol class="breadcrumb col-xs-8">
+        <li class="active">Invitations</li>
+      </ol>
+    </div>
+
+  </div>
+
+  <div class="panel panel-default">
+  	<div class="panel-heading">Applicants</div>
+  	<div class="panel-body">
+		<table class="table table-condensed">
+		  <thead>
+		    <tr>
+		      <th>Email</th>
+		      <th>Registered</th>
+		      <th>Action</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  <% @applicants.each do |a| %>
+		    <tr>
+		      <td><%= a.email %></td>
+		      <td><%= a.created_at %></td>
+		      <td><%= link_to("Invite User", user_invitation_path(user: {email: a.email}), :data => { :confirm => "Are you sure?" }, :method => :create, :class => 'btn btn-mini') %></td>
+		    </tr>
+		  <% end %>
+		  </tbody>
+		</table>
+	</div>
+  </div>
+
+  <div class="panel panel-default">
+  	<div class="panel-heading">Pending Invites</div>
+  	<div class="panel-body">
+		<table class="table table-condensed">
+		  <thead>
+		    <tr>
+		      <th>Email</th>
+		      <th>Invited</th>
+		      <th>Action</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  <% @pending_invites.each do |i| %>
+		    <tr>
+		      <td><%= i.email %></td>
+		      <td><%= i.invitation_created_at %></td>
+		      <td><%= link_to("Cancel Invite", user_path(i), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn btn-mini') %></td>
+		    </tr>
+		  <% end %>
+		  </tbody>
+		</table>
+	</div>
+  </div>

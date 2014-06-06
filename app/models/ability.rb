@@ -36,7 +36,7 @@ class Ability
 
 #------------ Guest Privileges ------------------------------------------------
 
-#  can [:create], Interested
+  can [:create], Applicant
 
 # ------------ Admin Privileges ------------------------------------------------
 
