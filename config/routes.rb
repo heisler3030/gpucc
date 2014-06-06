@@ -22,7 +22,7 @@ Gpucc::Application.routes.draw do
   end
 
   resources :exercises, :challenge_assignments, :completed_sets,
-     :users, :completed_workouts, :interesteds
+     :users, :completed_workouts, :applicants
 
 
   match '/today' => 'todays_workout#index'

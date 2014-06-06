@@ -1,4 +1,4 @@
-class Interested < ActiveRecord::Base
+class Applicant < ActiveRecord::Base
   attr_accessible :email
   validates :email, uniqueness: true, presence: true
 end

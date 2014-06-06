@@ -1,11 +1,11 @@
-class InterestedsController < ApplicationController
+class ApplicantsController < ApplicationController
   skip_authorization_check
 
   def index
   end
 
   def create
-  	applicant = Interested.new(params[:interested])
+  	applicant = Applicant.new(params[:applicant])
 
     begin
   	 applicant.save!

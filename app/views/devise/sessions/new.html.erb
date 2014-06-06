@@ -30,9 +30,9 @@
 			<p>Want to be a part of the FitStalker beta?</p>
 			<p>Enter your email address below to pre-register for an invite!</p>
 			
-			<%= form_tag(interesteds_path, {class: 'form-inline'}) do %>
+			<%= form_tag(applicants_path, {class: 'form-inline'}) do %>
 				<div class="form-group">
-					<input name="interested[email]" type="email" placeholder="Enter Email Address" class="form-control"/>
+					<input name="applicant[email]" type="email" placeholder="Enter Email Address" class="form-control"/>
 				</div>
 
 				<div class="form-group">
@@ -40,31 +40,6 @@
 				</div>
 
 			<% end %>
-
-
-			<% if false %>
-		      
-			<%= form_for completedsetform, :url =>completed_set_path, :html => {:class => 'form-inline', :role => 'form'} do |f| %>
-			  <%= f.error_messages %>
-				<div class="form-group">
-					<%= f.label :exercise_id, {:class => "sr-only"} %>
-					<%= f.collection_select :exercise_id, Exercise.all, :id, :name, {}, {:class => "form-control"} %>
-				</div>	
-			 
-				<div class="form-group">
-			    	<%= f.label :reps, {:class => "sr-only"} %>
-			    	<%= f.text_field :reps, {:class => "form-control", :style => "width:60px", :maxlength => "4"} %>
-			  	</div>
-
-				<div class="form-group">
-			  		<%= f.submit nil, {:class => "form-control btn btn-primary"} %>
-				</div>
-
-			<% end %>
-
-			<% end %>
-
-
 
 		</div>
 	</div>
