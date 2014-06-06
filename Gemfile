@@ -8,6 +8,7 @@ group :assets do
 end
 gem 'jquery-rails'
 gem 'bootstrap-sass'
+gem 'dynamic_form'
 gem 'cancan'
 gem 'devise'
 gem 'devise_invitable'
@@ -32,7 +33,6 @@ group :development, :test do
 end
 group :test do
   gem 'capybara'
-  gem 'cucumber-rails', :require=>false
   gem 'database_cleaner', '1.0.1'
   gem 'email_spec'
   gem 'launchy'
