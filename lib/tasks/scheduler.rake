@@ -10,7 +10,8 @@ task :workout_announcement => :environment do
   ###### Participant Workout Announcements ####################################################################
   # 
   # Daily notification of new workout info
-  # Run at 12:15AM local time
+  # Runs Hourly at xx:10
+  # Notifies at midnight local time (based on user timezone)
   #
   # TODO: This will send a notification daily for incomplete multi-day workouts
   #########################################################################################################
