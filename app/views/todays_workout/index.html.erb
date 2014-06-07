@@ -14,6 +14,11 @@ Unpack the controller package and
 
 %>
 <div>
+
+<% if @active_workouts.size == 0 %>
+  <em>No Workouts found</em>
+<% end %>
+
 <% @active_workouts.each do |aw| %>
 
 	<div class="workoutactivity panel panel-default">
@@ -24,37 +29,7 @@ Unpack the controller package and
 			<%#----- Assignment Section --------%>	
 			<div class="row">
 				<div class="col-sm-6">
-					<table class="table table-condensed">
-						<!--thead>
-							<tr>
-								<th>Exercise</th>
-								<th>Goal</th>
-								<th>Count</th>
-								<th>Progress</th>
-							</tr>
-						</thead -->
-						<tbody>
-						<% aw.workout_exercises.each do |we| %>
-
-							<%# Calculate Percent Complete (have to force floating point) %>
-							<% progress_status = we.pct_complete(@user) >= 100 ? "progress-bar progress-bar-success" : "progress-bar" %>
-							<% progress_width = we.pct_complete(@user) >= 100 ? 100 : we.pct_complete(@user) %>
-							
-							<tr>
-								<td class="align-middle"><%= we.exercise.name %></td>
-								<td class="align-middle"><%= we.reps_completed(@user) %> <b>/</b> <%= we.goal %></td>
-								<td class="align-middle" width="40%">
-									<div class="progress" >
-										<%= content_tag :div, {class: "#{progress_status}", role: "progressbar",  aria: {valuenow: "#{we.pct_complete(@user)}", valuemin: "0", valuemax: "100"}, style: "width: #{progress_width}%;"} do %>
-											<p class="bar"><%= we.pct_complete(@user) %>%</p>
-										<% end %>
-									</div>
-								</td>
-							</tr>
-
-						<% end %>
-						</tbody>
-					</table>
+					<%= render "workouts/workout_progress", {workout: aw, user: @user} %>
 
 					<%# 
 						Countdown timer DIV - will be replaced 
@@ -118,29 +93,7 @@ Unpack the controller package and
 			<% if aw.completed_sets(@user).size > 0 %>
 			<div class="panel panel-info">
 				<div class="panel-heading"><h4 class="panel-title">Previous Sets</h4></div>
-					<table class="table">
-						<tbody>
-						<% aw.completed_sets(@user).each do |cs| %>
-							<tr class="completed_set">
-								<td><%= cs.exercise.name %></td>
-								<td><%= cs.reps %></td>
-								<td><%= cs.complete_time.in_time_zone(current_user.time_zone).strftime("%l:%M %p %Z") %></td>
-								<td><%= link_to "Edit", nil, :onClick => "editCompletedSet(#{cs.id}); return false;" %></td>
-
-								<%# How it works
-									- JS onclick calls function in gpucc.js
-									- jquery call submits ajax to completed_sets#edit, triggering controller event
-									- controller event sees AJAX request, fetches cs and loads to @completedsetform and triggers JS response (generated from erb template, views/completed_sets/edit.js.erb)
-									- JS response replaces modal content and toggles modal 
-
-									- submit of modal form triggers completed_sets#update action
-									- on successful save, flash success notice and render page again <=== what is the page here, how do I go "back to where I came from" 
-									- on unsuccessful save, return to page with modal still enabled					
-								%>
-							</tr>
-						<% end %>
-					</tbody>
-					</table>
+					<%= render "workouts/completed_sets", {workout: aw, user: @user} %>
 				</div>
 			</div>
 			<% end %>
@@ -151,14 +104,4 @@ Unpack the controller package and
 		</div>
 	</div>				
 <% end %>
-</div>
-
-
-<%#- Modal Edit window - populated by AJAX %>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-  	<div class="modal-content">
-  		...
-  	</div>
-  </div>
 </div>

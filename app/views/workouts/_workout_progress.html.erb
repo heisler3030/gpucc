@@ -1,0 +1,32 @@
+<%# 
+	
+	A table of exercises and current progress.
+	Pass it a Workout as 'workout' and a user as 'user'
+
+	render "workouts/workout_progress", {workout: aw, user: @user}
+
+%>
+
+<table class="table table-condensed">
+	<tbody>
+	<% workout.workout_exercises.each do |we| %>
+
+		<%# Calculate Percent Complete (have to force floating point) %>
+		<% progress_status = we.pct_complete(user) >= 100 ? "progress-bar progress-bar-success" : "progress-bar" %>
+		<% progress_width = we.pct_complete(user) >= 100 ? 100 : we.pct_complete(user) %>
+		
+		<tr>
+			<td class="align-middle"><%= we.exercise.name %></td>
+			<td class="align-middle"><%= we.reps_completed(user) %> <b>/</b> <%= we.goal %></td>
+			<td class="align-middle" width="40%">
+				<div class="progress" >
+					<%= content_tag :div, {class: "#{progress_status}", role: "progressbar",  aria: {valuenow: "#{we.pct_complete(@user)}", valuemin: "0", valuemax: "100"}, style: "width: #{progress_width}%;"} do %>
+						<p class="bar"><%= we.pct_complete(user) %>%</p>
+					<% end %>
+				</div>
+			</td>
+		</tr>
+
+	<% end %>
+	</tbody>
+</table>

@@ -16,7 +16,7 @@ input, select, .well {
 	padding-top:20px;
 }
 
-.panel, .jumbotron, .jumbotron label, .modal-content {
+.panel, .jumbotron, .jumbotron label, .panel label, .modal-content {
 	color:#333;
 }
 
@@ -30,11 +30,6 @@ h1, h2, h3 {
 label {
 	color:#FFF;
 }
-
-// Splash page image
-//#splashjumbo {
-//	background: url('binobush.jpg');
-//}
 
 // Header image
 .title-logo {
