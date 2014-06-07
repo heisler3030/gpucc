@@ -98,12 +98,9 @@ GEM
     mime-types (1.25.1)
     mini_portile (0.5.2)
     multi_json (1.8.2)
-    nokogiri (1.6.1)
-      mini_portile (~> 0.5.0)
     nokogiri (1.6.1-x86-mingw32)
       mini_portile (~> 0.5.0)
     orm_adapter (0.5.0)
-    pg (0.14.1)
     pg (0.14.1-x86-mingw32)
     polyglot (0.3.3)
     quiet_assets (1.0.2)
@@ -207,7 +204,7 @@ DEPENDENCIES
   rails_layout
   rolify
   rspec-rails
-  sass-rails (~> 3.2.3)
+  sass-rails
   simple_form
   summernote-rails
   uglifier (>= 1.0.3)
