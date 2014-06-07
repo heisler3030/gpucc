@@ -4,7 +4,36 @@ desc "This task is called by the Heroku scheduler add-on"
 
 # Call locally by using 'rake <taskname>' - e.g. 'rake send_reminders'
 
-task :send_reminders => :environment do
+task :workout_announcement => :environment do
+  Rails.logger.debug("TASK: Sending Workout Announcements")
+
+  ###### Participant Workout Announcements ####################################################################
+  # 
+  # Daily notification of new workout info
+  # Run at 12:15AM local time
+  #
+  # TODO: This will send a notification daily for incomplete multi-day workouts
+  #########################################################################################################
+
+  ChallengeAssignment.active.each do |ca|
+    if ca.user.workout_notifications?
+      ca.open_workouts.each do |ow|
+
+        if ca.user.current_time.between?(Time.parse("12:00am"), Time.parse("12:45am")) 
+          
+            Rails.logger.debug("Sending Workout announce to " + ca.user.name.to_s + " for " + ow.effective_date)
+            
+            # Send reminder email
+            UserMailer.workout_announcement(ca.user, ow).deliver
+        end
+      end      
+    end
+  end
+
+end
+
+
+task :send_workout_reminders => :environment do
   Rails.logger.debug("TASK: Sending Reminders")
 
   ###### Participant Workout Reminders ####################################################################
@@ -50,6 +79,10 @@ task :send_reminders => :environment do
     end
     
   end
+end
+
+task :send_coach_reminders => :environment do
+  Rails.logger.debug("TASK: Sending Coach Reminders")
 
   ###### Coach Workout Reminders ####################################################################
   # 
@@ -57,6 +90,22 @@ task :send_reminders => :environment do
   #
   #########################################################################################################
 
+  Challenge.active.each do |c|
+    tomorrow = Time.now.to_date + 1.day
+
+    Rails.logger.debug "Today: " + Time.now.to_date.to_s
+    Rails.logger.debug "Tomorrow: " + tomorrow.to_s
+
+    if c.get_active_workouts_for_day(tomorrow).size == 0
+      Rails.logger.debug("Sending NoWorkoutScheduled Reminder for " + c.title)              
+      UserMailer.no_workout_scheduled_reminder(c.owner,c).deliver  
+    end
+  end
+
+end
+
+task :send_atrisk_reminders => :environment do
+  Rails.logger.debug("TASK: Sending At Risk Coach Reminders")
 
   ###### Coach At Risk Workout Reminders ####################################################################
   # 
@@ -65,6 +114,7 @@ task :send_reminders => :environment do
   #########################################################################################################
 
 end
+
 
 task :check_challenge_status => :environment do
   Rails.logger.debug("TASK: Checking Challenge Status")

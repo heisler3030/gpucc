@@ -16,6 +16,13 @@ class Challenge < ActiveRecord::Base
   validates_presence_of :title, :owner, :max_misses
   validates_numericality_of :max_misses
 
+  scope :active, where("? BETWEEN START_DATE and END_DATE", Time.now.to_date)
+
+  # Workouts that are active on a specified date
+  def get_active_workouts_for_day(date)
+        self.workouts.where("? = start_date OR (? BETWEEN workouts.start_date AND workouts.end_date)", date, date)
+  end
+
   # Workouts that are ending on a specified date
   def get_workouts_ending_for_day(date)
         self.workouts.where(["(? = workouts.start_date AND workouts.end_date is null) OR (? = workouts.end_date)", date, date]).order('start_date ASC')

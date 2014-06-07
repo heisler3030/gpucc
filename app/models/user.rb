@@ -51,8 +51,12 @@ class User < ActiveRecord::Base
 #    :allow_destroy => true,
 #    :reject_if => proc { |a| a['reps'].blank? } 
   
-  # TODO: Make this configurable for users
+  # TODO: Make these configurable for users
   def email_reminders?
+    true
+  end
+
+  def workout_notifications?
     true
   end
 
