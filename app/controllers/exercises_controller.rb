@@ -16,7 +16,7 @@ class ExercisesController < ApplicationController
     #render text: params[:exercise].inspect
     @exercise = Exercise.new(params[:exercise])
     @exercise.save
-    redirect_to @admin::exercise
+    redirect_to @exercise
   end
   
 end
