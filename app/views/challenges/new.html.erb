@@ -1,3 +1,12 @@
+<div id="header" class="row">
+	<div class="col-xs-12">
+	  <ol class="breadcrumb col-xs-8">
+	    <li><%= link_to "Challenges", challenges_path %></li>
+	    <li class="active">New</li>
+	  </ol>
+	</div>
+</div>
+
 <%= form_for @challenge, :url =>challenges_path, :html => {:role => 'form'} do |f| %>
 	<%= render 'form', :f => f %>
 <% end %>
