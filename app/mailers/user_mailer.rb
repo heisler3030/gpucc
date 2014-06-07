@@ -7,7 +7,11 @@ class UserMailer < ActionMailer::Base
 
 	def workout_announcement(user,workout)
 		subject = "Workout for " + workout.effective_date
-		
+
+		@user = user
+		@workout = workout
+		@trainer = workout.challenge.owner
+
 		mail(:to => user.email, :subject => subject)
 	end
 

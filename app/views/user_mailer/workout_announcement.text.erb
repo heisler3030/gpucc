@@ -1,0 +1,13 @@
+Hello, <%= @user.name %>.
+
+This is an automated reminder from FitStalker.
+
+Your trainer, <%= @trainer.name %>, has posted a new workout here:
+
+<%= @workout.effective_date + (@workout.title ? (" - " + @workout.title) : "") %>
+<%= workout_url(@workout) %>
+
+Thanks,
+
+-FitStalker
+http://www.fitstalker.com

@@ -19,6 +19,11 @@ class ChallengeAssignment < ActiveRecord::Base
     ChallengeAssignment.find_by_user_id_and_challenge_id(user, challenge)
   end
 
+  # Return human-readable identifier
+  def name
+    challenge.title + " - " + user.name
+  end
+
   # Return current status
   def status
   	if completed_date != nil
@@ -38,8 +43,10 @@ class ChallengeAssignment < ActiveRecord::Base
 
   # Workouts that are active and incomplete
   def open_workouts
-    if status == "Active"
+    if status == :Active
       self.workouts.active(user)
+    else
+      []
     end
   end
 

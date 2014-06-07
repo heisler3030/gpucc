@@ -15,15 +15,26 @@ task :workout_announcement => :environment do
   # TODO: This will send a notification daily for incomplete multi-day workouts
   #########################################################################################################
 
-  ChallengeAssignment.active.each do |ca|
+  active_assignments = ChallengeAssignment.active
+
+  Rails.logger.debug("Found #{active_assignments.size} active ChallengeAssignments")
+
+  active_assignments.each do |ca|
     if ca.user.workout_notifications?
-      ca.open_workouts.each do |ow|
+
+      open_workouts = ca.open_workouts
+
+      Rails.logger.debug("Found #{open_workouts.size} Open Workouts for #{ca.name} on #{ca.user.current_date}")      
+      open_workouts.each do |ow|
+
+        current_user_time = ca.user.current_time
+         Rails.logger.debug("Current Time for #{ca.name} is #{current_user_time}")
 
         if ca.user.current_time.between?(Time.parse("12:00am"), Time.parse("12:45am")) 
           
-            Rails.logger.debug("Sending Workout announce to " + ca.user.name.to_s + " for " + ow.effective_date)
+            Rails.logger.debug("Sending Workout announce to #{ca.user.name} for #{ow.effective_date}")
             
-            # Send reminder email
+            # Send announcement email
             UserMailer.workout_announcement(ca.user, ow).deliver
         end
       end      
