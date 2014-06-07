@@ -204,6 +204,7 @@ DEPENDENCIES
   rails_layout
   rolify
   rspec-rails
+  sass (= 3.2.13)
   sass-rails
   simple_form
   summernote-rails
