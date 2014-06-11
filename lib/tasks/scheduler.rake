@@ -21,22 +21,28 @@ task :workout_announcement => :environment do
   Rails.logger.debug("Found #{active_assignments.size} active ChallengeAssignments")
 
   active_assignments.each do |ca|
-    if ca.user.workout_notifications?
+    user = ca.user
+
+    if user.workout_notifications?
 
       open_workouts = ca.open_workouts
 
-      Rails.logger.debug("Found #{open_workouts.size} Open Workouts for #{ca.name} on #{ca.user.current_date}")      
+      Rails.logger.debug("Found #{open_workouts.size} Open Workouts for #{ca.name} on #{user.current_date}")      
       open_workouts.each do |ow|
+        
+        current_user_time = user.current_time
+        user_notify_time = Time.find_zone(user.time_zone).parse("12:00am")
 
-        current_user_time = ca.user.current_time
+
          Rails.logger.debug("Current Time for #{ca.name} is #{current_user_time}")
+         Rails.logger.debug("Waiting until #{user_notify_time} to notify")
 
-        if ca.user.current_time.between?(Time.parse("12:00am"), Time.parse("12:45am")) 
+        if user.current_time.between?(user_notify_time, user_notify_time + 45.minutes) 
           
-            Rails.logger.debug("Sending Workout announce to #{ca.user.name} for #{ow.effective_date}")
+            Rails.logger.debug("Sending Workout announce to #{user.name} for #{ow.effective_date}")
             
             # Send announcement email
-            UserMailer.workout_announcement(ca.user, ow).deliver
+            UserMailer.workout_announcement(user, ow).deliver
         end
       end      
     end
