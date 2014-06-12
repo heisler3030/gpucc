@@ -63,7 +63,12 @@ task :send_workout_reminders => :environment do
   ChallengeAssignment.active.each do |ca|
 
     # Only send if user wants email reminders and they were not notified today
-    if ca.user.email_reminders? && (ca.last_notified.nil? || ca.last_notified < DateTime.now.beginning_of_day)
+    Rails.logger.debug("ca.user.email_reminders? #{ca.user.email_reminders?}")
+    Rails.logger.debug("ca.last_notified.nil? #{ca.last_notified.nil?}")
+    Rails.logger.debug("ca.last_notified #{ca.last_notified}")
+    Rails.logger.debug("Time.find_zone(ca.user.time_zone).now.to_date #{Time.find_zone(ca.user.time_zone).now.to_date}")
+
+    if ca.user.email_reminders? && (ca.last_notified.nil? || ca.last_notified < Time.find_zone(ca.user.time_zone).now.to_date)
 
       ca.open_workouts.each do |ow|
 
@@ -83,10 +88,10 @@ task :send_workout_reminders => :environment do
             Rails.logger.debug("Sending Reminder")
             
             # Send reminder email
-            UserMailer.workout_reminder(user).deliver
+            UserMailer.workout_reminder(user,ow).deliver
             
             # Set last_notified flag to current date
-            ca.last_notified = Time.now
+            ca.last_notified = Time.find_zone(ca.user.time_zone).now.to_date
             ca.save
 
           else

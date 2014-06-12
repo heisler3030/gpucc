@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :role_ids, :as => :admin
-  attr_accessible :name, :email, :password, :password_confirmation, :remember_me, :time_zone #, :completed_sets_attributes
+  attr_accessible :name, :email, :password, :password_confirmation,
+   :remember_me, :time_zone, :reminder_threshold, :notifications #, :completed_sets_attributes
 
   has_many :challenges, :through => :challenge_assignments
   has_many :workouts, :through => :challenges
@@ -22,6 +23,7 @@ class User < ActiveRecord::Base
   has_many :comments, :dependent => :delete_all #:destroy
 
   validates :name, uniqueness: true, presence: true
+  validates :email, uniqueness: true, presence: true
 
   scope :invited, where('invitation_token IS NOT NULL')
 
@@ -53,15 +55,11 @@ class User < ActiveRecord::Base
   
   # TODO: Make these configurable for users
   def email_reminders?
-    true
+    not(reminder_threshold == 0)
   end
 
   def workout_notifications?
-    true
-  end
-
-  def reminder_threshold
-    10
+    notifications
   end
 
   # Get total reps for a certain exercise, for a certain date range

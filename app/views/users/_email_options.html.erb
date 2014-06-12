@@ -1,0 +1,18 @@
+<%# Email options for users - Pass form as f %>
+
+<div class="row">
+  <div class="col-sm-12">
+    <label>Email Options</label><br />
+    <div class="checkbox">
+      <label>
+        <%= f.check_box :notifications %>
+        Receive daily email notification for new workouts?
+      </label>
+    </div>
+
+    <div class="form-group">
+      <%= f.label "Receive email reminders for incomplete workouts?" %> 
+      <%= f.select :reminder_threshold, (0..9).map {|i| ["#{i} hours before deadline", i] }, {default: 3}, {:class => "form-control form-control-inline"} %> (0 = no reminder)
+    </div>
+  </div>
+</div>

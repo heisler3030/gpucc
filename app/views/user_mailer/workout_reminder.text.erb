@@ -1,1 +1,13 @@
-Don't forget to do your workout today!!
+Hello, <%= @user.name %>.
+
+This is an automated reminder from FitStalker.
+
+Your workout for <%= @workout.effective_date %> is ending soon, and is incomplete.
+
+<%= @workout.effective_date + (@workout.title ? (" - " + @workout.title) : "") %>
+<%= workout_url(@workout) %>
+
+Thanks,
+
+-FitStalker
+http://www.fitstalker.com
