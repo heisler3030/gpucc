@@ -9,15 +9,15 @@
 <%# --------------- Header Section -------------- %>
   
 <div id="header" class="row">
-
-  <ol class="breadcrumb">
-    <li><%= link_to "Challenges", challenges_path %></li>
-    <li class="active"><%= @challenge.title %></li>
-  </ol>
-
+  <div class="col-xs-8">
+    <ol class="breadcrumb">
+      <li><%= link_to "Challenges", challenges_path %></li>
+      <li class="active"><%= @challenge.title %></li>
+    </ol>
+  </div>
   <%# ---- Admin ------ %>
   <% if can? :manage, @challenge %> 
-    <div class="col-xs-4 ">
+    <div class="col-xs-4">
       <div class="dropdown pull-right">
         <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
           Manage
