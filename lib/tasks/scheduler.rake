@@ -55,6 +55,7 @@ end
 
 task :send_workout_reminders => :environment do
   Rails.logger.debug("TASK: Sending Reminders")
+  puts "Heroku Testing"
 
   ###### Participant Workout Reminders ####################################################################
   # 
