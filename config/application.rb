@@ -90,7 +90,9 @@ module Gpucc
     #config.middleware.insert_before ActionDispatch::Static, Rack::Deflater # Static Content
 
     # For logging
-    config.logger = Logger.new(STDOUT)
+    #config.logger = Logger.new(STDOUT)
+    config.lograge.enabled = true
+
 
   end
 end

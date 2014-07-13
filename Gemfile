@@ -20,6 +20,7 @@ gem 'validates_timeliness', '~> 3.0'
 gem 'pg'
 gem 'font-awesome-rails'
 gem 'summernote-rails'
+gem 'lograge'
 
 group :development do
   gem 'webrick', '~> 1.3.1'
