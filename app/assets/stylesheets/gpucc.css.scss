@@ -149,6 +149,12 @@ iframe {
 	margin:0;
 }
 
+// Little padding around form elements (adjusted from -15px)
+.form-group {
+	margin-left: -10px !important;
+	margin-right: -10px !important;
+}
+
 // Fix bootstrap date spacer formatting
 /*.input-daterange .add-on {
 	height:auto;

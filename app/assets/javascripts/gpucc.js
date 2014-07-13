@@ -60,7 +60,7 @@ $(function() {
 
 // Day-of-year helper - (problems on Jan 1)
 function updatePlaceholders() {
-  var start_date = new Date($("#workout_start_date").val());
+  var start_date = new Date($("#workout_start_date").val()); 
   var year_start = new Date(start_date.getFullYear(), 0, 0);
   var diff = start_date - year_start;
   var oneDay = 1000 * 60 * 60 * 24;

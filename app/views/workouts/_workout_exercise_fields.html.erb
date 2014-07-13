@@ -4,17 +4,17 @@
 <tr class="workout_exercise fields">
 	<td>
     	<%= f.label :exercise_id %>
-    	<%= f.collection_select :exercise_id, Exercise.all, :id, :name %>
+    	<%= f.collection_select :exercise_id, Exercise.all, :id, :name, {}, {class: "input-sm"} %>
 	</td>				
 
 	<td>
 	  <%= f.label :goal %>
-	  <%= f.text_field :goal, {class: "exercise_goal" } %>
+	  <%= f.text_field :goal, {class: "input-sm exercise_goal" } %>
 	</td>	
 
 	<td>
     	<%= f.label :goal_type_id %>
-    	<%= f.collection_select :goal_type_id, GoalType.all, :id, :title %>
+    	<%= f.collection_select :goal_type_id, GoalType.all, :id, :title, {}, {class: "input-sm"} %>
 	</td>
 	<td>
 		<%= link_to_remove_fields "remove", f %>
