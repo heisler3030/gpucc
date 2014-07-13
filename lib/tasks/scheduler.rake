@@ -13,6 +13,8 @@ task :workout_announcement => :environment do
   # Runs Hourly at xx:10
   # Notifies at midnight local time (based on user timezone)
   #
+  # => rake workout_announcement
+  #
   # TODO: This will send a notification daily for incomplete multi-day workouts
   #########################################################################################################
 
@@ -58,6 +60,7 @@ task :send_workout_reminders => :environment do
   # 
   # Notify participants with incomplete workouts inside reminder threshold
   #
+  # => rake send_workout_reminders
   #########################################################################################################
 
   ChallengeAssignment.active.each do |ca|
@@ -69,6 +72,10 @@ task :send_workout_reminders => :environment do
     Rails.logger.debug("Time.find_zone(ca.user.time_zone).now.to_date #{Time.find_zone(ca.user.time_zone).now.to_date}")
 
     if ca.user.email_reminders? && (ca.last_notified.nil? || ca.last_notified < Time.find_zone(ca.user.time_zone).now.to_date)
+
+      # Should make this handle nil better - modify ca.last_notified method?  Should not just fire immediately when last_notified = nil
+      # Probably should refactor to ask something which can take into account requested reminder window (e.g. 2 hours before, 4 hours before, etc)
+      # Seems to just fire immediately every time - something wrong with if logic?
 
       ca.open_workouts.each do |ow|
 
@@ -111,6 +118,8 @@ task :send_coach_reminders => :environment do
   # 
   # Notify coach when there is no workout scheduled for tomorrow
   #
+  # => rake send_coach_reminders
+  #
   #########################################################################################################
 
   Challenge.active.each do |c|
@@ -134,6 +143,8 @@ task :send_atrisk_reminders => :environment do
   # 
   # Notify participants with incomplete workouts inside reminder threshold
   #
+  # => rake send_atrisk_reminders
+  #
   #########################################################################################################
 
 end
@@ -145,6 +156,8 @@ task :check_challenge_status => :environment do
   ###### Participant Disqualification Calculation #########################################################
   # 
   # Reset qualification flags according to number of missed days / max misses
+  #
+  # => rake check_challenge_status
   #
   # TODO: This can probably be made more efficient by not considering ALL assignments
   #########################################################################################################
