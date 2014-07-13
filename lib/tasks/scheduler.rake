@@ -54,7 +54,7 @@ end
 
 
 task :send_workout_reminders => :environment do
-  puts ("TASK: Sending Reminders")
+  puts ("TASK: User Workout Reminders")
 
   ###### Participant Workout Reminders ####################################################################
   # 
@@ -66,33 +66,33 @@ task :send_workout_reminders => :environment do
   ChallengeAssignment.active.each do |ca|
 
     # Only send if user wants email reminders and they were not notified today
-    puts ("ca.user.email_reminders? #{ca.user.email_reminders?}")
-    puts ("ca.last_notified.nil? #{ca.last_notified.nil?}")
-    puts ("ca.last_notified #{ca.last_notified}")
-    puts ("Time.find_zone(ca.user.time_zone).now.to_date #{Time.find_zone(ca.user.time_zone).now.to_date}")
+    puts ("Processing: #{ca.name}")
+    puts ("  - email_reminders? #{ca.user.email_reminders?}")
+    puts ("  - last_notified: #{ca.last_notified}")
+    puts ("  - user time: #{Time.find_zone(ca.user.time_zone).now} [#{ca.user.time_zone.to_s}]")
 
     if ca.user.email_reminders? && (ca.last_notified.nil? || ca.last_notified < Time.find_zone(ca.user.time_zone).now.to_date)
 
+      puts ("  - user has NOT been notified already")
       # Should make this handle nil better - modify ca.last_notified method?  Should not just fire immediately when last_notified = nil
       # Probably should refactor to ask something which can take into account requested reminder window (e.g. 2 hours before, 4 hours before, etc)
       # Seems to just fire immediately every time - something wrong with if logic?
 
       ca.open_workouts.each do |ow|
+        puts "\n   Processing #{ow.effective_date}"
 
         # No reminders for rest days
         unless ow.rest_day?
           user = ca.user
           time_remaining = ow.time_remaining(user)
 
-          puts ("\nUser: " + ca.user.name.to_s + " [" + ca.user.time_zone.to_s + "]")
           puts (
-            "Workout " + ow.id.to_s + 
-            " ends " + ow.ends_at(user).to_time.to_s + 
+            "   Workout ends " + ow.ends_at(user).to_time.to_s + 
             " (" + time_remaining.round(2).to_s + " hours remain)")
 
           if time_remaining <= user.reminder_threshold
 
-            puts ("Sending Reminder")
+            puts ("   Sending Reminder")
             
             # Send reminder email
             UserMailer.workout_reminder(user,ow).deliver
@@ -102,10 +102,14 @@ task :send_workout_reminders => :environment do
             ca.save
 
           else
-            puts ("Not within reminder threshold (" + user.reminder_threshold.to_s + " hours)")
+            puts ("   Not within reminder threshold (" + user.reminder_threshold.to_s + " hours)")
           end
+        else
+          puts ("   REST DAY, no reminder")
         end
       end
+    else
+      puts ("  - user has been notified already - terminating")
     end
     
   end
