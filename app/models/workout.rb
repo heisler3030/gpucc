@@ -64,11 +64,14 @@ class Workout < ActiveRecord::Base
   end
 
   # Return end time based on user timezone
+  # http://stackoverflow.com/questions/7988717/get-time-object-at-start-of-day-in-a-particular-time-zone
   def ends_at(user)
+    tz = TimeZone.new(user.time_zone)
+
     if end_date.nil?
-      start_date.to_time.in_time_zone(user.time_zone).end_of_day
+      tz.local(start_date.year, start_date.month, start_date.day).end_of_day
     else
-      end_date.to_time.in_time_zone(user.time_zone).end_of_day
+      tz.local(end_date.year, end_date.month, end_date.day).end_of_day
     end
   end
 
