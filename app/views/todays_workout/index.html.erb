@@ -61,7 +61,7 @@ Unpack the controller package and
 										</div>
 										<div class="row align-middle" style="padding:5px; margin:auto">
 										  <div class="col-xs-4 align-middle"><%= ns.label :reps, ns.object.exercise.name, {:class => 'control-label pull-right'} %></div>
-										  <div class="col-xs-8"><%= ns.text_field :reps, {:class => "form-control input-lg reps", :maxlength => "4", :pattern=> "[0-9]*"} %></div>  
+										  <div class="col-xs-8"><%= ns.text_field :reps, {:class => "form-control input-lg reps", :maxlength => "4", :pattern=> "[0-9]*", :autocomplete => "off"} %></div>  
 										</div>	
 									<% end %>
 								<% end %>
