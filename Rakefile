@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Gpucc::Application.load_tasks
+#Gpucc::Application.load_tasks
