@@ -16,7 +16,7 @@ class ChallengeAssignmentsController < ApplicationController
     # If user not specified or not found, use current
     #@user = (params[:user] && (User.find_by_id(params[:user]) ) ? User.find(params[:user]) : current_user)
 
-    @past_workouts = @challenge.workouts.order('start_date DESC')
+    @past_workouts = @challenge.current_and_past_workouts(@user).order('start_date DESC')
 
     # respond_to do |format|
     #   format.html
