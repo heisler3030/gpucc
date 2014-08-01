@@ -1,6 +1,8 @@
 GPUCC
 =====
 
+[![Build Status](https://travis-ci.org/heisler3030/gpucc.svg?branch=master)](https://travis-ci.org/heisler3030/gpucc)
+
 By Hamish Eisler
 
 A workout tracking app inspired by Lee Atkins GPUCC challenge 2011-2012
