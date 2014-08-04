@@ -3,3 +3,14 @@ cache: bundler
 
 rvm:
   - 1.9.3
+
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+
+
+secure: "iKVbxxzSagCqUJT5MDkO/1myP2fzpV/cStUFT15wDTtG6EqDexYeeys2p39124ZJSaYZwT2cWhyBTK6b2YBLght6klIpUwPQW9GcqRV22hZq2TB6+GL84SrwH/VK3Jb3Ll1Cx5mY2E6GcLLV50wZdjLE6JRaPiB3JTulp2re+/k="
+secure: "QC2JjuGVBpuNAYY8BCcbApztNq9Oq4zRbgAwzE90BHv900KaBBvnulcGnImsChqRi2VmbARIFofDbG5IRrmbux4avTqCr0REbC6lvQhumOwYM62YbjDUKQP54Ekf6K+iPUbYegfBe44xniKmHoF2YLBvrtfGCSJzumVfsGYJf3s="
+secure: "Xzshz2LaZFB5nZ/s221b7as06IbB20ET0p6aFKiZ3aKDLTB1swlhw+SN2iM0fMjln73+oHxoxHbaaLDTOmk6rBwx7AL6q60OGNV0m29pLUlXcaN+U1q5AyB8vTucvJKj+17sYTYhc9I83jwFz6CdrULHQ+GFeKnV3+H2vaGg4XQ="
+secure: "gxvE6/Q033NVArGOybmuCO5SMdcpyCvguzu0VsYzWVrU4so9foiXt+ES69F3SSy8TRZqBWS4zjDmCzWFhiHkq2JEk5V4UFyD95cM1L9sBhL/aN1iWP6PXIaCKTVDBlxHoo2kXUADWDrESXWlAUnj5JKr59hQXaCvBVGGJwPpzuk="
+
+secure: "So2F1eeu32x35IzyNV2T7iH7SsizBxmpoe5NY4W5iy3LDFGlPVME5Yk+o59MFPaxaSS/VNSkqGDsyd/wN0V8n51a9ozF+nhb3Q07SyFcNPzeDQ3N1etI3X1e7t/DFOfvR79KLKAZt6icvuG3msb794iDwgSGT5b250DT/La2ZM4="
