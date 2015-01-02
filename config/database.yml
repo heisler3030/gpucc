@@ -1,4 +1,4 @@
-s# SQLite version 3.x
+# SQLite version 3.x
 #   gem install sqlite3
 #
 #   Ensure the SQLite 3 gem is defined in your Gemfile
@@ -12,10 +12,9 @@ s# SQLite version 3.x
 
 development:
   adapter: postgresql
-  encoding: unicode
   database: gpucc
-  pool: 5
-  username: gpucc
+  host: localhost
+  username: postgres
   password: password
 
 # Warning: The database defined as "test" will be erased and
@@ -24,7 +23,6 @@ development:
 test:
   adapter: postgresql
   database: travis_ci_test
+  host: localhost
   username: postgres
-
-cucumber:
-  <<: *test
+  password: password

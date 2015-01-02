@@ -79,3 +79,6 @@ pickle-email-*.html
 
 # Anything called " - Copy"
 **-\ Copy.*
+
+# Cloud 9 config
+.c9
