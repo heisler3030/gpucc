@@ -6,6 +6,9 @@ sudo chmod 644 /etc/postgresql/9.3/main/pg_hba.conf
 sudo service postgresql start
 sudo sudo -u postgres psql < init_c9.sql
 
+# Install utilities
+gem install travis
+
 # Set ENV variables
 ./setEnvVariables
 
