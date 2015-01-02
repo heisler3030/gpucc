@@ -6,7 +6,7 @@ rvm:
 
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
-  - ./setEnvVariables
+  - source setEnvVariables
 
 # set GMAIL_PASSWORD
 secure: "g/0dno6+9PajTZPfPXQ6ai238iDKGBbcpeaTRjMfaRGdlWl8bxIKP+Z6LPbZQhXF03JYBoB9ejl8rL3KnRZxj4ILvb65hlpwn44IfqQAN/nUy6292OfiTsNnKd0S0QJJdYAxE2VBUU8YE/YbWpIfljTrxdi3cm944hRoGktsuMo="
