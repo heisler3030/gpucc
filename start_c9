@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Starts rails instance on c9
+
+rails s -p $PORT -b $IP
