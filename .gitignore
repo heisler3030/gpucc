@@ -82,3 +82,6 @@ pickle-email-*.html
 
 # Cloud 9 config
 .c9
+
+# phantomjs stuff
+node_modules
