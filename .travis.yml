@@ -5,7 +5,7 @@ rvm:
 before_script:
 - psql -c 'create database travis_ci_test;' -U postgres
 - source setEnvVariables
-- rake db:migrate
+- bundle exec rake db:migrate
 env:
   global:
   - secure: cGOZZ/Hxj/nHC39ubaV7yjGLAbGIVCTGL3dd6vErLwOEPdovP1YdBgJ2PwYT/qXgIUChwg78/t0t6KLV+a8kHyfBT7MH1k1qBX6IYeSkqHLOfU3GoB9Tg2GjaTck5FLeBe25lR1kI1wwUl4KN7fKtCkcLHtaTZd2Hy8R3B0CaGs=
