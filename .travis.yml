@@ -6,6 +6,7 @@ before_script:
 - psql -c 'create database travis_ci_test;' -U postgres
 - source setEnvVariables
 - bundle exec rake db:migrate
+- export SECRET_TOKEN=029fb16dfc820a53eb79f95b9d718c021bb9736dea4c010c61af3108c866a7f65e4dac77ef9e0af2efaa135f52a73550b8dd5556217b5ab27d391835f3a8c785
 env:
   global:
   - secure: cGOZZ/Hxj/nHC39ubaV7yjGLAbGIVCTGL3dd6vErLwOEPdovP1YdBgJ2PwYT/qXgIUChwg78/t0t6KLV+a8kHyfBT7MH1k1qBX6IYeSkqHLOfU3GoB9Tg2GjaTck5FLeBe25lR1kI1wwUl4KN7fKtCkcLHtaTZd2Hy8R3B0CaGs=
