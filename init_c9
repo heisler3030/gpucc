@@ -8,6 +8,7 @@ sudo sudo -u postgres psql < init_c9.sql
 
 # Install utilities
 gem install travis
+npm install phantomjs
 
 # Set ENV variables
 source setEnvVariables
