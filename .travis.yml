@@ -1,15 +1,11 @@
 language: ruby
 cache: bundler
-
 rvm:
-  - 1.9.3
-
+- 1.9.3
 before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
-  - source setEnvVariables
-
-# set GMAIL_PASSWORD
-secure: "g/0dno6+9PajTZPfPXQ6ai238iDKGBbcpeaTRjMfaRGdlWl8bxIKP+Z6LPbZQhXF03JYBoB9ejl8rL3KnRZxj4ILvb65hlpwn44IfqQAN/nUy6292OfiTsNnKd0S0QJJdYAxE2VBUU8YE/YbWpIfljTrxdi3cm944hRoGktsuMo="
-
-# set ADMIN_PASSWORD
-secure: "lWz3Vy+YamqLUgtCoNYVEarc/l/a7+uvQUU3q2po8jP93oWjSxj6Q8s6xg6tywOy1TfN6srj/1psBke10U+UoDO+kpaubSojVx8UccnJ2bl4GxlTbWDknfDi/6whOPt+vM/J2rnHS47Qgh+TcTmz8Q5Y09ocXswvByZfK6W6JqY="
+- psql -c 'create database travis_ci_test;' -U postgres
+- source setEnvVariables
+env:
+  global:
+  - secure: cGOZZ/Hxj/nHC39ubaV7yjGLAbGIVCTGL3dd6vErLwOEPdovP1YdBgJ2PwYT/qXgIUChwg78/t0t6KLV+a8kHyfBT7MH1k1qBX6IYeSkqHLOfU3GoB9Tg2GjaTck5FLeBe25lR1kI1wwUl4KN7fKtCkcLHtaTZd2Hy8R3B0CaGs=
+  - secure: NDh39uevHgQqxWrbFu1J7gRAvdp5dMfxbfPDmRMrtL8AKLQygcBZmsmYgr6Azr/wVl2MFY8Yg3eRDxrqosAU023Y6k+VXmLmGtBlvp7iF6V6zG3PiuUtPfwSBTF2UdQL6eQeRIQmo/DWTZs3vXZIoD/BIOTgiZTKxfaGWs9A5ng=
