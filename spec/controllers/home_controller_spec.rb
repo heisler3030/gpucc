@@ -10,9 +10,9 @@ describe HomeController do
   end
 
   describe "Authenticated GET 'index'" do
-    xit "should be success" do
-      # set current_user to :user
-      
+    it "should be success" do
+      user = create(:test_user)
+      sign_in user
       get 'index'
       response.should be_success
     end
