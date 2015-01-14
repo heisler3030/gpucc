@@ -1,5 +1,5 @@
 #!/bin/sh
 
 # Starts rails instance on c9
-
+./setEnvVariables
 rails s -p $PORT -b $IP
