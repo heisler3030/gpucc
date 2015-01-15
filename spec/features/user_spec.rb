@@ -20,5 +20,11 @@ feature "User", js: true, type: :feature do
 		user_login
 		expect(page).not_to have_css('#adminmenu')
 	end	
+
+	xscenario "can complete a workout"
+	xscenario "cannot complete a workout after time is up"
+	xscenario "can edit a completed set"
+	xscenario "cannot edit a completed set after time is up"
+	
 		
 end

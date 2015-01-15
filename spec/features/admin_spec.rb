@@ -33,6 +33,7 @@ feature "Administrator", js: true, type: :feature do
 		find('th.next').click
 		find(:xpath, "//td[contains(@class, 'day')][text()='19']").click
 		Capybara.ignore_hidden_elements = false
+		# Might need to change this to get the actual description to populate?
 		find('#challenge_description').set('Amazing challenge description')
 		Capybara.ignore_hidden_elements = true
 		fill_in 'challenge_max_misses', with: '5'
@@ -41,5 +42,12 @@ feature "Administrator", js: true, type: :feature do
 		find(:xpath, "//td[contains(@class, 'day')][text()='15']").click
 		expect { click_on "Create Challenge" }.to change(Challenge, :count).by(1)
 	end
+
+	xscenario "can edit their challenge details"
+	xscenario "can add a workout to a challenge"
+	xscenario "cannot add a workout when one already exists for that day"
+	xscenario "can create a rest day workout"
+	xscenario "can excuse an incomplete workout"
+	xscenario "can add a completed set for one of their trainees"
 		
 end
