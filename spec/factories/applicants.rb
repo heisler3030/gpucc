@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :applicant do
-    email "MyString"
+    sequence(:email) {|n| "applicant#{n}@fitstalker.com" }
   end
 end
