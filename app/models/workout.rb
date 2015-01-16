@@ -12,7 +12,7 @@ class Workout < ActiveRecord::Base
     	:allow_destroy => true,
     	:reject_if     => :all_blank
   
-  validates_presence_of :start_date
+  validates_presence_of :start_date, :challenge
   #validates_with WorkoutValidator
 
   # Return active workouts for a specific user

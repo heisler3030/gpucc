@@ -4,6 +4,9 @@ desc "This task is called by the Heroku scheduler add-on"
 
 # Call locally by using 'rake <taskname>' - e.g. 'rake send_reminders'
 
+# TODO:  Move logic out to app/helpers
+# TODO:  Write tests for this logic (or the helpers)
+
 task :workout_announcement => :environment do
   puts ("TASK: Sending Workout Announcements")
 

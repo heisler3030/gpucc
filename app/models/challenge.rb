@@ -13,7 +13,7 @@ class Challenge < ActiveRecord::Base
 
   belongs_to :owner, :class_name => "User"
 
-  validates_presence_of :title, :owner, :max_misses
+  validates_presence_of :title, :owner, :max_misses, :start_date, :end_date
   validates_numericality_of :max_misses
 
   scope :active, where("? BETWEEN START_DATE and END_DATE", Time.now.to_date)

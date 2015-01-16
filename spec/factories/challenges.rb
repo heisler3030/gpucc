@@ -9,7 +9,7 @@ FactoryGirl.define do
     end_date Date.today + 30
     max_misses 5
     join_by Date.today + 10
-    association :owner, factory: :trainer
+    association :owner, factory: :test_trainer
 
   end
   
