@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe ChallengeAssignment do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "should return the proper number of remaining misses"
+  it "should not return negative misses"
 end

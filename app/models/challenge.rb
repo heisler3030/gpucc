@@ -16,7 +16,7 @@ class Challenge < ActiveRecord::Base
   validates_presence_of :title, :owner, :max_misses, :start_date, :end_date
   validates_numericality_of :max_misses
 
-  scope :active, where("? BETWEEN START_DATE and END_DATE", Time.now.to_date)
+  scope :active, -> { where("? BETWEEN START_DATE and END_DATE", Time.now.to_date) }
 
   # Workouts that are active on a specified date
   def get_active_workouts_for_day(date)

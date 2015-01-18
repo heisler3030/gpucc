@@ -1,4 +1,4 @@
-# Load the rails application
+# Load the Rails application.
 require File.expand_path('../application', __FILE__)
 
 # Validate ENV variables are properly set
@@ -10,8 +10,7 @@ unless ENV['ADMIN_NAME']      then puts "Missing ADMIN_NAME environment variable
 unless ENV['ADMIN_PASSWORD']  then puts "Missing ADMIN_PASSWORD environment variable";  ok = false end
 unless ENV['GMAIL_USERNAME']  then puts "Missing GMAIL_USERNAME environment variable";  ok = false end
 unless ENV['GMAIL_PASSWORD']  then puts "Missing GMAIL_PASSWORD environment variable";  ok = false end
-
 if !ok then raise "Missing ENV variables" end
 
-# Initialize the rails application
-Gpucc::Application.initialize!
+# Initialize the Rails application.
+Rails.application.initialize!

@@ -1,12 +1,11 @@
 source 'https://rubygems.org'
-ruby '1.9.3'
-gem 'rails', '3.2.13'
-gem 'sass', '3.2.13'
-group :assets do
-  gem 'sass-rails' #,   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '>= 1.0.3'
-end
+ruby '2.1.1'
+gem 'rails', '~> 4.2'
+gem 'protected_attributes'
+gem 'sass' #, '3.2.13'
+gem 'sass-rails' #,   '~> 3.2.3'
+gem 'coffee-rails' #, '~> 3.2.1'
+gem 'uglifier', '>= 1.0.3'
 gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'dynamic_form'
@@ -30,17 +29,19 @@ group :development do
   gem 'quiet_assets'
   gem 'rails_layout'
 end
+
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'pry'
 end
+
 group :test do
   gem 'capybara', '~> 2.4'
   gem 'webmock'
   gem 'poltergeist'
   gem 'selenium-webdriver'
-  gem 'database_cleaner', '1.0.1'
+  gem 'database_cleaner' #, '1.0.1'
   gem 'email_spec'
   gem 'launchy'
   gem 'timecop'

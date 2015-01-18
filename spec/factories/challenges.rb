@@ -11,6 +11,15 @@ FactoryGirl.define do
     join_by Date.today + 10
     association :owner, factory: :test_trainer
 
+    factory :expired_challenge do
+      title "Expired Challenge"
+      description "This challenge is expired and should therefore not show up as available"
+      start_date Date.today - 60
+      end_date Date.today - 30
+      join_by Date.today - 50
+    end
+      
+
   end
   
   

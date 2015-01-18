@@ -3,13 +3,9 @@ class ChallengesController < ApplicationController
   load_and_authorize_resource
   
   def index
-
-    challenge_assignment_list = current_user.challenge_assignments.map(&:challenge_id).push(-1)
-
-    # Have to throw an extra fake element in the array in case there are no challenge assignments for this user
-    @my_challenges = Challenge.find(:all, :conditions => {:id => (challenge_assignment_list)})
-    @available_challenges = Challenge.find(:all, :conditions => ['id not in (?)', (challenge_assignment_list)])
-
+  	@user = current_user
+    @my_challenges = @user.my_challenges
+    @available_challenges = Challenge.active.where.not(id: @my_challenges)
   end
   
   def show
@@ -27,7 +23,6 @@ class ChallengesController < ApplicationController
     end
   end
 
-
   def edit
     @challenge = Challenge.find(params[:id])
     @owner = @challenge.owner
@@ -38,7 +33,6 @@ class ChallengesController < ApplicationController
     end
   end
 
-
   def manage_participants
     @challenge = Challenge.find(params[:id])
   end
@@ -46,7 +40,7 @@ class ChallengesController < ApplicationController
   def new
     @challenge = Challenge.new
     @owner = current_user
-    @owners = User.with_role(:admin)
+    @owners = User.with_role([:admin])
   end
   
   

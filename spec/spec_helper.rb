@@ -4,7 +4,6 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'date'
 require 'rspec/rails'
 require 'email_spec'
-require 'rspec/autorun'
 require 'capybara/rspec'
 require 'webmock/rspec'
 
@@ -24,6 +23,11 @@ Capybara.server_port = ENV['PORT']
 Capybara.server_host = ENV['IP']
 
 RSpec.configure do |config|
+  
+  # Deprecation Stuff
+  config.expose_current_running_example_as :example
+  config.infer_spec_type_from_file_location!  
+  
   config.include(EmailSpec::Helpers)
   config.include(EmailSpec::Matchers)
   config.include FactoryGirl::Syntax::Methods

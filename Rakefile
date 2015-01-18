@@ -6,6 +6,4 @@ require File.expand_path('../config/application', __FILE__)
 
 Gpucc::Application.load_tasks
 
-require 'rspec/core/rake_task'
-
 task :default => :spec

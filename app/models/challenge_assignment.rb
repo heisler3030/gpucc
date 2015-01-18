@@ -9,10 +9,10 @@ class ChallengeAssignment < ActiveRecord::Base
   validates_presence_of :user_id, :challenge_id
   validates_uniqueness_of :user_id, :scope => :challenge_id
 
-  scope :active, where("disqualify_date IS NULL AND completed_date IS NULL")
-  scope :completed, where("completed_date IS NOT NULL")
-  scope :disqualified, where("disqualify_date IS NOT NULL")
-  scope :inactive, where("disqualify_date IS NOT NULL OR completed_date IS NOT NULL")
+  scope :active, -> { where("disqualify_date IS NULL AND completed_date IS NULL") }
+  scope :completed, -> { where("completed_date IS NOT NULL") }
+  scope :disqualified, -> { where("disqualify_date IS NOT NULL") }
+  scope :inactive, -> { where("disqualify_date IS NOT NULL OR completed_date IS NOT NULL") }
 
   # Class method for retrieving Assignment
   def self.get(user, challenge)

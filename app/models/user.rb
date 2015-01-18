@@ -25,13 +25,15 @@ class User < ActiveRecord::Base
   validates :name, uniqueness: true, presence: true
   validates :email, uniqueness: true, presence: true
 
-  scope :invited, where('invitation_token IS NOT NULL')
+  scope :invited, -> { where('invitation_token IS NOT NULL') }
 
   # Put all users in "User" role by default
   after_create :assign_default_role
   def assign_default_role
     add_role(:user)
   end
+
+## Instance Methods
 
   # Return name and role
   def name_with_role
@@ -48,10 +50,9 @@ class User < ActiveRecord::Base
     self.current_time.to_date
   end
 
-  # To allow for multiple sets to be created at once
-#  accepts_nested_attributes_for :completed_sets,
-#    :allow_destroy => true,
-#    :reject_if => proc { |a| a['reps'].blank? } 
+  def my_challenges
+    Challenge.where(id: self.challenge_assignments.map(&:challenge))
+  end
   
   # TODO: Make these configurable for users
   def email_reminders?

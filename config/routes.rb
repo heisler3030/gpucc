@@ -2,7 +2,7 @@ Gpucc::Application.routes.draw do
   
 # Authenticated users route to /today  
   authenticated :user do
-    root :to => 'todays_workout#index'
+    root 'todays_workout#index', as: nil
   end
   
   devise_for :users
@@ -13,10 +13,10 @@ Gpucc::Application.routes.draw do
   end
 
 # Unauthenticated users to login page
-  root :to => "devise/sessions#new"
+  root "devise/sessions#new"
 
   resources :challenges do
-    resources :workouts, shallow: true do
+   resources :workouts, shallow: true do
       resources :workout_exercises, shallow: true 
     end
   end
@@ -25,15 +25,14 @@ Gpucc::Application.routes.draw do
      :users, :completed_workouts, :applicants
 
 
-  match '/today' => 'todays_workout#index'
-  match '/home' => 'home#index'
-  match '/about' => 'pages#about', as: "about"
-  match '/terms' => 'pages#terms', as: "terms"
-  match '/privacy' => 'pages#privacy', as: "privacy"
-  match '/missedworkouts/:id' => 'missed_workouts#show', as: "missedworkouts"
-  match '/workouts/:id/:user' => 'workouts#show', as: "userworkout"
-  match '/challenges/:id/manageparticipants' => 'challenges#manage_participants', as: "manageparticipants"
-  match '/challenges/:id(/:user)' => 'challenges#show'
-
-
+  get '/today' => 'todays_workout#index'
+  get '/home' => 'home#index'
+  get '/about' => 'pages#about', as: "about"
+  get '/terms' => 'pages#terms', as: "terms"
+  get '/privacy' => 'pages#privacy', as: "privacy"
+  get '/missedworkouts/:id' => 'missed_workouts#show', as: "missedworkouts"
+  get '/workouts/:id/:user' => 'workouts#show', as: "userworkout"
+  get '/challenges/:id/manageparticipants' => 'challenges#manage_participants', as: "manageparticipants"
+  get '/challenges/:id(/:user)' => 'challenges#show'
+  
 end

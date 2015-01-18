@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe HomeController do
+describe ChallengesController do
 
   describe "Unauthenticated GET 'index'" do
     it "should be redirect" do
@@ -17,5 +17,7 @@ describe HomeController do
       expect(response).to be_success
     end
   end
+
+  it "should show only active, unjoined challenges as available"
 
 end
