@@ -1,5 +1,6 @@
 #!/bin/sh
 
 # Starts rails instance on c9
-./setEnvVariables
+. ./setEnvVariables
+sudo service postgresql start
 rails s -p $PORT -b $IP
