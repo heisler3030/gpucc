@@ -76,7 +76,7 @@ RSpec.configure do |config|
   # In event of errors, open page
   config.after do
     if example.metadata[:type] == :feature and example.exception.present?
-      save_and_open_screenshot
+      #save_and_open_screenshot
     end
   end
   

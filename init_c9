@@ -16,3 +16,7 @@ source setEnvVariables
 # Setup DB
 rake db:migrate
 rake db:seed
+
+
+# Alternative DB import from prod (https://devcenter.heroku.com/articles/heroku-postgres-import-export#import-to-heroku-postgres)
+# pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d gpucc b001.dump

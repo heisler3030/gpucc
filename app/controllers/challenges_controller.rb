@@ -22,6 +22,27 @@ class ChallengesController < ApplicationController
       format.json {render :json => @challenge}
     end
   end
+  
+  def newshow
+    
+    @challenge = Challenge.find(params[:id])
+    @user = params[:user] || current_user
+    
+    @past_workouts = @challenge.past_workouts(@user)
+    @completed_workouts = @challenge.completed_workouts_for_user(@user)
+    
+    @workoutmap = Hash.new{ |k,v| k[v] = { } }  # Init deeply-assignable hash
+    @past_workouts.map do |w|
+      @workoutmap[w["start_date"]]["url"] = ("/workouts/" + w['id'].to_s)  # Assign URL for all assigned workouts
+      @workoutmap[w["start_date"]]["class"] = "incomplete" # Initially assume workouts are incomplete
+      @workoutmap[w["start_date"]]["class"] = "restday" if w['rest_day'] == true
+    end
+    @completed_workouts.map {|w| @workoutmap[w["start_date"]]["class"] = "completed" }  # Update class for completed workouts
+    
+    puts JSON.pretty_generate(@workoutmap.as_json)
+    render "pages/responsive"
+  end  
+  
 
   def edit
     @challenge = Challenge.find(params[:id])

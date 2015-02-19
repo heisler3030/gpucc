@@ -121,6 +121,27 @@ iframe {
 }
 
 
+//// Calendar Styling
+
+.responsive-calendar .day.active {
+	background-color: cyan;
+}
+
+.responsive-calendar .day.incomplete {
+	background-color: red;
+}
+
+.responsive-calendar .day.completed {
+	background-color: green;
+}
+
+.responsive-calendar .day.override {
+	background-color: orange;
+}
+
+.responsive-calendar .day.restday {
+	background-color: yellow;
+}
 
 /////////////////////////// ///// Vendor Overrides ///// ///////////////////////////
 

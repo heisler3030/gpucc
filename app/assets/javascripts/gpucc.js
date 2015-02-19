@@ -22,6 +22,13 @@ $(function() {
     	});
 });
 
+// Calendar Init
+$(function() {
+  $(".responsive-calendar").responsiveCalendar({
+    monthChangeAnimation: false,
+  });
+});
+
 // Enable Bootstrap Tabcollapse
 $('#myTab').tabCollapse();
 

@@ -6,6 +6,7 @@ class WorkoutsController < ApplicationController
   	@challenge = Challenge.find(params[:challenge_id])
   end
   
+  
   def show
   	@workout = Workout.find(params[:id])
 

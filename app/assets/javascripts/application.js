@@ -17,5 +17,6 @@
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
 //= require bootstrap-tabcollapse
-//= require summernote.min
+//= require summernote/summernote
+//= require responsive-calendar
 //= require_tree .

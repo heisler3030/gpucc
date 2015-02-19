@@ -56,6 +56,16 @@ class Challenge < ActiveRecord::Base
   def completed_assignments
   	self.challenge_assignments.where('completed_date is not null')
   end
+  
+  ## Returns array of Workouts in this challenge which have been completed by specified user
+  #
+  def completed_workouts_for_user(user)
+    #challenge = self
+    completed_workouts = user.completed_workouts.where(workout: self.workouts)
+    cw_ids = []
+    completed_workouts.map{ |cw| cw_ids.push(cw.workout_id) }
+    Workout.where(id: cw_ids)
+  end
 
    def rest_days
      self.workouts.where('rest_day is true')
