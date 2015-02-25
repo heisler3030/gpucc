@@ -28,13 +28,13 @@ module ApplicationHelper
 
   def bootstrap_type(type)
     case type
-      when :alert
+      when "alert"
         "alert-warning"
-      when :error
+      when "error"
         "alert-danger"
-      when :notice
+      when "notice"
         "alert-info"
-      when :success
+      when "success"
         "alert-success"
       else
         type.to_s

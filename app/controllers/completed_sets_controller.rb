@@ -25,7 +25,7 @@ class CompletedSetsController < ApplicationController
     end
 
     if not this_workout.nil?
-      if this_workout.check_if_completed(this_user) then flash[:notice] = "Congratulations, you have finished the workout!" end
+      if this_workout.check_if_completed(this_user) then flash[:success] = "Congratulations, you have finished the workout!" end
     end
 
     redirect_to today_path
