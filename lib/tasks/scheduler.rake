@@ -48,7 +48,7 @@ task :send_coach_reminders => :environment do
   #
   #########################################################################################################
 
-  AlertHelper.send_coach_reminders
+  AlertHelper.send_coach_reminders_job
 
 end
 

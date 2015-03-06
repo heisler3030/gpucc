@@ -7,11 +7,11 @@ FactoryGirl.define do
     exercise
     goal_type
   
-    factory :pushups_workout do
+    factory :pushups_assignment do
       association :exercise, factory: :pushups
     end
     
-    factory :situps_workout do
+    factory :situps_assignment do
       association :exercise, factory: :situps
     end
   

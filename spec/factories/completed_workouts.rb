@@ -5,7 +5,11 @@ FactoryGirl.define do
   factory :completed_workout do
     association :user, factory: :test_user
     workout
+    
+    factory :completed_gpucc_workout do
+      association :workout, factory: :gpucc_workout
+    end
+    
   end
-  
-  
+
 end

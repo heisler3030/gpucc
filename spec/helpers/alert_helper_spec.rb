@@ -56,4 +56,35 @@ describe AlertHelper do
     end
   end
 
+  describe "#send_workout_reminders_job" do
+    
+    before { Timecop.freeze(Time.parse("11:10pm")) }
+    after  { Timecop.return }    
+    
+    it "should send reminders to users with an incomplete workout" do
+      5.times do
+        ca = create(:challenge_assignment)
+        w = create(:gpucc_workout, challenge: ca.challenge)
+      end
+      AlertHelper.send_workout_reminders_job
+      expect(ActionMailer::Base.deliveries.count).to eq(5)
+    end
+        
+    it "should not send reminders to users with completed workouts"
+    it "should not send reminders until within the reminder threshold"
+    it "should not send reminders to users who have been already notified"
+    it "should not send reminders to disqualified participants"
+    it "should not send reminders to users who have declined reminders"
+    it "should not send reminders on rest days"
+  end
+
+  describe "#send_coach_reminders_job" do
+    it "should notify the coach if there is no workout tomorrow"
+    it "should not notify the coach if there is a workout scheduled"
+  end
+
+  xdescribe "#send_atrisk_reminders_job"
+
+  xdescribe "#check_challenge_status_job"
+
 end

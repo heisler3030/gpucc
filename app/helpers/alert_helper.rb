@@ -96,7 +96,7 @@ module AlertHelper
   
   ## Notify coach when no workout for tomorrow
   #
-  def send_coach_reminders
+  def send_coach_reminders_job
   
     Challenge.active.each do |c|
       tomorrow = Time.now.to_date + 1.day

@@ -12,9 +12,8 @@ FactoryGirl.define do
 
     factory :gpucc_workout do
       after(:build) do |workout, evaluator|
-        create(:pushups_workout, workout: workout)
-        create(:situps_workout, workout: workout)
-        workout.save!
+        create(:pushups_assignment, workout: workout)
+        create(:situps_assignment, workout: workout)
       end
     end
 
