@@ -54,7 +54,6 @@ class User < ActiveRecord::Base
     Challenge.where(id: self.challenge_assignments.map(&:challenge))
   end
   
-  # TODO: Make these configurable for users
   def email_reminders?
     not(reminder_threshold == 0)
   end

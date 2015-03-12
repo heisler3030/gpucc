@@ -7,6 +7,7 @@ FactoryGirl.define do
     password_confirmation 'changeme'
     sequence(:name) { |n| "User #{n}" }
     sequence(:email) {|n| "user#{n}@fitstalker.com" }
+    reminder_threshold 4
 
     factory :test_user, class: User do
       after(:create) do |user|

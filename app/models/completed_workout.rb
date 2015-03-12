@@ -3,10 +3,11 @@ class CompletedWorkout < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :workout
+  has_one :challenge_assignment, 
+    :through => :user, 
+    :source => :challenge_assignments
 
-  #validates :complete_time, :presence => true
-  validates :user, :presence => true
-  validates :workout, :presence => true
+  validates_presence_of :complete_time, :user, :workout, :challenge_assignment
   validates_uniqueness_of :user_id, :scope => :workout_id 
 
   # Class method for retrieving CompletedWorkout

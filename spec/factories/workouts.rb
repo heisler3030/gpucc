@@ -16,6 +16,10 @@ FactoryGirl.define do
         create(:situps_assignment, workout: workout)
       end
     end
+    
+    factory :rest_day_workout do
+      rest_day true
+    end
 
   end
   

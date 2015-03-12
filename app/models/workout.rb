@@ -4,7 +4,7 @@ class Workout < ActiveRecord::Base
   belongs_to :challenge
   
   has_many :workout_exercises, :dependent => :destroy
-  #has_many :completed_sets
+  has_many :challenge_assignments, :through => :challenge
   has_many :completed_workouts
   has_many :comments
   
@@ -36,7 +36,7 @@ class Workout < ActiveRecord::Base
   end
 
   def complete?(user)
-    not((CompletedWorkout.where("workout_id = ? AND user_id = ?", self, user)).empty?) 
+    not((CompletedWorkout.where(workout_id: self, user_id: user)).empty?) 
   end
 
   # Check status for a specific user

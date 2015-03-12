@@ -49,7 +49,7 @@ describe AlertHelper do
     end
     
     it "should not send an email to disqualified participants" do
-      ca = create(:challenge_assignment, disqualify_date: Date.today)
+      ca = create(:disqualified_challenge_assignment)
       w = create(:workout, challenge: ca.challenge)
       AlertHelper.workout_announcement_job
       expect(ActionMailer::Base.deliveries.count).to eq(0)
@@ -64,23 +64,72 @@ describe AlertHelper do
     it "should send reminders to users with an incomplete workout" do
       5.times do
         ca = create(:challenge_assignment)
-        w = create(:gpucc_workout, challenge: ca.challenge)
+        create(:gpucc_workout, challenge: ca.challenge)
       end
       AlertHelper.send_workout_reminders_job
       expect(ActionMailer::Base.deliveries.count).to eq(5)
     end
         
-    it "should not send reminders to users with completed workouts"
-    it "should not send reminders until within the reminder threshold"
-    it "should not send reminders to users who have been already notified"
-    it "should not send reminders to disqualified participants"
-    it "should not send reminders to users who have declined reminders"
-    it "should not send reminders on rest days"
+    it "should not send reminders to users with completed workouts" do
+      ca = create(:challenge_assignment)
+      w = create(:gpucc_workout, challenge: ca.challenge)
+      create(:completed_gpucc_workout, workout: w, user: ca.user)
+      AlertHelper.send_workout_reminders_job
+      expect(ActionMailer::Base.deliveries.count).to eq(0)
+    end
+    
+    it "should not send reminders until within the reminder threshold" do
+      ca = create(:challenge_assignment)
+      create(:gpucc_workout, challenge: ca.challenge)
+      Timecop.freeze(Time.now - (ca.user.reminder_threshold + 1).hours)
+      AlertHelper.send_workout_reminders_job
+      expect(ActionMailer::Base.deliveries.count).to eq(0)
+    end
+    
+    it "should not send reminders to users who have been already notified" do
+      ca = create(:challenge_assignment, last_notified: Time.now - 5.minutes)
+      create(:gpucc_workout, challenge: ca.challenge)
+      AlertHelper.send_workout_reminders_job
+      expect(ActionMailer::Base.deliveries.count).to eq(0)
+    end
+    
+    it "should not send reminders to disqualified participants" do
+      ca = create(:disqualified_challenge_assignment)
+      AlertHelper.send_workout_reminders_job
+      expect(ActionMailer::Base.deliveries.count).to eq(0)
+    end
+    
+    it "should not send reminders to users who have declined reminders" do
+      u = create(:test_user, reminder_threshold: 0)
+      ca = create(:challenge_assignment, user: u)
+      create(:gpucc_workout, challenge: ca.challenge)
+      ca.disqualify_date = Date.today
+      AlertHelper.send_workout_reminders_job
+      expect(ActionMailer::Base.deliveries.count).to eq(0)      
+    end
+    
+    it "should not send reminders on rest days" do
+      ca = create(:challenge_assignment)
+      create(:rest_day_workout, challenge: ca.challenge)
+      AlertHelper.send_workout_reminders_job
+      expect(ActionMailer::Base.deliveries.count).to eq(0)     
+    end
   end
 
   describe "#send_coach_reminders_job" do
-    it "should notify the coach if there is no workout tomorrow"
-    it "should not notify the coach if there is a workout scheduled"
+    it "should notify the coach if there is no workout tomorrow" do
+      ca = create(:challenge_assignment)
+      create(:gpucc_workout, challenge: ca.challenge, start_date: Date.today + 2)
+      AlertHelper.send_coach_reminders_job
+      expect(ActionMailer::Base.deliveries.count).to eq(1)
+    end
+    
+    it "should not notify the coach if there is a workout scheduled" do
+      ca = create(:challenge_assignment)
+      create(:gpucc_workout, challenge: ca.challenge, start_date: Date.today + 1)
+      AlertHelper.send_coach_reminders_job
+      expect(ActionMailer::Base.deliveries.count).to eq(0)
+    end
   end
 
   xdescribe "#send_atrisk_reminders_job"

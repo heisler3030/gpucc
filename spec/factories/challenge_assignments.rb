@@ -7,11 +7,11 @@ FactoryGirl.define do
     association :user, factory: :test_user  
 
     factory :completed_challenge_assignment do
-      completed_date = Date.today - 10
+      completed_date Date.today - 10
     end
       
     factory :disqualified_challenge_assignment do
-      disqualify_date = Date.today - 10
+      disqualify_date Date.today - 10
     end
   end
   

@@ -61,8 +61,8 @@ module AlertHelper
           puts "\n   Processing #{ow.effective_date}"
   
           # No reminders for rest days
-          unless ow.rest_day?
-            user = ca.user
+          user = ca.user
+          unless ow.rest_day? || ow.complete?(user)
             time_remaining = ow.time_remaining(user)
   
             puts (
