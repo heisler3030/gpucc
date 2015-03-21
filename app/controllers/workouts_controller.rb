@@ -77,13 +77,12 @@ class WorkoutsController < ApplicationController
     if workout[:workout_exercises_attributes] &&
        workout[:workout_exercises_attributes].map {|k,v| v["_destroy"] == "false" ? 0 : 1}.min == 0
     then
-      logger.debug("NOT A REST DAY")
+      # Not a Rest Day
       false
     else
-      logger.debug("IT'S A REST DAY!!!")
+      # Rest Day
       true
     end
-    #workout[:workout_exercises_attributes].select { |k,v| v.select { |k2, v2| v2 == "37" } }.size
   end
 
 end

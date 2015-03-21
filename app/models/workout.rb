@@ -1,8 +1,8 @@
 class Workout < ActiveRecord::Base
+  include ActiveModel::Validations
   attr_accessible :title, :motivation, :start_date, :end_date, :challenge_id, :rest_day,:workout_exercises_attributes
 
   belongs_to :challenge
-  
   has_many :workout_exercises, :dependent => :destroy
   has_many :challenge_assignments, :through => :challenge
   has_many :completed_workouts
@@ -13,7 +13,7 @@ class Workout < ActiveRecord::Base
     	:reject_if     => :all_blank
   
   validates_presence_of :start_date, :challenge
-  #validates_with WorkoutValidator
+  validates_with WorkoutValidator
 
   # Return active workouts for a specific user
   # (Active for this date)
@@ -29,6 +29,14 @@ class Workout < ActiveRecord::Base
   scope :completed, (lambda { |user|
     where('workouts.id in (select workout_id from completed_workouts where user_id = ? AND MGR_OVERRIDE IS NOT TRUE)', user) 
   })
+
+  # For date range validation by WorkoutValidator
+  # Need to tune this to work with individual days too
+  
+  scope :overlaps, ->(start_date, end_date) do
+    
+    where "((start_date <= ?) and (end_date >= ?)) or start_date = ?", end_date, start_date, start_date
+  end
 
   # check if active for a certain user (based on timezone)
   def active?(user)

@@ -10,7 +10,7 @@ describe Workout do
   end  
   
   it "is invalid without a parent challenge" do
-    expect(build(:workout, challenge: nil)).not_to be_valid
+    expect(build(:workout, challenge: nil, title: 'no challenge workout')).not_to be_valid
   end
   
   it "is invalid without a start date" do
@@ -18,7 +18,17 @@ describe Workout do
   end
   
   it "can span multiple days" do
-    expect(create(:workout, end_date: (Date.today + 1))).to be_valid
+    expect(create(:workout, end_date: (Date.today + 1), title: 'multi-day workout')).to be_valid
+  end
+  
+  it "cannot be created with the same start date" do
+    w = create(:gpucc_workout)
+    expect(build(:gpucc_workout, challenge: w.challenge, start_date: w.start_date)).not_to be_valid
+  end
+
+  it "cannot be created with overlapping dates" do
+    w = create(:gpucc_workout, end_date: Date.today + 10)
+    expect(build(:gpucc_workout, challenge: w.challenge, start_date: w.start_date + 1, end_date: w.end_date - 1)).not_to be_valid
   end
   
 end
