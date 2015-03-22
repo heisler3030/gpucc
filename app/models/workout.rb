@@ -30,9 +30,11 @@ class Workout < ActiveRecord::Base
     where('workouts.id in (select workout_id from completed_workouts where user_id = ? AND MGR_OVERRIDE IS NOT TRUE)', user) 
   })
 
+  scope :future, (lambda { |user|
+    where('start_date > ?', user.current_date).where(challenge_id: user.challenges)
+  })
+
   # For date range validation by WorkoutValidator
-  # Need to tune this to work with individual days too
-  
   scope :overlaps, ->(start_date, end_date) do
     
     where "((start_date <= ?) and (end_date >= ?)) or start_date = ?", end_date, start_date, start_date
