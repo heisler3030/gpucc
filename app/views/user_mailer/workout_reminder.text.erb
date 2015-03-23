@@ -5,7 +5,7 @@ This is an automated reminder from FitStalker.
 Your workout for <%= @workout.effective_date %> is ending soon, and is incomplete.
 
 <%= @workout.effective_date + (@workout.title ? (" - " + @workout.title) : "") %>
-<%= workout_url(@workout) %>
+<%= Rails.application.routes.url_helpers.workout_url(@workout) %>
 
 Thanks,
 

@@ -5,7 +5,7 @@ This is an automated reminder from FitStalker.
 Your trainer, <%= @trainer.name %>, has posted a new workout here:
 
 <%= @workout.effective_date + (@workout.title ? (" - " + @workout.title) : "") %>
-<%= workout_url(@workout) %>
+<%= Rails.application.routes.url_helpers.workout_url(@workout) %>
 
 Thanks,
 
