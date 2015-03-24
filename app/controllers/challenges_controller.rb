@@ -4,7 +4,7 @@ class ChallengesController < ApplicationController
   
   def index
   	@user = current_user
-    @my_challenges = @user.my_challenges
+    @my_challenges = @user.challenges
     @available_challenges = Challenge.active.where.not(id: @my_challenges)
   end
   

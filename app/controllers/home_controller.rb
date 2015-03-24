@@ -3,11 +3,8 @@ class HomeController < ApplicationController
   skip_authorization_check
 
   def index
-
   	@user = current_user
-
-    @my_challenges = @user.my_challenges
+    @my_challenges = @user.challenges
     @available_challenges = Challenge.active.where.not(@my_challenges)
-
   end
 end

@@ -49,10 +49,6 @@ class User < ActiveRecord::Base
   def current_date
     self.current_time.to_date
   end
-
-  def my_challenges
-    Challenge.where(id: self.challenge_assignments.map(&:challenge))
-  end
   
   def email_reminders?
     not(reminder_threshold == 0)
