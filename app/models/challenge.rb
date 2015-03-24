@@ -15,6 +15,7 @@ class Challenge < ActiveRecord::Base
 
   validates_presence_of :title, :owner, :max_misses, :start_date, :end_date
   validates_numericality_of :max_misses
+  validate :valid_date_range
 
   scope :active, -> { where("? BETWEEN START_DATE and END_DATE", Time.now.to_date) }
 
@@ -83,6 +84,11 @@ class Challenge < ActiveRecord::Base
 
   def days_remaining
     (end_date - Time.now.to_date).to_i >= 0 ? (end_date - Time.now.to_date).to_i : 0
+  end
+
+  def valid_date_range
+    return unless errors.blank?
+    errors.add(:end_date, "End date must be later than start date") if start_date > end_date
   end
 
 end

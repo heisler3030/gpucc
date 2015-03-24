@@ -13,7 +13,9 @@ describe Challenge do
     expect(build(:challenge, end_date: nil)).not_to be_valid
   end
 
-  it "is invalid with an end date earlier than start date"
+  it "is invalid with an end date earlier than start date" do
+    expect(build(:challenge, start_date: Date.today + 10, end_date: Date.today)).not_to be_valid
+  end
 
   it "is invalid without a title" do
     expect(build(:challenge, title: nil)).not_to be_valid
