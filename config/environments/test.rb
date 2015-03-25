@@ -28,8 +28,8 @@ Rails.application.configure do
 
   # Set Host options for email testing
   config.action_mailer.default_url_options = {
-    :host => ENV['IP'] || '127.0.0.1',
-    :port => ENV['PORT'] || 3000
+    :host => ENV['IP'],
+    :port => ENV['PORT']
   }
 
   # Tell Action Mailer not to deliver emails to the real world.
@@ -47,4 +47,4 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 end
 
-Rails.application.routes.default_url_options[:host] = ENV['IP'] || 'localhost'
+Rails.application.routes.default_url_options[:host] = ENV['IP']
