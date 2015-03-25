@@ -79,6 +79,24 @@ RSpec.configure do |config|
       #save_and_open_screenshot
     end
   end
-  
+end
 
+RSpec.shared_context 'login methods' do
+  
+	let(:admin_login) do
+		admin = create(:test_admin)
+		visit new_user_session_path  
+		fill_in 'user[email]', with: admin.email
+		fill_in 'user[password]', with: admin.password
+		click_button "Sign in"
+	end
+
+	let(:user_login) do
+		user = create(:test_user)
+		visit new_user_session_path  
+		fill_in 'user[email]', with: user.email
+		fill_in 'user[password]', with: user.password
+		click_button "Sign in"
+	end
+	
 end

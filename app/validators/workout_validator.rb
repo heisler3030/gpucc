@@ -6,8 +6,6 @@ class WorkoutValidator < ActiveModel::Validator
   def validate(record)
     if record.challenge.nil?
       record.errors.add :base, 'Workouts are invalid without a challenge'
-    # elsif not record.challenge.workouts.exists?
-    #   # Do nothing
     else
       overlappers = record.challenge.workouts.where.not(id: record.id).overlaps record.start_date, record.end_date
       if overlappers.exists?

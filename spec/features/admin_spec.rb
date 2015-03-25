@@ -1,15 +1,7 @@
 require 'spec_helper'
 
 feature "Administrator", js: true, type: :feature do
-
-	# Login Routine
-	let(:admin_login) do
-		admin = create(:test_admin)
-		visit new_user_session_path  
-		fill_in 'user[email]', with: admin.email
-		fill_in 'user[password]', with: admin.password
-		click_button "Sign in"
-	end
+	include_context 'login methods'
 
 	scenario "can log in successfully" do
 		admin_login
@@ -45,7 +37,6 @@ feature "Administrator", js: true, type: :feature do
 
 	xscenario "can edit their challenge details"
 	xscenario "can add a workout to a challenge"
-	xscenario "cannot add a workout when one already exists for that day"
 	xscenario "can create a rest day workout"
 	xscenario "can excuse an incomplete workout"
 	xscenario "can add a completed set for one of their trainees"

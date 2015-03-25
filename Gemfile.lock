@@ -272,6 +272,7 @@ DEPENDENCIES
   json
   launchy
   lograge
+  nokogiri
   pg
   poltergeist
   protected_attributes
