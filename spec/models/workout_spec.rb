@@ -40,6 +40,9 @@ describe Workout do
       @future1 =    create(:workout, start_date: Date.today + 1, challenge: ca.challenge, title: 'Future Workout 1')
       @future2 =    create(:workout, start_date: Date.today + 1, title: 'Future Workout 2')
       @completed1 = create(:completed_workout, user: @user).workout
+      @completed2 = create(:completed_workout, user: @user).workout
+      @past1   =    create(:workout, start_date: Date.today - 10, challenge: ca.challenge, title: 'Past Workout 1')
+      @past2   =    create(:workout, start_date: Date.today - 11, title: 'Past Workout 2')
     end
     
     it "should include active workouts" do
@@ -47,12 +50,16 @@ describe Workout do
     end
 
     it "should include completed workouts" do
-      expect(Workout.completed(@user)).to match_array [@completed1]
+      expect(Workout.completed(@user)).to match_array [@completed1, @completed2]
     end
 
     it "should include future workouts" do
       expect(Workout.future(@user)).to match_array [@future1]
     end
+    
+    it "should include past workouts" do
+      expect(Workout.past(@user)).to match_array [@past1]
+    end  
     
   end
 

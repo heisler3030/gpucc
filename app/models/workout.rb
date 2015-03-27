@@ -25,6 +25,9 @@ class Workout < ActiveRecord::Base
       where(active_sql, user.id, user.current_date, user.current_date)
   } )
 
+  scope :past, (lambda { |user|
+    where('start_date < ?', user.current_date).where(challenge_id: user.challenges)
+  })  
   # Return completed workouts for a specific user
   scope :completed, (lambda { |user|
     where('workouts.id in (select workout_id from completed_workouts where user_id = ? AND MGR_OVERRIDE IS NOT TRUE)', user) 
