@@ -1,10 +1,8 @@
 <%# 
    Challenge View
-   
 %>
 
 <% content_for :title, @challenge.title %>
-
 
 <%# --------------- Header Section -------------- %>
   
@@ -44,12 +42,13 @@
 <div id="description" class="col-sm-8">
   <%= render "challenge_description", :challenge => @challenge %>
 </div>
+
 <div id="info" class="col-sm-4">
-  <%= render "challenge_info", :challenge => @challenge %>
+  <%= render "challenge_info", :challenge => @challenge %> 
 </div>
 
 <div id="workouts" class="col-sm-8">
-  <%= render "/workouts/workout", :workouts => @workouts %>
+  <%= render "/workouts/calendar", :workoutmap => @workoutmap %>
 </div>
 <div id="participants" class="col-sm-4">
   <%= render "challenge_participants", :challenge => @challenge %>

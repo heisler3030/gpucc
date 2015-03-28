@@ -28,20 +28,15 @@ class Challenge < ActiveRecord::Base
   def get_workouts_ending_for_day(date)
         self.workouts.where(["(? = workouts.start_date AND workouts.end_date is null) OR (? = workouts.end_date)", date, date]).order('start_date ASC')
   end
-
-  # Workouts that start today or later, in a specific user's timezone
-  def upcoming_workouts(user)
-    self.workouts.where(["? <= workouts.start_date", user.current_date]).order('start_date ASC')
-  end
   
   # Workouts that start today or later, in a specific user's timezone
-  #TODO:  DOES NOT PROPERLY HANDLE MULTI-DAY
+  #TODO:  Refacto this out
   def past_workouts(user)
   	self.workouts.where(["? > workouts.start_date", user.current_date]).order('start_date DESC')
   end
 
   # Workouts that start today or later, in a specific user's timezone
-  #TODO:  DOES NOT PROPERLY HANDLE MULTI-DAY
+  #TODO:  Refactor this out
   def current_and_past_workouts(user)
     self.workouts.where(["? >= workouts.start_date", user.current_date]).order('start_date DESC')
   end

@@ -34,6 +34,5 @@ Gpucc::Application.routes.draw do
   get '/workouts/:id/:user' => 'workouts#show', as: "userworkout"
   get '/challenges/:id/manageparticipants' => 'challenges#manage_participants', as: "manageparticipants"
   get '/challenges/:id(/:user)' => 'challenges#show'
-  get '/responsive/:id(/:user)' => 'challenges#newshow', as: "responsive"
-  
+
 end

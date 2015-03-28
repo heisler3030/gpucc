@@ -42,5 +42,11 @@ describe ChallengesController do
     end
 
   end
+  
+  describe "show" do
+    it "should show the current workouts for an assigned user"
+    it "should include future workouts for the challenge owner"
+    it "should show the future workouts for an admin"
+  end
 
 end
