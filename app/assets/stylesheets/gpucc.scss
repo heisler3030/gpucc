@@ -122,6 +122,37 @@ iframe {
 
 
 //// Calendar Styling
+.wrapper {
+	background-color: #fff;
+	padding: 20px;
+}
+
+.responsive-calendar {
+	font-family: 'Roboto',sans-serif;
+}
+
+.responsive-calendar h4 {
+	color:  #000;
+}
+
+.responsive-calendar .day.header {
+	color: #000;
+	font-size: 14px;
+	border-bottom: 1px #808080 solid;
+	//border: none;
+}
+
+.responsive-calendar .days .day {
+	
+	font-weight: 100;
+	font-size: 20px;
+	border-radius: 5px;
+	border: 1px solid black;
+}
+
+.responsive-calendar .day.not-current{
+	border: none;
+}
 
 .responsive-calendar .day.active {
 	background-color: cyan;
