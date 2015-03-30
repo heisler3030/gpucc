@@ -12,7 +12,7 @@ class ChallengesController < ApplicationController
     @challenge = Challenge.find(params[:id])
     @user = params[:user] || current_user
 
-    @past_workouts = @challenge.past_workouts(@user)
+    @past_workouts = @challenge.workouts.past(@user)
     @completed_workouts = @challenge.workouts.completed(@user)
     @future_workouts = @challenge.workouts.future(@user)
     @active_workouts = @challenge.workouts.active(@user)
@@ -46,18 +46,14 @@ class ChallengesController < ApplicationController
   
   
   def create
-
     @challenge = Challenge.new(params[:challenge])
-    
     if @challenge.save
       flash[:notice] = "Successfully created challenge."
       redirect_to @challenge
     else
       render :action => 'new'
     end
-
   end
-  
   
   def update
     @challenge = Challenge.find(params[:id])
@@ -67,7 +63,6 @@ class ChallengesController < ApplicationController
     else
       render :edit
     end
-
   end
 
   
@@ -83,6 +78,5 @@ class ChallengesController < ApplicationController
       @workoutmap[w["start_date"]]["class"] = "#{style} restday" if w['rest_day'] == true
     end
   end
-
-
+  
 end

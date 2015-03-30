@@ -29,18 +29,6 @@ class Challenge < ActiveRecord::Base
         self.workouts.where(["(? = workouts.start_date AND workouts.end_date is null) OR (? = workouts.end_date)", date, date]).order('start_date ASC')
   end
   
-  # Workouts that start today or later, in a specific user's timezone
-  #TODO:  Refacto this out
-  def past_workouts(user)
-  	self.workouts.where(["? > workouts.start_date", user.current_date]).order('start_date DESC')
-  end
-
-  # Workouts that start today or later, in a specific user's timezone
-  #TODO:  Refactor this out
-  def current_and_past_workouts(user)
-    self.workouts.where(["? >= workouts.start_date", user.current_date]).order('start_date DESC')
-  end
-
   def active_assignments
   	self.challenge_assignments.where('disqualify_date is null and completed_date is null')
   end
