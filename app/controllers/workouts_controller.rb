@@ -1,11 +1,9 @@
 class WorkoutsController < ApplicationController
-  #before_filter :authenticate_user!
   load_and_authorize_resource
 
   def index
   	@challenge = Challenge.find(params[:challenge_id])
   end
-  
   
   def show
   	@workout = Workout.find(params[:id])
@@ -19,7 +17,6 @@ class WorkoutsController < ApplicationController
     @workout = Workout.new
   end
   
-
   def create
     @workout =Workout.new(params[:workout])
     @challenge = Challenge.find(params[:challenge_id])
@@ -34,7 +31,6 @@ class WorkoutsController < ApplicationController
     else
       render :new
     end
-     
   end
 
   def edit
@@ -54,7 +50,6 @@ class WorkoutsController < ApplicationController
     else
       render :edit
     end
-
   end
 
   def destroy
@@ -70,10 +65,8 @@ class WorkoutsController < ApplicationController
 #---------------- Helper Methods --------------------
 
   def rest_day?(workout)
-
     # See if there are any exercises that are not tagged for destroy
     # Unless == 0 there is at least one
-
     if workout[:workout_exercises_attributes] &&
        workout[:workout_exercises_attributes].map {|k,v| v["_destroy"] == "false" ? 0 : 1}.min == 0
     then

@@ -12,6 +12,7 @@ feature "Sign Up", js: true, type: :feature do
 		click_on 'Submit'
 		
 		# Send Invite
+		ActionMailer::Base.deliveries.clear
 		admin_login
 		click_on 'Admin'
 		click_on 'New User Invitation'
