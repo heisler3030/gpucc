@@ -26,6 +26,7 @@ $(function() {
 $(function() {
   $(".responsive-calendar").responsiveCalendar({
     monthChangeAnimation: false,
+    startFromSunday: true
   });
 });
 
