@@ -131,9 +131,9 @@ iframe {
 	font-family: 'Roboto',sans-serif;
 }
 
-.responsive-calendar h4 {
+.responsive-calendar .controls h4 {
 	color:  #000;
-}
+	display: inline-block;}
 
 .responsive-calendar .controls {
 	
@@ -150,6 +150,7 @@ iframe {
 	border: none;
 	font-weight: bold;
 	text-align: center;
+	margin: 10px 0;
 }
 
 .responsive-calendar .days .day {
