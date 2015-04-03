@@ -38,7 +38,6 @@ class ChallengesController < ApplicationController
   end
 
   def new
-    @challenge = Challenge.new
     @owner = current_user
     @owners = User.with_role([:admin])
   end
