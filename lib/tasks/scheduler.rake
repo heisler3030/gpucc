@@ -1,5 +1,7 @@
 require_relative '../../app/helpers/alert_helper.rb'
+require_relative '../../app/helpers/gpucc_workout_helper.rb'
 include AlertHelper
+include GpuccWorkoutHelper
 
 desc "This task is called by the Heroku scheduler add-on"
 
@@ -81,5 +83,20 @@ task :check_challenge_status => :environment do
   #########################################################################################################
 
   AlertHelper.check_challenge_status_job
+
+end
+
+task :gpucc_workout_helper => :environment do
+  puts ("TASK: GPUCC workout monitor")
+
+  ###### GPUCC workout monitor ####################################################################
+  # 
+  # Sweeps to create a gpucc workout if none was created
+  #
+  # => rake auto_gpucc_workout
+  #
+  #########################################################################################################
+
+  GpuccWorkoutHelper.auto_gpucc_workout('GPUCC 2015')
 
 end
