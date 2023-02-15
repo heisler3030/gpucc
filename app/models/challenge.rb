@@ -1,4 +1,4 @@
-class Challenge < ActiveRecord::Base
+class Challenge < ApplicationRecord
   attr_accessible :title, :description, :start_date, :end_date, :workouts_attributes, :max_misses, :join_by, :owner_id
 
   has_many :workouts

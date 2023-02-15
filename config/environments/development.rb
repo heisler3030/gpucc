@@ -12,6 +12,10 @@ Rails.application.configure do
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
+  config.cache_store = :null_store
+  
+  # Store uploaded files on the local file system (see config/storage.yml for options)
+  config.active_storage.service = :local
 
   # ActionMailer Config
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
@@ -29,6 +33,9 @@ Rails.application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+  # Suppress logger output for asset requests.
+  config.assets.quiet = true
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
@@ -41,6 +48,13 @@ Rails.application.configure do
 
   # Avoid finding precompiled assets
   config.assets.prefix = "/assets_dev"
+  
+  # Highlight code that triggered database queries in logs.
+  config.active_record.verbose_query_logs = true
+
+  # Use an evented file watcher to asynchronously detect changes in source code,
+  # routes, locales, etc. This feature depends on the listen gem.
+  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true

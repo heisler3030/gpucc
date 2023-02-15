@@ -1,4 +1,4 @@
-class Comment < ActiveRecord::Base
+class Comment < ApplicationRecord
 
   attr_accessible :user_id, :workout_id, :value, :timestamp
   

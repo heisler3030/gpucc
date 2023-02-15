@@ -1,4 +1,4 @@
-class CompletedWorkout < ActiveRecord::Base
+class CompletedWorkout < ApplicationRecord
   attr_accessible :complete_time, :mgr_override, :override_comment, :user, :workout, :user_id, :workout_id
 
   belongs_to :user

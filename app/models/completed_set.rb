@@ -1,4 +1,4 @@
-class CompletedSet < ActiveRecord::Base
+class CompletedSet < ApplicationRecord
   attr_accessible :reps, :complete_time, :exercise_id, :workout_id, :user_id, :exercise, :workout, :user
 
   belongs_to :user

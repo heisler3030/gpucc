@@ -1,4 +1,4 @@
-class WorkoutExercise < ActiveRecord::Base
+class WorkoutExercise < ApplicationRecord
 
   attr_accessible :goal, :comments, :exercise_id, :goal_type_id, :workout_id
   

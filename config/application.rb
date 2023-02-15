@@ -1,7 +1,6 @@
-require File.expand_path('../boot', __FILE__)
+require_relative 'boot'
 
 require 'rails/all'
-require 'json'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -54,6 +53,9 @@ module Gpucc
     # Enable escaping HTML in JSON.
     config.active_support.escape_html_entities_in_json = true
 
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 5.0
+
     # Use SQL instead of Active Record's schema dumper when creating the database.
     # This is necessary if your schema can't be completely dumped by the schema dumper,
     # like if you have constraints or database-specific column types
@@ -63,7 +65,7 @@ module Gpucc
     # This will create an empty whitelist of attributes available for mass-assignment for all models
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
-    config.active_record.whitelist_attributes = false
+    config.active_record.whitelist_attributes = true
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
@@ -83,28 +85,10 @@ module Gpucc
     
     # Precompile array... surely there is a better way
     config.assets.precompile += ['application.css', 'gpucc.css', 'home.js']
-    
-    # THIS SHIT DOESN'T WORK
-    # # Sloppy compile all assets
-    # # https://stackoverflow.com/questions/12253244/how-can-i-force-rails-to-precompile-scss-stylesheets
-    # #
-    # config.assets.precompile << Proc.new do |path|
-    #   puts "I'm compiling homies"
-    #   if path =~ /\.(css|js)\z/
-    #     full_path = Rails.application.assets.resolve(path).to_path
-    #     app_assets_path = Rails.root.join('app', 'assets').to_path
-    #     if full_path.starts_with? app_assets_path
-    #       puts "including asset: " + full_path
-    #       true
-    #     else
-    #       puts "excluding asset: " + full_path
-    #       false
-    #     end
-    #   else
-    #     false
-    #   end
-    # end
-    
-    
+
+    # Settings in config/environments/* take precedence over those specified here.
+    # Application configuration can go into files in config/initializers
+    # -- all .rb files in that directory are automatically loaded after loading
+    # the framework and any gems in your application.
   end
 end

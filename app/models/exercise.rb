@@ -1,4 +1,4 @@
-class Exercise < ActiveRecord::Base
+class Exercise < ApplicationRecord
   attr_accessible :name
   has_many :workout_exercises
 
