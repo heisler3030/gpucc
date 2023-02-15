@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.5.8'
+ruby '2.6.3'
 gem 'rails', '~> 4.2'
 gem 'protected_attributes'  # For Rails 4 migration
 gem 'sass'

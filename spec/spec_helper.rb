@@ -6,6 +6,7 @@ require 'rspec/rails'
 require 'email_spec'
 require 'capybara/rspec'
 require 'webmock/rspec'
+require "#{File.dirname(__FILE__)}/helpers/ruby_2_6_rails_4_2_patch"  # workaround for ruby upgrade
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
