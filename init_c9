@@ -1,19 +1,25 @@
 #!/bin/sh
 
+sudo yum update 
+sudo yum install postgresql postgresql-server postgresql-devel postgresql-contrib postgresql-docs 
+sudo service postgresql initdb 
+
 # Sets up c9 environment for dev/test
 
-sudo chmod 644 /etc/postgresql/9.3/main/pg_hba.conf
+sudo chmod 644 /var/lib/pgsql9/data/pg_hba.conf
 sudo service postgresql start
 sudo sudo -u postgres psql < init_c9.sql
 
 # Install utilities
 gem install travis
-npm install phantomjs
+#why does this take so long every time and what does it do?
+#npm install phantomjs
 
 # Set ENV variables
-source setEnvVariables
+source ./setEnvVariables
 
-# Setup DB
+# Setup DB'
+rake db:reset
 rake db:migrate
 rake db:seed
 

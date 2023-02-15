@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.0'
+ruby '2.5.8'
 gem 'rails', '~> 4.2'
 gem 'protected_attributes'  # For Rails 4 migration
 gem 'sass'
@@ -10,16 +10,17 @@ gem 'uglifier', '>= 1.0.3'
 gem 'jquery-rails'
 gem 'dynamic_form'
 gem 'cancan'
-gem 'devise'
-gem 'devise_invitable'
+# gem 'devise', '~> 3.4.1'
+gem 'devise', git: 'https://github.com/plataformatec/devise' , branch: '3-stable'
+gem 'devise_invitable', '~> 1.4.2'
 gem 'json'
 gem 'figaro'
 gem 'rolify'
 gem 'simple_form'
 gem 'validates_timeliness', '~> 3.0'
-gem 'pg'
+gem 'pg', '~> 0.15'
 gem 'font-awesome-rails'
-gem 'summernote-rails'
+gem 'summernote-rails', '~> 0.6.2.1'
 gem 'lograge'
 
 group :development do
@@ -31,7 +32,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'factory_girl_rails'
+  gem 'factory_bot'
   gem 'rspec-rails'
   gem 'pry'
 end

@@ -22,6 +22,12 @@ Capybara.javascript_driver = :poltergeist
 Capybara.server_port = ENV['PORT']
 Capybara.server_host = ENV['IP']
 
+# Tell FactoryBot where to find the factories
+# FactoryBot.definition_file_paths = [File.expand_path('../factories', __FILE__)]
+
+# Tell FactoryBot to load the factories
+# FactoryBot.find_definitions
+
 RSpec.configure do |config|
   
   # Deprecation Stuff
@@ -30,7 +36,7 @@ RSpec.configure do |config|
   
   config.include(EmailSpec::Helpers)
   config.include(EmailSpec::Matchers)
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -60,6 +66,7 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation
+    FactoryBot.find_definitions
   end
   config.before(:each) do
     # Disable Webmock restrictions for feature tests.
