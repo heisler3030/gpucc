@@ -10,5 +10,7 @@ VACUUM FREEZE;
 
 
 -- Create Databases
+DROP DATABASE gpucc;
+DROP DATABASE travis_ci_test;
 CREATE DATABASE "gpucc" ENCODING = 'utf8';
 CREATE DATABASE "travis_ci_test" ENCODING = 'utf8';

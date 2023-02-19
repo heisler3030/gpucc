@@ -36,7 +36,7 @@ class ChallengeAssignment < ApplicationRecord
   end
 
   def missed_workouts
-  	challenge.past_workouts(user).where(
+  	challenge.workouts.past(user).where(
       'workouts.id not in (select workout_id from completed_workouts where user_id = ?) 
        and workouts.rest_day is not true', user_id) 
   end

@@ -17,6 +17,7 @@ gem install travis
 
 # Set ENV variables
 source ./setEnvVariables
+bin/rails db:environment:set RAILS_ENV=development
 
 # Setup DB'
 rake db:reset

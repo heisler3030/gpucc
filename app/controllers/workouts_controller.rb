@@ -66,8 +66,10 @@ class WorkoutsController < ApplicationController
   def rest_day?(workout)
     # See if there are any exercises that are not tagged for destroy
     # Unless == 0 there is at least one
-    if workout[:workout_exercises_attributes] &&
-       workout[:workout_exercises_attributes].map {|k,v| v["_destroy"] == "false" ? 0 : 1}.min == 0
+    
+    if workout[:workout_exercises_attributes] #&&
+      # TODO: Figure out why this is broken on Rails 5
+      # workout[:workout_exercises_attributes].map {|k,v| v["_destroy"] == "false" ? 0 : 1}.min == 0
     then
       # Not a Rest Day
       false

@@ -21,9 +21,8 @@ user = User.find_or_create_by(email: ENV['ADMIN_EMAIL'].dup) do |u|
 	u.password = ENV['ADMIN_PASSWORD'].dup
 	u.password_confirmation = ENV['ADMIN_PASSWORD'].dup
 end
-puts 'user: ' << user.name
+puts 'user: ' << user.email
 user.add_role :admin
-
 
 # Test Users
 [
@@ -32,12 +31,13 @@ user.add_role :admin
 	{name: 'Casey Stoner', email: 'stoner@gpucc.com', password: 'changeme', password_confirmation: 'changeme'},
 	{name: 'Lee Atkins', email: 'lee@gpucc.com', password: 'changeme', password_confirmation: 'changeme'},
 ].each do |u|
-	user = User.find_or_create_by(email: u['email']) do |u|
-		u.name = u['name']
-		u.email = u['email']
-		u.password = u['password']
-		u.password_confirmation = u['password_confirmation']
+	user = User.find_or_create_by(email: u[:email]) do |u|
+		user.name = u[:name]
+		user.email = u[:email]
+		user.password = u[:password]
+		user.password_confirmation = u[:password_confirmation]
 	end
+	puts 'user: ' << user.email
 	user.add_role :user
 end
 
@@ -50,7 +50,7 @@ end
 	{name: 'Burpees'},
 	{name: 'Jumping Jacks'}
 ].each do |e|
-	Exercise.find_or_create_by(name: e['name'])
+	Exercise.find_or_create_by(name: e[:name])
 end
 
 # Seed Goal Types
@@ -58,5 +58,5 @@ end
 	{title: 'Cumulative', description: 'Total amount to be completed during workout period'},
 	{title: 'One Set', description: 'Complete as specified in one continuous effort'}
 ].each do |g|
-	GoalType.find_or_create_by(title: g['title'])
+	GoalType.find_or_create_by(title: g[:title])
 end

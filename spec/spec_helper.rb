@@ -1,13 +1,13 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
-load Gem.bin_path('bundler', 'bundle')
 require 'date'
 require 'rspec/rails'
 require 'email_spec'
 require 'capybara/rspec'
 require 'webmock/rspec'
-require "#{File.dirname(__FILE__)}/helpers/ruby_2_6_rails_4_2_patch"  # workaround for ruby upgrade
+require 'rails-controller-testing'
+Rails::Controller::Testing.install
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

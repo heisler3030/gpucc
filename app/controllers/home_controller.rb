@@ -5,6 +5,6 @@ class HomeController < ApplicationController
   def index
   	@user = current_user
     @my_challenges = @user.challenges
-    @available_challenges = Challenge.active.where.not(@my_challenges)
+    @available_challenges = Challenge.active - @my_challenges
   end
 end

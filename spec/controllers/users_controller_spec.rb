@@ -10,12 +10,13 @@ describe UsersController do
   describe "GET 'show'" do
     
     it "should be successful" do
-      get :show, :id => @user.id
-      expect(response).to be_success
+      # get :show, :id => @user.id
+      get :show, :params => {:id => @user.id}
+      expect(response).to be_successful
     end
     
     it "should find the right user" do
-      get :show, :id => @user.id
+      get :show, :params => {:id => @user.id}
       expect(assigns(:user)).to eq(@user)
     end
     

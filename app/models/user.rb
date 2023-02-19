@@ -12,6 +12,7 @@ class User < ApplicationRecord
   attr_accessible :name, :email, :password, :password_confirmation,
    :remember_me, :time_zone, :reminder_threshold, :notifications #, :completed_sets_attributes
 
+  has_many :challenge_assignments, :dependent => :delete_all #:destroy
   has_many :challenges, :through => :challenge_assignments
   has_many :workouts, :through => :challenges
   has_many :comments
@@ -19,7 +20,6 @@ class User < ApplicationRecord
   # Delete all these if the user is deleted
   has_many :completed_workouts, :dependent => :delete_all #:destroy
   has_many :completed_sets, :dependent => :delete_all #:destroy
-  has_many :challenge_assignments, :dependent => :delete_all #:destroy
   has_many :comments, :dependent => :delete_all #:destroy
 
   validates :name, uniqueness: true, presence: true

@@ -19,7 +19,7 @@ describe ChallengesController do
       it "should be success" do
         sign_in @user
         get 'index'
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
   

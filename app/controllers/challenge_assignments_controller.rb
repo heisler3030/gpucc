@@ -24,7 +24,7 @@ class ChallengeAssignmentsController < ApplicationController
     if @assignment.save
       flash[:notice] = @assignment.user.name + " has successfully joined " + @assignment.challenge.title + "."
     end
-    redirect_to request.referers
+    redirect_to request.referer
   end
   
   def update
