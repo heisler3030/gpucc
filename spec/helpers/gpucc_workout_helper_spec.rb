@@ -12,8 +12,8 @@ describe GpuccWorkoutHelper do
     ActionMailer::Base.deliveries.clear
     
     @ca = create(:challenge_assignment)
-    create(:workout, challenge: @ca.challenge, start_date: Date.today - 1)
-    create(:workout, challenge: @ca.challenge, start_date: Date.today)
+    create(:workout, challenge: @ca.challenge, start_date: Date.current - 1)
+    create(:workout, challenge: @ca.challenge, start_date: Date.current)
   end
   
   describe "#auto_gpucc_workout" do
@@ -25,7 +25,7 @@ describe GpuccWorkoutHelper do
     end
     
     it "should not create a workout if there is already one for tomorrow" do
-      create(:workout, challenge: @ca.challenge, start_date: Date.today + 1)
+      create(:workout, challenge: @ca.challenge, start_date: Date.current + 1)
       expect{
         GpuccWorkoutHelper.auto_gpucc_workout(@ca.challenge.title)
       }.to_not change{@ca.challenge.workouts.count}
@@ -33,7 +33,7 @@ describe GpuccWorkoutHelper do
     
     it "should match the count of days in the year" do 
       GpuccWorkoutHelper.auto_gpucc_workout(@ca.challenge.title)
-      expect(@ca.challenge.workouts.last.workout_exercises.first.goal).to eq(Date.today.yday + 1)
+      expect(@ca.challenge.workouts.last.workout_exercises.first.goal).to eq(Date.current.yday + 1)
     end
     
     xit "should email the challenge organizer when a workout is automatically created" do

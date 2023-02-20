@@ -18,7 +18,7 @@ describe Workout do
   end
   
   it "can span multiple days" do
-    expect(create(:workout, end_date: (Date.today + 1), title: 'multi-day workout')).to be_valid
+    expect(create(:workout, end_date: (Date.current + 1), title: 'multi-day workout')).to be_valid
   end
   
   it "cannot be created with the same start date" do
@@ -27,7 +27,7 @@ describe Workout do
   end
 
   it "cannot be created with overlapping dates" do
-    w = create(:gpucc_workout, end_date: Date.today + 10)
+    w = create(:gpucc_workout, end_date: Date.current + 10)
     expect(build(:gpucc_workout, challenge: w.challenge, start_date: w.start_date + 1, end_date: w.end_date - 1)).not_to be_valid
   end
   
@@ -35,14 +35,14 @@ describe Workout do
     before :each do
       ca = create(:challenge_assignment)
       @user = ca.user
-      @active1 =    create(:workout, start_date: Date.today, challenge: ca.challenge, title: 'Active Workout 1')
-      @active2 =    create(:workout, start_date: Date.today, title: 'Active Workout 2')
-      @future1 =    create(:workout, start_date: Date.today + 1, challenge: ca.challenge, title: 'Future Workout 1')
-      @future2 =    create(:workout, start_date: Date.today + 1, title: 'Future Workout 2')
+      @active1 =    create(:workout, start_date: Date.current, challenge: ca.challenge, title: 'Active Workout 1')
+      @active2 =    create(:workout, start_date: Date.current, title: 'Active Workout 2')
+      @future1 =    create(:workout, start_date: Date.current + 1, challenge: ca.challenge, title: 'Future Workout 1')
+      @future2 =    create(:workout, start_date: Date.current + 1, title: 'Future Workout 2')
       @completed1 = create(:completed_workout, user: @user).workout
       @completed2 = create(:completed_workout, user: @user).workout
-      @past1   =    create(:workout, start_date: Date.today - 10, challenge: ca.challenge, title: 'Past Workout 1')
-      @past2   =    create(:workout, start_date: Date.today - 11, title: 'Past Workout 2')
+      @past1   =    create(:workout, start_date: Date.current - 10, challenge: ca.challenge, title: 'Past Workout 1')
+      @past2   =    create(:workout, start_date: Date.current - 11, title: 'Past Workout 2')
     end
     
     it "should include active workouts" do

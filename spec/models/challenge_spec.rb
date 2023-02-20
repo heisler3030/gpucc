@@ -14,7 +14,7 @@ describe Challenge do
   end
 
   it "is invalid with an end date earlier than start date" do
-    expect(build(:challenge, start_date: Date.today + 10, end_date: Date.today)).not_to be_valid
+    expect(build(:challenge, start_date: Date.current + 10, end_date: Date.current)).not_to be_valid
   end
 
   it "is invalid without a title" do
@@ -26,12 +26,12 @@ describe Challenge do
   end
   
   it "calculates the number of days remaining" do
-    challenge = create(:challenge, start_date: (Date.today - 1), end_date: (Date.today + 1))
+    challenge = create(:challenge, start_date: (Date.current - 1), end_date: (Date.current + 1))
     expect(challenge.days_remaining).to eq(1)
   end
   
   it "doesn't show negative days remaining" do
-    challenge = create(:challenge, start_date: (Date.today - 10), end_date: (Date.today - 5))
+    challenge = create(:challenge, start_date: (Date.current - 10), end_date: (Date.current - 5))
     expect(challenge.days_remaining).to eq(0)
   end
 
