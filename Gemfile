@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 ruby '~> 2.7'
 gem 'rails', '~> 5.2'
-gem 'protected_attributes_continued'  # For Rails 5, should transition to modern approach
 gem 'sass'
 gem 'bootstrap-sass'
 gem 'sass-rails'

@@ -1,5 +1,4 @@
 class ChallengeAssignment < ApplicationRecord
-  attr_accessible :join_date, :completed_date, :disqualify_date, :last_notified, :challenge_id, :user_id  #, :challenge_id, :user_id
 
   belongs_to :challenge
   belongs_to :user

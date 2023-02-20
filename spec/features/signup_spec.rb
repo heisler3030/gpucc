@@ -38,7 +38,6 @@ feature "Sign Up", js: true, type: :feature do
 		# Follow the link from the invite and register a new user
 		visit destroy_user_session_path
 		email = Nokogiri::HTML(ActionMailer::Base.deliveries.first.body.raw_source)
-		puts 'going to ' + email.at_css('a').attr('href')
 		visit email.at_css('a').attr('href')
 		fill_in 'Name', with: 'Mr New User'
 		fill_in 'Password', with: 'changeme'

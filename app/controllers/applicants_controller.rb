@@ -7,7 +7,7 @@ class ApplicantsController < ApplicationController
   end
 
   def create
-  	applicant = Applicant.new(params[:applicant])
+  	applicant = Applicant.new(applicant_params)
 
     begin
   	 applicant.save!
@@ -18,4 +18,8 @@ class ApplicantsController < ApplicationController
   	end
   end
 
+private
+  def applicant_params
+    params.require(:applicant).permit(:email)
+  end
 end

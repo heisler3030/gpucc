@@ -10,17 +10,14 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, :alert => exception.message
   end
 
-  # TODO:  LOOKS LIKE A NO LONGER NEEDED WORKAROUND?
-  # #TODO: REMOVE before_filter :configure_permitted_parameters, if: :devise_controller?
-  # before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :configure_permitted_parameters, if: :devise_controller?
   
-  # protected
-  
-  # # Add parameters to accept invitation
-  # # https://github.com/scambra/devise_invitable#strong-parameters
-  # def configure_permitted_parameters
-  #   devise_parameter_sanitizer.for(:accept_invitation).concat \
-  #     [:name, :email, :remember_me, :time_zone, :reminder_threshold, :notifications]
-  # end
+  protected
+
+  # Add parameters to accept invitation
+  # https://github.com/scambra/devise_invitable#strong-parameters
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:accept_invitation, keys: [:name, :email, :remember_me, :time_zone, :reminder_threshold, :notifications])
+  end
 
 end

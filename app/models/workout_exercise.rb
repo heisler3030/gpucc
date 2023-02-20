@@ -1,6 +1,5 @@
 class WorkoutExercise < ApplicationRecord
 
-  attr_accessible :goal, :comments, :exercise_id, :goal_type_id, :workout_id
   
   belongs_to :workout
   belongs_to :goal_type

@@ -1,6 +1,5 @@
 class Workout < ApplicationRecord
   include ActiveModel::Validations
-  attr_accessible :title, :motivation, :start_date, :end_date, :challenge_id, :rest_day,:workout_exercises_attributes
 
   belongs_to :challenge
   has_many :workout_exercises, :dependent => :destroy

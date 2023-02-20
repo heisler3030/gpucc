@@ -44,7 +44,7 @@ class ChallengesController < ApplicationController
   
   
   def create
-    @challenge = Challenge.new(params[:challenge])
+    @challenge = Challenge.new(challenge_params)
     if @challenge.save
       flash[:notice] = "Successfully created challenge."
       redirect_to @challenge
@@ -55,7 +55,7 @@ class ChallengesController < ApplicationController
   
   def update
     @challenge = Challenge.find(params[:id])
-    if @challenge.update_attributes(params[:challenge])
+    if @challenge.update_attributes(challenge_params)
       flash[:notice] = "Successfully updated challenge."
       redirect_to(@challenge)
     else
@@ -67,8 +67,12 @@ class ChallengesController < ApplicationController
   def destroy
   end
 
-  private
-  
+private
+
+  def challenge_params
+    params.require(:challenge).permit(:title, :description, :start_date, :end_date, :workouts_attributes, :max_misses, :join_by, :owner_id)
+  end
+
   def add_workouts_to_map(workouts, style)
     workouts.map do |w|
       @workoutmap[w["start_date"]]["url"] = ("/workouts/" + w['id'].to_s)

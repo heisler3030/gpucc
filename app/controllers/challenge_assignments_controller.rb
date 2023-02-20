@@ -18,7 +18,7 @@ class ChallengeAssignmentsController < ApplicationController
   end
   
   def create
-    @assignment = ChallengeAssignment.new(params[:challenge_assignment])
+    @assignment = ChallengeAssignment.new(challenge_assignment_params)
     @assignment.join_date = Date.current()
 
     if @assignment.save
@@ -38,6 +38,11 @@ class ChallengeAssignmentsController < ApplicationController
       flash[:notice] = "Successfully removed " + user + " from " + challenge + "."
       redirect_to request.referer
     end
+  end
+
+private
+  def challenge_assignment_params
+    params.require(:challenge_assignment).permit(:join_date, :completed_date, :disqualify_date, :last_notified, :challenge_id, :user_id)  #, :challenge_id, :user_id
   end
 
 end

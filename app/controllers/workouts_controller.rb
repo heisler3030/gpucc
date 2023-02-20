@@ -17,12 +17,12 @@ class WorkoutsController < ApplicationController
   end
   
   def create
-    @workout =Workout.new(params[:workout])
+    @workout =Workout.new(workout_params)
     @challenge = Challenge.find(params[:challenge_id])
     @workout.challenge = @challenge
 
     # Set / Unset the rest_day flag on the workout as appropriate
-    @workout.rest_day = self.rest_day?(params[:workout])    
+    @workout.rest_day = self.rest_day?(workout_params)    
 
     if @workout.save
       flash[:notice] = "Successfully created workout."
@@ -41,9 +41,9 @@ class WorkoutsController < ApplicationController
     @challenge = Challenge.find(@workout.challenge)
 
     # Set / Unset the rest_day flag on the workout as appropriate
-    @workout.rest_day = self.rest_day?(params[:workout])    
+    @workout.rest_day = self.rest_day?(workout_params)    
 
-    if @workout.update_attributes(params[:workout])
+    if @workout.update_attributes(workout_params)
       flash[:notice] = "Successfully updated workout."
       redirect_to(challenge_path(@challenge, :anchor => "workouts"))
     else
@@ -77,6 +77,11 @@ class WorkoutsController < ApplicationController
       # Rest Day
       true
     end
+  end
+
+private
+  def workout_params
+    params.require(:workout).permit(:title, :motivation, :start_date, :end_date, :challenge_id, :rest_day, :workout_exercises_attributes)
   end
 
 end

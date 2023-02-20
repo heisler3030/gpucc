@@ -6,11 +6,11 @@ class User < ApplicationRecord
   # :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-
-  # Remember to add to application_controller.rb if these change
-  attr_accessible :role_ids, :as => :admin
-  attr_accessible :name, :email, :password, :password_confirmation,
-   :remember_me, :time_zone, :reminder_threshold, :notifications #, :completed_sets_attributes
+# TODO: what is the right way to manage the admin privileges here?
+  # # Remember to add to application_controller.rb if these change
+  # attr_accessible :role_ids, :as => :admin
+  # attr_accessible :name, :email, :password, :password_confirmation,
+  #  :remember_me, :time_zone, :reminder_threshold, :notifications #, :completed_sets_attributes
 
   has_many :challenge_assignments, :dependent => :delete_all #:destroy
   has_many :challenges, :through => :challenge_assignments
