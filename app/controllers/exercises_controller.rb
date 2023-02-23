@@ -14,9 +14,15 @@ class ExercisesController < ApplicationController
   
   def create
     #render text: params[:exercise].inspect
-    @exercise = Exercise.new(params[:exercise])
+    @exercise = Exercise.new(exercise_params)
     @exercise.save
     redirect_to @exercise
   end
   
+private
+
+  def exercise_params 
+    params.require(:exercise).permit(:name)
+  end
+
 end

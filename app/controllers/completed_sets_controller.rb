@@ -41,7 +41,7 @@ class CompletedSetsController < ApplicationController
 
     logger.debug("Updating CompletedSet")
     
-    if @completed_set.update_attributes(params[:completed_set])
+    if @completed_set.update_attributes(completed_set_params)
       flash[:notice] = "Successfully updated Completed Set."
       @completed_set.workout.check_if_completed(@completed_set.user)
       redirect_to(today_path)
@@ -54,6 +54,12 @@ class CompletedSetsController < ApplicationController
   end
 
   def destroy
+  end
+
+private
+
+  def completed_sets_params
+    params.require(:completed_sets).permit(completed_set: [:reps, :complete_time, :exercise_id, :workout_id, :user_id, :exercise, :workout, :user])
   end
 
 end

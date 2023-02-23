@@ -9,7 +9,7 @@ class CompletedWorkoutsController < ApplicationController
   end
 
   def create
-    completed_workout = CompletedWorkout.new(params[:completed_workout])
+    completed_workout = CompletedWorkout.new(completed_workout_params)
     completed_workout.mgr_override = true
 
     if completed_workout.save
@@ -24,6 +24,11 @@ class CompletedWorkoutsController < ApplicationController
       render :new
     end
 
+  end
+
+  private
+  def completed_workout_params
+    params.require(:completed_workout).permit(:complete_time, :mgr_override, :override_comment, :user, :workout, :user_id, :workout_id)
   end
 
 end

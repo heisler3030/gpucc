@@ -17,7 +17,7 @@ class WorkoutsController < ApplicationController
   end
   
   def create
-    @workout =Workout.new(workout_params)
+    @workout = Workout.new(workout_params)
     @challenge = Challenge.find(params[:challenge_id])
     @workout.challenge = @challenge
 
@@ -81,7 +81,10 @@ class WorkoutsController < ApplicationController
 
 private
   def workout_params
-    params.require(:workout).permit(:title, :motivation, :start_date, :end_date, :challenge_id, :rest_day, :workout_exercises_attributes)
+    params.require(:workout).permit(
+      :title, :motivation, :start_date, :end_date, :challenge_id, :rest_day, 
+      workout_exercises_attributes: [:goal, :comments, :exercise_id, :goal_type_id, :workout_id]
+    )
   end
 
 end
