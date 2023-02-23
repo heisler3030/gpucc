@@ -20,7 +20,8 @@ gem 'validates_timeliness', '~> 3.0'
 gem 'pg', '~> 0.15'
 gem 'font-awesome-rails'
 gem 'summernote-rails', '~> 0.6.2.1'
-gem 'lograge'
+gem 'amazing_print'
+gem 'rails_semantic_logger' 
 
 group :development do
   gem 'webrick', '~> 1.3.1'
@@ -49,5 +50,5 @@ group :test do
 end
 
 group :production do
-  gem 'rails_12factor'
+  # gem 'rails_12factor'
 end

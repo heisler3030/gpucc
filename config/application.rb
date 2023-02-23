@@ -74,9 +74,9 @@ module Gpucc
     #config.middleware.insert_before ActionDispatch::Static, Rack::Deflater # Static Content
 
     # For logging
-    #config.logger = Logger.new(STDOUT)
-    config.lograge.enabled = true
-    
+    config.logger = Logger.new(STDOUT)
+    config.log_level = :info
+
     # Precompile array... surely there is a better way
     config.assets.precompile += ['application.css', 'gpucc.css', 'home.js']
 
