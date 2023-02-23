@@ -99,9 +99,9 @@ module AlertHelper
   def send_coach_reminders_job
   
     Challenge.active.each do |c|
-      tomorrow = Time.now.to_date + 1.day
+      tomorrow = Time.current.to_date + 1.day
   
-      Rails.logger.debug "Today: " + Time.now.to_date.to_s
+      Rails.logger.debug "Today: " + Time.current.to_date.to_s
       Rails.logger.debug "Tomorrow: " + tomorrow.to_s
   
       if c.get_active_workouts_for_day(tomorrow).size == 0

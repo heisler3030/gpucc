@@ -115,7 +115,7 @@ class Workout < ApplicationRecord
   		return false
     elsif self.workout_exercises.map {|we| we.complete?(user)}.reduce {|x,y| x && y}  # Check if all exercises are complete (e.g. all return true)
   		logger.info("Completed!  Creating new CompletedWorkout")
-  		CompletedWorkout.create!(:user => user, :workout => self, :complete_time => Time.now)
+  		CompletedWorkout.create!(:user => user, :workout => self, :complete_time => Time.current)
   		return true
     else
 	  	logger.info("Not yet completed")

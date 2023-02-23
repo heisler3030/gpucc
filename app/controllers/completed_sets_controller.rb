@@ -15,7 +15,7 @@ class CompletedSetsController < ApplicationController
     completed_sets.values.each do |cs|  #had to use "values" because it is coming across as a hash
       if not(cs[:reps].empty?)  # Only do it if there is a value for reps
         this_set = CompletedSet.new(cs)
-        this_set.complete_time = Time.now # TODO: this should be local time for the client
+        this_set.complete_time = Time.current # TODO: this should be local time for the client
         this_set.save!
         this_workout = this_set.workout
         this_user = this_set.user

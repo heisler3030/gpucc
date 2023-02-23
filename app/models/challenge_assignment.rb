@@ -71,7 +71,7 @@ class ChallengeAssignment < ApplicationRecord
       when :Completed # Set completed_date to today
         unless status == :Completed
           logger.debug ("Changing Status for " + self.user.name + " on " + self.challenge.title + " to Completed")
-          self.completed_date = DateTime.now.to_date
+          self.completed_date = DateTime.current.to_date
           self.disqualify_date = nil
           self.save!
         end
@@ -79,7 +79,7 @@ class ChallengeAssignment < ApplicationRecord
         unless status == :Disqualified
           logger.debug ("Changing Status for " + self.user.name + " on " + self.challenge.title + " to Disqualified")
           self.completed_date = nil
-          self.disqualify_date = DateTime.now.to_date
+          self.disqualify_date = DateTime.current.to_date
           self.save!
         end
       when :Active # Clear completed / disqualify dates

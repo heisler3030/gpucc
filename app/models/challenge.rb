@@ -16,7 +16,7 @@ class Challenge < ApplicationRecord
   validates_numericality_of :max_misses
   validate :valid_date_range
 
-  scope :active, -> { where("? BETWEEN START_DATE and END_DATE", Time.now.to_date) }
+  scope :active, -> { where("? BETWEEN START_DATE and END_DATE", Time.current.to_date) }
 
   # Workouts that are active on a specified date
   def get_active_workouts_for_day(date)
@@ -65,7 +65,7 @@ class Challenge < ApplicationRecord
   end
 
   def days_remaining
-    (end_date - Time.now.to_date).to_i >= 0 ? (end_date - Time.now.to_date).to_i : 0
+    (end_date - Time.current.to_date).to_i >= 0 ? (end_date - Time.current.to_date).to_i : 0
   end
 
   def valid_date_range
